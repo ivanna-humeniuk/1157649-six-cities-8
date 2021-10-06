@@ -1,15 +1,29 @@
-function PlaceCard(): JSX.Element {
+type PlaceCardProps = {
+  cardClasses: {
+    article: string;
+    imageWrapper: string;
+    info?: string;
+  };
+}
+
+const startWidth = {
+  width: '80%',
+};
+
+function PlaceCard(props: PlaceCardProps): JSX.Element {
+  const {article, imageWrapper, info} = props.cardClasses;
+
   return (
-    <article className="cities__place-card place-card">
+    <article className={`${article} place-card`}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${imageWrapper} place-card__image-wrapper`}>
         <a href="/">
           <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place apartment"/>
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${info} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;120</b>
@@ -24,7 +38,7 @@ function PlaceCard(): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}/>
+            <span style={startWidth}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

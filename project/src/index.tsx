@@ -2,12 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
-const Setting = {
-  PLACES_COUNT: 6,
-};
+const PLACES_COUNT = 6;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App placesCount={Setting.PLACES_COUNT}/>
+    <App placesCount={PLACES_COUNT}/>
   </React.StrictMode>,
   document.getElementById('root'));

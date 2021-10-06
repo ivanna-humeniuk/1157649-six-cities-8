@@ -4,6 +4,11 @@ type MainScreenProps = {
   placesCount: number;
 }
 
+const mainClasses = {
+  article: 'cities__place-card',
+  imageWrapper: 'cities__image-wrapper',
+};
+
 function Main(props: MainScreenProps): JSX.Element {
   const { placesCount } = props;
   return (
@@ -95,11 +100,11 @@ function Main(props: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
+                <PlaceCard cardClasses={mainClasses}/>
+                <PlaceCard cardClasses={mainClasses}/>
+                <PlaceCard cardClasses={mainClasses}/>
+                <PlaceCard cardClasses={mainClasses}/>
+                <PlaceCard cardClasses={mainClasses}/>
               </div>
             </section>
             <div className="cities__right-section">
