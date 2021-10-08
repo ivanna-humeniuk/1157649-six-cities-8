@@ -21,12 +21,9 @@ function App({placesCount}: AppScreenProps): JSX.Element {
         <Route exact path={AppRoute.Login}>
           <LoginScreen/>
         </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.Favorites}
-          render={() => <FavoritesScreen />}
-          authorizationStatus={AuthorizationStatus.NoAuth}
-        />
+        <PrivateRoute exact path={AppRoute.Favorites} authorizationStatus={AuthorizationStatus.NoAuth}>
+          <FavoritesScreen />
+        </PrivateRoute>
         <Route exact path={AppRoute.Favorites}>
           <FavoritesScreen/>
         </Route>
