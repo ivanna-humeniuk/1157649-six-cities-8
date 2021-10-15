@@ -1,6 +1,6 @@
-import {useParams} from 'react-router-dom';
+import {Redirect, useParams} from 'react-router-dom';
 import PlaceCard from '../place-card/place-card';
-import {AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import Header from '../header/header';
 import {OffersType} from '../../types/offers';
 import Reviews from '../reviews/reviews';
@@ -20,6 +20,9 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
   const {offers, reviews} = props;
   const {slug} = useParams<{ slug?: string }>();
   const data = offers.filter((item) => item.id === Number(slug));
+  if (data.length < 1) {
+    return <Redirect to={AppRoute.Main}/>;
+  }
   const {title, description, bedrooms, host, goods, maxAdults, type, rating, price, isFavorite, isPremium} = data[0];
   const ratingWidth = rating > 0 ? {width: `${rating * 20}%`} : {width: '0%'};
 
