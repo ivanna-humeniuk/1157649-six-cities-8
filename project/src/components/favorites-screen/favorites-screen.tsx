@@ -1,6 +1,8 @@
 import PlaceCard from '../place-card/place-card';
 import {AuthorizationStatus} from '../../const';
 import Header from '../header/header';
+import {OffersType} from '../../types/offers';
+import './favorites-screen.css';
 
 const favoritesClasses = {
   article: 'favorites__card',
@@ -8,7 +10,12 @@ const favoritesClasses = {
   info: 'favorites__card-info',
 };
 
-function FavoritesScreen(): JSX.Element {
+type FavoritesScreenProps = {
+  offers: OffersType[],
+}
+
+function FavoritesScreen(props: FavoritesScreenProps): JSX.Element {
+  const {offers} = props;
   return (
     <div className="page">
       <Header authorizationStatus={AuthorizationStatus.Auth}/>
@@ -27,11 +34,11 @@ function FavoritesScreen(): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <PlaceCard cardClasses={favoritesClasses}/>
-                  <PlaceCard cardClasses={favoritesClasses}/>
+                  {offers.map(({id, ...rest}: OffersType)=> (
+                    <PlaceCard key={id} id={id} {...rest} cardClasses={favoritesClasses}/>
+                  ))}
                 </div>
               </li>
-
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
@@ -41,7 +48,9 @@ function FavoritesScreen(): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <PlaceCard cardClasses={favoritesClasses}/>
+                  {offers.map(({id, ...rest}: OffersType)=> (
+                    <PlaceCard key={id} id={id} {...rest} cardClasses={favoritesClasses}/>
+                  ))}
                 </div>
               </li>
             </ul>

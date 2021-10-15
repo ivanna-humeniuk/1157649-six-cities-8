@@ -1,9 +1,11 @@
-import PlaceCard from '../place-card/place-card';
 import Header from '../header/header';
 import {AuthorizationStatus} from '../../const';
+import {OffersType} from '../../types/offers';
+import OffersList from '../offers-list/offers-list';
 
 type MainScreenProps = {
   placesCount: number;
+  offers: OffersType[];
 }
 
 const mainClasses = {
@@ -12,7 +14,7 @@ const mainClasses = {
 };
 
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const { placesCount } = props;
+  const { placesCount, offers } = props;
   return (
     <div className="page page--gray page--main">
       <Header authorizationStatus={AuthorizationStatus.Auth}/>
@@ -75,13 +77,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <PlaceCard cardClasses={mainClasses}/>
-                <PlaceCard cardClasses={mainClasses}/>
-                <PlaceCard cardClasses={mainClasses}/>
-                <PlaceCard cardClasses={mainClasses}/>
-                <PlaceCard cardClasses={mainClasses}/>
-              </div>
+              <OffersList offers={offers} cardClasses={mainClasses}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
