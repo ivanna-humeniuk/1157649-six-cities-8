@@ -33,12 +33,12 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
           <span>Premium</span>
         </div>
       )}
-      <div className={`${cardClasses.imageWrapper && cardClasses.imageWrapper} place-card__image-wrapper`}>
+      <div className={`${cardClasses.imageWrapper} place-card__image-wrapper`}>
         <Link to={`/offer/${place.id}`}>
           <img className="place-card__image" src={place.previewImage} width="100%" height="100%" alt="Place apartment"/>
         </Link>
       </div>
-      <div className={`${cardClasses.info && cardClasses.info} place-card__info`}>
+      <div className={`${cardClasses.info ? cardClasses.info : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>
