@@ -1,11 +1,10 @@
 import Header from '../header/header';
 import {AuthorizationStatus} from '../../const';
-import {OffersType} from '../../types/offers';
+import {Offer} from '../../types/offers';
 import OffersList from '../offers-list/offers-list';
 
 type MainScreenProps = {
-  placesCount: number;
-  offers: OffersType[];
+  offers: Offer[];
 }
 
 const mainClasses = {
@@ -14,7 +13,7 @@ const mainClasses = {
 };
 
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const { placesCount, offers } = props;
+  const { offers } = props;
   return (
     <div className="page page--gray page--main">
       <Header authorizationStatus={AuthorizationStatus.Auth}/>
@@ -61,7 +60,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>

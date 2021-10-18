@@ -1,7 +1,8 @@
-import {OffersType} from '../../types/offers';
+import {useCallback, useMemo} from 'react';
 import {Link} from 'react-router-dom';
+import {Offer} from '../../types/offers';
 
-type PlaceCardProps = OffersType & {
+type PlaceCardProps = {
   cardClasses: {
     article: string;
     imageWrapper: string;
@@ -9,40 +10,41 @@ type PlaceCardProps = OffersType & {
   };
   handleHoverOn?: (id: number) => void;
   handleHoverOff?: () => void;
+  place: Offer,
 }
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
-  const {id, previewImage, title, price, type, rating, isPremium, isFavorite, handleHoverOn, handleHoverOff} = props;
-  const {article, imageWrapper, info} = props.cardClasses;
-  const startWidth = rating > 0 ? { width: `${rating * 20}%` } : { width: '0%'};
+  const {cardClasses, handleHoverOn, handleHoverOff, place} = props;
+  const startWidth = useMemo(() => place.rating > 0 ? { width: `${place.rating * 20}%` } : { width: '0%'}, [place.rating]);
+  const handleMouseEnter = useCallback(()=> {
+    if (handleHoverOn) {
+      return handleHoverOn(place.id);
+    }
+  }, [handleHoverOn, place.id]);
 
   return (
     <article
-      className={`${article} place-card`}
-      onMouseEnter={() => {
-        if (handleHoverOn) {
-          return handleHoverOn(id);
-        }
-      }}
+      className={`${cardClasses.article} place-card`}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleHoverOff}
     >
-      {isPremium && (
+      {place.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className={`${imageWrapper && imageWrapper} place-card__image-wrapper`}>
-        <a href="/">
-          <img className="place-card__image" src={previewImage} width="100%" height="100%" alt="Place apartment"/>
-        </a>
+      <div className={`${cardClasses.imageWrapper && cardClasses.imageWrapper} place-card__image-wrapper`}>
+        <Link to={`/offer/${place.id}`}>
+          <img className="place-card__image" src={place.previewImage} width="100%" height="100%" alt="Place apartment"/>
+        </Link>
       </div>
-      <div className={`${info && info} place-card__info`}>
+      <div className={`${cardClasses.info && cardClasses.info} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{price}</b>
+            <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp; night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite && 'place-card__bookmark-button--active'} button`} type="button">
+          <button className={`place-card__bookmark-button ${place.isFavorite && 'place-card__bookmark-button--active'} button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -56,9 +58,9 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link to={`/offer/${place.id}`}>{place.title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{place.type}</p>
       </div>
     </article>
   );

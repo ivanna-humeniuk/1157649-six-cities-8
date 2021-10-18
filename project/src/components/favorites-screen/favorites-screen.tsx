@@ -1,7 +1,8 @@
 import PlaceCard from '../place-card/place-card';
 import {AuthorizationStatus} from '../../const';
 import Header from '../header/header';
-import {OffersType} from '../../types/offers';
+import {Offer} from '../../types/offers';
+import {Listing} from '../../types/listings';
 import './favorites-screen.css';
 
 const favoritesClasses = {
@@ -11,11 +12,10 @@ const favoritesClasses = {
 };
 
 type FavoritesScreenProps = {
-  offers: OffersType[],
+  listings: Listing[],
 }
 
-function FavoritesScreen(props: FavoritesScreenProps): JSX.Element {
-  const {offers} = props;
+function FavoritesScreen({listings}: FavoritesScreenProps): JSX.Element {
   return (
     <div className="page">
       <Header authorizationStatus={AuthorizationStatus.Auth}/>
@@ -25,34 +25,22 @@ function FavoritesScreen(props: FavoritesScreenProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Amsterdam</span>
-                    </a>
+              {listings.map((listing) => (
+                <li className="favorites__locations-items" key={listing.id}>
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <a className="locations__item-link" href="/">
+                        <span>{listing.title}</span>
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div className="favorites__places">
-                  {offers.map(({id, ...rest}: OffersType)=> (
-                    <PlaceCard key={id} id={id} {...rest} cardClasses={favoritesClasses}/>
-                  ))}
-                </div>
-              </li>
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Cologne</span>
-                    </a>
+                  <div className="favorites__places">
+                    {listing.places.map((place: Offer)=> (
+                      <PlaceCard key={place.id} place={place} cardClasses={favoritesClasses}/>
+                    ))}
                   </div>
-                </div>
-                <div className="favorites__places">
-                  {offers.map(({id, ...rest}: OffersType)=> (
-                    <PlaceCard key={id} id={id} {...rest} cardClasses={favoritesClasses}/>
-                  ))}
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </section>
         </div>

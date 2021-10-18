@@ -1,8 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import './not-found-screen.css';
 import Header from '../header/header';
-
+import './not-found-screen.css';
 
 function NotFoundScreen(): JSX.Element {
   return (

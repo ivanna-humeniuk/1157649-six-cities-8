@@ -1,6 +1,6 @@
-import {OffersType} from '../types/offers';
+import {Offer} from '../types/offers';
 
-export const offers: OffersType[] = [
+export const offers: Offer[] = [
   {
     id: 1,
     previewImage: 'img/apartment-01.jpg',
@@ -33,12 +33,12 @@ export const offers: OffersType[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     maxAdults: 2,
-    host: {
-      avatarUrl: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: true,
-      id: 1,
-    },
+    // host: {
+    //   avatarUrl: 'img/avatar-angelina.jpg',
+    //   name: 'Angelina',
+    //   isPro: true,
+    //   id: 1,
+    // },
   },
   {
     id: 3,

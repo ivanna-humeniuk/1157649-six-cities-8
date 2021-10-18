@@ -1,9 +1,9 @@
-import {UsersType} from './users';
+import {User} from './users';
 
-export type ReviewsTypes = {
+export type Review = {
   comment: string,
   date: string,
   id: number,
   rating: number,
-  user: UsersType,
+  user: User,
 };

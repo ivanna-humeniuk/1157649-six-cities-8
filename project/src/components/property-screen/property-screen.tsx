@@ -1,10 +1,12 @@
+import classnames from 'classnames';
+import {useMemo} from 'react';
 import {Redirect, useParams} from 'react-router-dom';
 import PlaceCard from '../place-card/place-card';
-import {AppRoute, AuthorizationStatus} from '../../const';
 import Header from '../header/header';
-import {OffersType} from '../../types/offers';
 import Reviews from '../reviews/reviews';
-import {ReviewsTypes} from '../../types/reviews';
+import {Offer} from '../../types/offers';
+import {Review} from '../../types/reviews';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
 const propertyClasses = {
   article: 'near-places__card',
@@ -12,20 +14,29 @@ const propertyClasses = {
 };
 
 type PropertyScreenProps = {
-  offers: OffersType[],
-  reviews: ReviewsTypes[],
+  offers: Offer[],
+  reviews: Review[],
 }
 
 function PropertyScreen(props: PropertyScreenProps): JSX.Element {
   const {offers, reviews} = props;
-  const {slug} = useParams<{ slug?: string }>();
-  const data = offers.filter((item) => item.id === Number(slug));
-  if (data.length < 1) {
+  const {id} = useParams<{ id?: string }>();
+  const data = offers.find((item) => item.id === Number(id));
+  const ratingWidth = useMemo(() => data && data.rating > 0 ? {width: `${data.rating * 20}%`} : {width: '0%'}, [data]);
+  if (!data) {
     return <Redirect to={AppRoute.Main}/>;
   }
-  const {title, description, bedrooms, host, goods, maxAdults, type, rating, price, isFavorite, isPremium} = data[0];
-  const ratingWidth = rating > 0 ? {width: `${rating * 20}%`} : {width: '0%'};
 
+  const bookmarkBtnClasses = classnames({
+    'property__bookmark-button': true,
+    'property__bookmark-button--active': data.isFavorite,
+    'button': true,
+  });
+  const avatarWrapperClasses = classnames({
+    'property__avatar-wrapper': true,
+    'property__avatar-wrapper--pro': data.host?.isPro,
+    'user__avatar-wrapper': true,
+  });
   return (
     <div className="page">
       <Header authorizationStatus={AuthorizationStatus.Auth}/>
@@ -56,19 +67,16 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium && (
+              {data.isPremium && (
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>
               )}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {title}
+                  {data.title}
                 </h1>
-                <button
-                  className={`property__bookmark-button ${isFavorite && 'property__bookmark-button--active'} button`}
-                  type="button"
-                >
+                <button className={bookmarkBtnClasses} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -80,62 +88,62 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                   <span style={ratingWidth}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{rating}</span>
+                <span className="property__rating-value rating__value">{data.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {type}
+                  {data.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {data.bedrooms} {data.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {maxAdults} adults
+                  Max {data.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro; {price}</b>
+                <b className="property__price-value">&euro; {data.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {goods && goods.map((good) => (
+                  {data.goods && data.goods.map((good) => (
                     <li key={good} className="property__inside-item">
                       {good}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div
-                    className={`property__avatar-wrapper ${host?.isPro && 'property__avatar-wrapper--pro'} user__avatar-wrappe`}
-                  >
-                    <img
-                      className="property__avatar user__avatar"
-                      src={host?.avatarUrl}
-                      width="74"
-                      height="74"
-                      alt="Host avatar"
-                    />
-                  </div>
-                  <span className="property__user-name">
-                    {host?.name}
-                  </span>
-                  {host?.isPro && (
-                    <span className="property__user-status">
-                      Pro
+              {data.host && (
+                <div className="property__host">
+                  <h2 className="property__host-title">Meet the host</h2>
+                  <div className="property__host-user user">
+                    <div className={avatarWrapperClasses}>
+                      <img
+                        className="property__avatar user__avatar"
+                        src={data.host?.avatarUrl}
+                        width="74"
+                        height="74"
+                        alt="Host avatar"
+                      />
+                    </div>
+                    <span className="property__user-name">
+                      {data.host?.name}
                     </span>
-                  )}
+                    {data.host?.isPro && (
+                      <span className="property__user-status">
+                        Pro
+                      </span>
+                    )}
+                  </div>
+                  <div className="property__description">
+                    <p className="property__text">
+                      {data.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="property__description">
-                  <p className="property__text">
-                    {description}
-                  </p>
-                </div>
-              </div>
+              )}
               <section className="property__reviews reviews">
                 <Reviews reviews={reviews}/>
               </section>
@@ -147,8 +155,8 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {offers.map(({id, ...rest}: OffersType) => (
-                <PlaceCard key={id} id={id} {...rest} cardClasses={propertyClasses}/>
+              {offers.map((offer: Offer) => (
+                <PlaceCard key={offer.id} place={offer} cardClasses={propertyClasses}/>
               ))}
             </div>
           </section>

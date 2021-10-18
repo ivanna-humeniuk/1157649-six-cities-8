@@ -1,9 +1,9 @@
-import {useState} from 'react';
-import {OffersType} from '../../types/offers';
+import {useCallback, useState} from 'react';
+import {Offer} from '../../types/offers';
 import PlaceCard from '../place-card/place-card';
 
 type OffersListProps = {
-  offers: OffersType[],
+  offers: Offer[],
   cardClasses: {
     article: string;
     imageWrapper: string;
@@ -16,21 +16,20 @@ function OffersList({offers, cardClasses}: OffersListProps): JSX.Element {
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const [activeCard, setActiveCard] = useState(0);
 
-  const handleHoverOn = (id: number) => {
+  const handleHoverOn = useCallback( (id: number) => {
     setActiveCard(id);
-  };
+  }, [setActiveCard]);
 
-  const handleHoverOff = () => {
+  const handleHoverOff = useCallback(() => {
     setActiveCard(0);
-  };
+  }, [setActiveCard]);
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map(({id, ...rest}: OffersType)=> (
+      {offers.map((offer: Offer)=> (
         <PlaceCard
-          key={id}
-          id={id}
-          {...rest}
+          key={offer.id}
+          place={offer}
           handleHoverOn={handleHoverOn}
           handleHoverOff={handleHoverOff}
           cardClasses={cardClasses}

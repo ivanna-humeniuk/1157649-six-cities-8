@@ -2,7 +2,7 @@ import PlaceCard from '../place-card/place-card';
 import {AuthorizationStatus} from '../../const';
 import Header from '../header/header';
 import {offers} from '../../mocks/offers';
-import {OffersType} from '../../types/offers';
+import {Offer} from '../../types/offers';
 
 const propertyClasses = {
   article: 'near-places__card',
@@ -175,7 +175,7 @@ function PropertyNotLoggedScreen(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {offers.map(({id, ...rest}: OffersType)=> <PlaceCard key={id} id={id} {...rest} cardClasses={propertyClasses}/>)}
+              {offers.map((offer: Offer)=> <PlaceCard key={offer.id} place={offer} cardClasses={propertyClasses}/>)}
             </div>
           </section>
         </div>

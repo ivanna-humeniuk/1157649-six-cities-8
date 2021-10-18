@@ -1,6 +1,6 @@
-import {UsersType} from './users';
+import {User} from './users';
 
-export type OffersType = {
+export type Offer = {
   id: number,
   previewImage: string,
   title: string,
@@ -13,5 +13,5 @@ export type OffersType = {
   description?: string,
   goods?: Array<string>,
   maxAdults?: number,
-  host?: UsersType,
+  host?: User,
 };
