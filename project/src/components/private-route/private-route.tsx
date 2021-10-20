@@ -8,16 +8,12 @@ type PrivateRouteProps = RouteProps & {
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   const {children, authorizationStatus, ...rest} = props;
-
   return (
-    <Route
-      {...rest}
-      render={() => (
-        authorizationStatus === AuthorizationStatus.Auth
-          ? children
-          : <Redirect to={AppRoute.Login} />
-      )}
-    />
+    <Route {...rest}>
+      {authorizationStatus === AuthorizationStatus.Auth
+        ? children
+        : <Redirect to={AppRoute.Login}/>}
+    </Route>
   );
 }
 

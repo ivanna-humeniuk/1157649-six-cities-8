@@ -1,7 +1,6 @@
 import {useLocation} from 'react-router-dom';
 import Logo from '../logo/logo';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {useMemo} from 'react';
 
 type HeaderProps = {
   authorizationStatus: AuthorizationStatus;
@@ -9,7 +8,7 @@ type HeaderProps = {
 
 function Header({authorizationStatus}: HeaderProps): JSX.Element {
   const {pathname} = useLocation();
-  const isLogin = useMemo(() => pathname === AppRoute.Login, [pathname]);
+  const isLogin = pathname === AppRoute.Login;
   return (
     <header className="header">
       <div className="container">
@@ -24,8 +23,7 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
                   <>
                     <li className="header__nav-item user">
                       <a className="header__nav-link header__nav-link--profile" href="/">
-                        <div className="header__avatar-wrapper user__avatar-wrapper">
-                        </div>
+                        <div className="header__avatar-wrapper user__avatar-wrapper"/>
                         <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                       </a>
                     </li>
@@ -38,8 +36,7 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
                 ) : (
                   <li className="header__nav-item user">
                     <a className="header__nav-link header__nav-link--profile" href="/">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
+                      <div className="header__avatar-wrapper user__avatar-wrapper"/>
                       <span className="header__login">Sign in</span>
                     </a>
                   </li>
