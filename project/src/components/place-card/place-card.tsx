@@ -1,6 +1,6 @@
 import {useCallback, useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import classnames from 'classnames';
+import cn from 'classnames';
 import {Offer} from '../../types/offers';
 
 type PlaceCardProps = {
@@ -11,7 +11,7 @@ type PlaceCardProps = {
   };
   handleHoverOn?: (id: number) => void;
   handleHoverOff?: () => void;
-  place: Offer,
+  place: Offer;
 }
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
@@ -24,7 +24,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
   }, [handleHoverOn, place.id]);
   return (
     <article
-      className={classnames(cardClasses.article, 'place-card')}
+      className={cn(cardClasses.article, 'place-card')}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleHoverOff}
     >
@@ -33,12 +33,12 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
           <span>Premium</span>
         </div>
       )}
-      <div className={classnames(cardClasses.imageWrapper, 'place-card__image-wrapper')}>
+      <div className={cn(cardClasses.imageWrapper, 'place-card__image-wrapper')}>
         <Link to={`/offer/${place.id}`}>
           <img className="place-card__image" src={place.previewImage} width="100%" height="100%" alt="Place apartment"/>
         </Link>
       </div>
-      <div className={classnames(cardClasses.info, 'place-card__info')}>
+      <div className={cn(cardClasses.info, 'place-card__info')}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>

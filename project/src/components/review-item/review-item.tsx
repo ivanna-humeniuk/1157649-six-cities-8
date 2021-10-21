@@ -1,30 +1,33 @@
+import {useMemo} from 'react';
 import {Review} from '../../types/reviews';
 
-type ReviewProps = Review;
+type ReviewProps = {
+  review: Review;
+};
 
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
-function ReviewItem({rating, user, id, comment, date}: ReviewProps): JSX.Element {
-  const ratingWidth = rating > 0 ? { width: `${rating * 20}%` } : { width: '0%'};
-  const dateTime = date.split('T')[0];
-  const dateObj = new Date(date);
+function ReviewItem({review}: ReviewProps): JSX.Element {
+  const ratingWidth = useMemo(() => review.rating > 0 ? { width: `${review.rating * 20}%` } : { width: '0%'}, [review.rating]);
+  const dateTime = review.date.split('T')[0];
+  const dateObj = new Date(review.date);
   const mm = dateObj.getMonth();
   const yy = dateObj.getFullYear();
   return (
-    <li className="reviews__item" key={id}>
+    <li className="reviews__item" key={review.id}>
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
             className="reviews__avatar user__avatar"
-            src={user.avatarUrl}
+            src={review.user.avatarUrl}
             width="54"
             height="54"
             alt="Reviews avatar"
           />
         </div>
-        <span className="reviews__user-name">{user.name}</span>
+        <span className="reviews__user-name">{review.user.name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
@@ -33,7 +36,7 @@ function ReviewItem({rating, user, id, comment, date}: ReviewProps): JSX.Element
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <p className="reviews__text">{comment}</p>
+        <p className="reviews__text">{review.comment}</p>
         <time className="reviews__time" dateTime={dateTime}>{monthNames[mm]} {yy}</time>
       </div>
     </li>

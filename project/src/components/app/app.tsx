@@ -6,21 +6,23 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import PropertyScreen from '../property-screen/property-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import {Offer} from '../../types/offers';
+import {City, Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
-import {listings} from '../../mocks/listings';
+import {Listing} from '../../types/listings';
 
 type AppScreenProps = {
   offers: Offer[],
   reviews: Review[],
+  listings: Listing[],
+  city: City,
 }
 
-function App({offers, reviews}: AppScreenProps): JSX.Element {
+function App({offers, reviews, listings, city}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Main}>
-          <MainScreen offers={offers}/>
+          <MainScreen offers={offers} city={city}/>
         </Route>
         <Route exact path={AppRoute.Login}>
           <LoginScreen/>

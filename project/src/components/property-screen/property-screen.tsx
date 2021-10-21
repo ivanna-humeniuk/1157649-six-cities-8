@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import cn from 'classnames';
 import {useMemo} from 'react';
 import {Redirect, useParams} from 'react-router-dom';
 import PlaceCard from '../place-card/place-card';
@@ -27,12 +27,12 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
     return <Redirect to={AppRoute.Main}/>;
   }
 
-  const bookmarkBtnClasses = classnames({
+  const bookmarkBtnClasses = cn({
     'property__bookmark-button': true,
     'property__bookmark-button--active': data.isFavorite,
     'button': true,
   });
-  const avatarWrapperClasses = classnames({
+  const avatarWrapperClasses = cn({
     'property__avatar-wrapper': true,
     'property__avatar-wrapper--pro': data.host?.isPro,
     'user__avatar-wrapper': true,
@@ -122,16 +122,16 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                     <div className={avatarWrapperClasses}>
                       <img
                         className="property__avatar user__avatar"
-                        src={data.host?.avatarUrl}
+                        src={data.host.avatarUrl}
                         width="74"
                         height="74"
                         alt="Host avatar"
                       />
                     </div>
                     <span className="property__user-name">
-                      {data.host?.name}
+                      {data.host.name}
                     </span>
-                    {data.host?.isPro && (
+                    {data.host.isPro && (
                       <span className="property__user-status">
                         Pro
                       </span>
