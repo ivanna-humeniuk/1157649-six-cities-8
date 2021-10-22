@@ -7,7 +7,7 @@ import Map from '../map/map';
 
 type MainScreenProps = {
   offers: Offer[];
-  city: City,
+  city: City;
 }
 
 const mainClasses = {
@@ -19,11 +19,11 @@ function MainScreen(props: MainScreenProps): JSX.Element {
   const { offers, city } = props;
   const [activePoint, setActivePoint] = useState(0);
 
-  const handleHoverOn = useCallback( (id: number) => {
+  const handleCardHoverOn = useCallback( (id: number) => {
     setActivePoint(id);
   }, []);
 
-  const handleHoverOff = useCallback(() => {
+  const handleCardHoverOff = useCallback(() => {
     setActivePoint(0);
   }, []);
 
@@ -89,7 +89,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} cardClasses={mainClasses} handleHoverOn={handleHoverOn} handleHoverOff={handleHoverOff}/>
+              <OffersList offers={offers} cardClasses={mainClasses} onCardHover={handleCardHoverOn} onCardHoverOff={handleCardHoverOff}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">

@@ -8,20 +8,20 @@ type OffersListProps = {
     imageWrapper: string;
     info?: string;
   };
-  handleHoverOn?: (id: number) => void;
-  handleHoverOff?: () => void;
+  onCardHover?: (id: number) => void;
+  onCardHoverOff?: () => void;
 }
 
 function OffersList(props: OffersListProps): JSX.Element {
-  const {offers, cardClasses, handleHoverOn, handleHoverOff} = props;
+  const {offers, cardClasses, onCardHover, onCardHoverOff} = props;
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer: Offer)=> (
         <PlaceCard
           key={offer.id}
           place={offer}
-          handleHoverOn={handleHoverOn}
-          handleHoverOff={handleHoverOff}
+          onCardHover={onCardHover}
+          onCardHoverOff={onCardHoverOff}
           cardClasses={cardClasses}
         />
       ))}

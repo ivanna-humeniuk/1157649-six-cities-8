@@ -3,7 +3,8 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {City, Offer} from '../../types/offers';
 import useMap from '../../hooks/useMap';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, POINT_SIZE, POINT_ANCHOR} from '../../const';
+import './map.css';
 
 type MapProps = {
   city: City,
@@ -11,22 +12,22 @@ type MapProps = {
   activePoint: number,
 }
 
+const defaultCustomIcon = leaflet.icon({
+  iconUrl: URL_MARKER_DEFAULT,
+  iconSize: POINT_SIZE,
+  iconAnchor: POINT_ANCHOR,
+});
+
+const currentCustomIcon = leaflet.icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: POINT_SIZE,
+  iconAnchor: POINT_ANCHOR,
+});
+
 function Map(props: MapProps): JSX.Element {
   const {city, points, activePoint} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
-  const defaultCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [27, 39],
-    iconAnchor: [13.5, 39],
-  });
-
-  const currentCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: [27, 39],
-    iconAnchor: [13.5, 39],
-  });
 
   useEffect(() => {
     if (map) {
@@ -40,10 +41,10 @@ function Map(props: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  },[map, points, activePoint, currentCustomIcon, defaultCustomIcon]);
+  },[map, points, activePoint]);
 
   return(
-    <div style={{height: '600px'}} ref={mapRef}/>
+    <div className="map" ref={mapRef}/>
   );
 }
 export default Map;

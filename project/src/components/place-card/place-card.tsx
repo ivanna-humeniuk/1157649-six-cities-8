@@ -9,24 +9,24 @@ type PlaceCardProps = {
     imageWrapper: string;
     info?: string;
   };
-  handleHoverOn?: (id: number) => void;
-  handleHoverOff?: () => void;
+  onCardHover?: (id: number) => void;
+  onCardHoverOff?: () => void;
   place: Offer;
-}
+};
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
-  const {cardClasses, handleHoverOn, handleHoverOff, place} = props;
+  const {cardClasses, onCardHover, onCardHoverOff, place} = props;
   const startWidth = useMemo(() => place.rating > 0 ? { width: `${place.rating * 20}%` } : { width: '0%'}, [place.rating]);
-  const handleMouseEnter = useCallback(()=> {
-    if (handleHoverOn) {
-      return handleHoverOn(place.id);
+  const handleCardMouseEnter = useCallback(()=> {
+    if (onCardHover) {
+      return onCardHover(place.id);
     }
-  }, [handleHoverOn, place.id]);
+  }, [onCardHover, place.id]);
   return (
     <article
       className={cn(cardClasses.article, 'place-card')}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleHoverOff}
+      onMouseEnter={handleCardMouseEnter}
+      onMouseLeave={onCardHoverOff}
     >
       {place.isPremium && (
         <div className="place-card__mark">
