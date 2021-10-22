@@ -1,10 +1,13 @@
+import {useCallback, useState} from 'react';
 import Header from '../header/header';
 import {AuthorizationStatus} from '../../const';
-import {Offer} from '../../types/offers';
+import {City, Offer} from '../../types/offers';
 import OffersList from '../offers-list/offers-list';
+import Map from '../map/map';
 
 type MainScreenProps = {
   offers: Offer[];
+  city: City;
 }
 
 const mainClasses = {
@@ -13,7 +16,17 @@ const mainClasses = {
 };
 
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const { offers } = props;
+  const { offers, city } = props;
+  const [activePoint, setActivePoint] = useState(0);
+
+  const handleCardHoverOn = useCallback( (id: number) => {
+    setActivePoint(id);
+  }, []);
+
+  const handleCardHoverOff = useCallback(() => {
+    setActivePoint(0);
+  }, []);
+
   return (
     <div className="page page--gray page--main">
       <Header authorizationStatus={AuthorizationStatus.Auth}/>
@@ -76,10 +89,12 @@ function MainScreen(props: MainScreenProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} cardClasses={mainClasses}/>
+              <OffersList offers={offers} cardClasses={mainClasses} onCardHover={handleCardHoverOn} onCardHoverOff={handleCardHoverOff}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={city} points={offers} activePoint={activePoint}/>
+              </section>
             </div>
           </div>
         </div>

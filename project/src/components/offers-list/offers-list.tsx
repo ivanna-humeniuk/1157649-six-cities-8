@@ -1,4 +1,3 @@
-import {useCallback, useState} from 'react';
 import {Offer} from '../../types/offers';
 import PlaceCard from '../place-card/place-card';
 
@@ -9,29 +8,20 @@ type OffersListProps = {
     imageWrapper: string;
     info?: string;
   };
+  onCardHover?: (id: number) => void;
+  onCardHoverOff?: () => void;
 }
 
-function OffersList({offers, cardClasses}: OffersListProps): JSX.Element {
-
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const [activeCard, setActiveCard] = useState(0);
-
-  const handleHoverOn = useCallback( (id: number) => {
-    setActiveCard(id);
-  }, [setActiveCard]);
-
-  const handleHoverOff = useCallback(() => {
-    setActiveCard(0);
-  }, [setActiveCard]);
-
+function OffersList(props: OffersListProps): JSX.Element {
+  const {offers, cardClasses, onCardHover, onCardHoverOff} = props;
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer: Offer)=> (
         <PlaceCard
           key={offer.id}
           place={offer}
-          handleHoverOn={handleHoverOn}
-          handleHoverOff={handleHoverOff}
+          onCardHover={onCardHover}
+          onCardHoverOff={onCardHoverOff}
           cardClasses={cardClasses}
         />
       ))}

@@ -1,6 +1,6 @@
 import {useCallback, useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import classnames from 'classnames';
+import cn from 'classnames';
 import {Offer} from '../../types/offers';
 
 type PlaceCardProps = {
@@ -9,36 +9,36 @@ type PlaceCardProps = {
     imageWrapper: string;
     info?: string;
   };
-  handleHoverOn?: (id: number) => void;
-  handleHoverOff?: () => void;
-  place: Offer,
-}
+  onCardHover?: (id: number) => void;
+  onCardHoverOff?: () => void;
+  place: Offer;
+};
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
-  const {cardClasses, handleHoverOn, handleHoverOff, place} = props;
+  const {cardClasses, onCardHover, onCardHoverOff, place} = props;
   const startWidth = useMemo(() => place.rating > 0 ? { width: `${place.rating * 20}%` } : { width: '0%'}, [place.rating]);
-  const handleMouseEnter = useCallback(()=> {
-    if (handleHoverOn) {
-      return handleHoverOn(place.id);
+  const handleCardMouseEnter = useCallback(()=> {
+    if (onCardHover) {
+      return onCardHover(place.id);
     }
-  }, [handleHoverOn, place.id]);
+  }, [onCardHover, place.id]);
   return (
     <article
-      className={classnames(cardClasses.article, 'place-card')}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleHoverOff}
+      className={cn(cardClasses.article, 'place-card')}
+      onMouseEnter={handleCardMouseEnter}
+      onMouseLeave={onCardHoverOff}
     >
       {place.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className={classnames(cardClasses.imageWrapper, 'place-card__image-wrapper')}>
+      <div className={cn(cardClasses.imageWrapper, 'place-card__image-wrapper')}>
         <Link to={`/offer/${place.id}`}>
           <img className="place-card__image" src={place.previewImage} width="100%" height="100%" alt="Place apartment"/>
         </Link>
       </div>
-      <div className={classnames(cardClasses.info, 'place-card__info')}>
+      <div className={cn(cardClasses.info, 'place-card__info')}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>

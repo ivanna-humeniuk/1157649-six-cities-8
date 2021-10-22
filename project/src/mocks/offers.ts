@@ -1,4 +1,4 @@
-import {Offer} from '../types/offers';
+import {Offer, City} from '../types/offers';
 
 export const offers: Offer[] = [
   {
@@ -20,6 +20,11 @@ export const offers: Offer[] = [
       isPro: true,
       id: 1,
     },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
   },
   {
     id: 2,
@@ -33,12 +38,11 @@ export const offers: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     maxAdults: 2,
-    // host: {
-    //   avatarUrl: 'img/avatar-angelina.jpg',
-    //   name: 'Angelina',
-    //   isPro: true,
-    //   id: 1,
-    // },
+    location: {
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
   },
   {
     id: 3,
@@ -57,6 +61,11 @@ export const offers: Offer[] = [
       name: 'Angelina',
       isPro: true,
       id: 1,
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 8,
     },
   },
   {
@@ -77,24 +86,19 @@ export const offers: Offer[] = [
       isPro: false,
       id: 1,
     },
-  },
-  {
-    id: 5,
-    previewImage: 'img/room.jpg',
-    title: 'Wood and stone place',
-    price: 80,
-    type: 'Private room',
-    rating: 4,
-    isFavorite: true,
-    bedrooms: 2,
-    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
-    maxAdults: 1,
-    host: {
-      avatarUrl: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: true,
-      id: 1,
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8,
     },
   },
 ];
+
+export const city: City = {
+  location: {
+    latitude: 52.370216,
+    longitude: 4.895168,
+    zoom: 12,
+  },
+  name: 'Amsterdam',
+};
