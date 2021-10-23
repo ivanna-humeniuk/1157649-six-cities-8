@@ -1,4 +1,4 @@
-import PlaceCard from '../place-card/place-card';
+import OfferCard from '../offer-card/offer-card';
 import {AuthorizationStatus} from '../../const';
 import Header from '../header/header';
 import {Offer} from '../../types/offers';
@@ -36,7 +36,7 @@ function FavoritesScreen({listings}: FavoritesScreenProps): JSX.Element {
                   </div>
                   <div className="favorites__places">
                     {listing.places.map((place: Offer)=> (
-                      <PlaceCard key={place.id} place={place} cardClasses={favoritesClasses}/>
+                      <OfferCard key={place.id} place={place} cardClasses={favoritesClasses}/>
                     ))}
                   </div>
                 </li>

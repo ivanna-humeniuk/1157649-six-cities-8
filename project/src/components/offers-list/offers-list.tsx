@@ -1,8 +1,10 @@
+import cn from 'classnames';
 import {Offer} from '../../types/offers';
-import PlaceCard from '../place-card/place-card';
+import OfferCard from '../offer-card/offer-card';
 
 type OffersListProps = {
   offers: Offer[],
+  offerListClass?: string
   cardClasses: {
     article: string;
     imageWrapper: string;
@@ -13,11 +15,11 @@ type OffersListProps = {
 }
 
 function OffersList(props: OffersListProps): JSX.Element {
-  const {offers, cardClasses, onCardHover, onCardHoverOff} = props;
+  const {offers, offerListClass, cardClasses, onCardHover, onCardHoverOff} = props;
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className={cn(offerListClass, 'places__list')}>
       {offers.map((offer: Offer)=> (
-        <PlaceCard
+        <OfferCard
           key={offer.id}
           place={offer}
           onCardHover={onCardHover}

@@ -14,10 +14,12 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
           lng: city.location.longitude,
         },
         zoom: city.location.zoom,
+        zoomControl: false,
       });
 
       const layer = new TileLayer(MAP_LAYER, MAP_LAYER_OPTIONS);
       instance.addLayer(layer);
+      instance.scrollWheelZoom.disable();
       setMap(instance);
     }
 

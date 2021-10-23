@@ -14,7 +14,7 @@ type PlaceCardProps = {
   place: Offer;
 };
 
-function PlaceCard(props: PlaceCardProps): JSX.Element {
+function OfferCard(props: PlaceCardProps): JSX.Element {
   const {cardClasses, onCardHover, onCardHoverOff, place} = props;
   const startWidth = useMemo(() => place.rating > 0 ? { width: `${place.rating * 20}%` } : { width: '0%'}, [place.rating]);
   const handleCardMouseEnter = useCallback(()=> {
@@ -66,4 +66,4 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
   );
 }
 
-export default PlaceCard;
+export default OfferCard;
