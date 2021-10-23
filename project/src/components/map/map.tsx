@@ -9,7 +9,7 @@ import './map.css';
 type MapProps = {
   city: City,
   points: Offer[],
-  activePoint: number,
+  activePoint?: number,
 }
 
 const defaultCustomIcon = leaflet.icon({
@@ -44,7 +44,7 @@ function Map(props: MapProps): JSX.Element {
   },[map, points, activePoint]);
 
   return(
-    <div className="map" ref={mapRef}/>
+    <div className="map-container" ref={mapRef}/>
   );
 }
 export default Map;

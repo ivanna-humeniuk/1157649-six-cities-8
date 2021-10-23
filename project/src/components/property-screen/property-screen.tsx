@@ -1,12 +1,14 @@
 import cn from 'classnames';
 import {useMemo} from 'react';
 import {Redirect, useParams} from 'react-router-dom';
-import PlaceCard from '../place-card/place-card';
 import Header from '../header/header';
 import Reviews from '../reviews/reviews';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
 import {AppRoute, AuthorizationStatus} from '../../const';
+import Map from '../map/map';
+import {city} from '../../mocks/offers';
+import OffersList from '../offers-list/offers-list';
 
 const propertyClasses = {
   article: 'near-places__card',
@@ -26,7 +28,6 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
   if (!data) {
     return <Redirect to={AppRoute.Main}/>;
   }
-
   const bookmarkBtnClasses = cn({
     'property__bookmark-button': true,
     'property__bookmark-button--active': data.isFavorite,
@@ -149,16 +150,18 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map points={offers} city={city} activePoint={Number(id)}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {offers.map((offer: Offer) => (
-                <PlaceCard key={offer.id} place={offer} cardClasses={propertyClasses}/>
-              ))}
-            </div>
+            <OffersList
+              offers={offers}
+              cardClasses={propertyClasses}
+              offerListClass="near-places__list"
+            />
           </section>
         </div>
       </main>
