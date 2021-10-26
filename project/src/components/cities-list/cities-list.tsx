@@ -1,9 +1,9 @@
 import CitiesItem from '../cities-item/cities-item';
 
 type CitiesListProps = {
-  activeCity: string,
-  cities: string[],
-  onActiveCity: (city: string) => void,
+  activeCity: string;
+  cities: string[];
+  onActiveCity: (city: string) => void;
 }
 
 function CitiesList(props: CitiesListProps): JSX.Element {

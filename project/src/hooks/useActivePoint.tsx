@@ -1,9 +1,9 @@
 import {useState, useCallback} from 'react';
 
 function useActivePoint(defaultPoint: number): {
-  activePoint: number,
-  handleCardHoverOn: (id: number) => void,
-  handleCardHoverOff: () => void,
+  activePoint: number;
+  handleCardHoverOn: (id: number) => void;
+  handleCardHoverOff: () => void;
 } {
   const [activePoint, setActivePoint] = useState(defaultPoint);
 

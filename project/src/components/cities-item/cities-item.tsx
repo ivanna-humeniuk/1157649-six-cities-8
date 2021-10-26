@@ -1,9 +1,9 @@
 import cn from 'classnames';
 import {useCallback} from 'react';
 type CitiesItemProps = {
-  city: string,
-  activeCity: string,
-  onActiveCity: (city:string) => void
+  city: string;
+  activeCity: string;
+  onActiveCity: (city:string) => void;
 }
 
 function CitiesItem(props: CitiesItemProps) :JSX.Element {

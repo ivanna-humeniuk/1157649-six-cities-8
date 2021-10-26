@@ -1,4 +1,4 @@
-import {Offer} from './offers'
+import {Offer} from './offers';
 
 export type State = {
   city: string,
