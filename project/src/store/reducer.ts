@@ -4,7 +4,8 @@ import {offers} from '../mocks/offers';
 
 const initialState = {
   city: 'Paris',
-  offers: offers.filter((offer) => offer.city.name === 'Paris'),
+  offers: offers,
+  filteredOffers: offers.filter((offer)=> offer.city.name === 'Paris'),
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -14,7 +15,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.SetOffers:
       return {
         ...state,
-        offers: offers.filter((offer)=> offer.city.name === action.payload),
+        filteredOffers: offers.filter((offer)=> offer.city.name === action.payload),
       };
     default:
       return {...state};

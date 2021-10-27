@@ -1,7 +1,7 @@
 import {
   setCity,
   setOffers
-} from '../store/action';
+} from '../store/actions';
 
 export enum ActionType {
   SetCity = 'setCity',

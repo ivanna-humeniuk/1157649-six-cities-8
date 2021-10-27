@@ -1,9 +1,5 @@
 import cn from 'classnames';
-import {Dispatch} from 'redux';
-import {connect, ConnectedProps} from 'react-redux';
-import {State} from '../../types/state';
-import {Actions} from '../../types/actions';
-import {setCity, setOffers} from '../../store/action';
+import {connector, PropsFromRedux} from './ main-screen-connected';
 import Header from '../header/header';
 import {AuthorizationStatus, CITIES} from '../../const';
 import OffersList from '../offers-list/offers-list';
@@ -16,34 +12,19 @@ const mainClasses = {
   imageWrapper: 'cities__image-wrapper',
 };
 
-const mapStateToProps = (state: State) => ({
-  city: state.city,
-  offers: state.offers,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  handleActiveCity(city: string) {
-    dispatch(setCity(city));
-    dispatch(setOffers(city));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
 function MainScreen(props: PropsFromRedux): JSX.Element {
-  const { offers, city, handleActiveCity } = props;
+  const { filteredOffers, city, handleActiveCity } = props;
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(0);
 
   const mainPageClasses = cn({
     'page__main': true,
     'page__main--index': true,
-    'page__main--index-empty': offers.length === 0,
+    'page__main--index-empty': filteredOffers.length === 0,
   });
 
   const citiesContainerClasses = cn({
     'cities__places-container': true,
-    'cities__places-container--empty': offers.length === 0,
+    'cities__places-container--empty': filteredOffers.length === 0,
     'container': true,
   });
 
@@ -54,16 +35,16 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList activeCity={city} cities={CITIES} onActiveCity={handleActiveCity}/>
+            <CitiesList activeCity={city} cities={CITIES} onActivateCity={handleActiveCity}/>
           </section>
         </div>
         <div className="cities">
           <div className={citiesContainerClasses}>
-            {offers.length !== 0 ? (
+            {filteredOffers.length !== 0 ? (
               <>
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offers.length} places to stay in {city}</b>
+                  <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
                     <span className="places__sorting-type" tabIndex={0}>
@@ -80,7 +61,7 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
                     </ul>
                   </form>
                   <OffersList
-                    offers={offers}
+                    offers={filteredOffers}
                     cardClasses={mainClasses}
                     onCardHover={handleCardHoverOn}
                     onCardHoverOff={handleCardHoverOff}
@@ -89,7 +70,7 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">
-                    <Map city={offers[0].city} points={offers} activePoint={activePoint}/>
+                    <Map city={filteredOffers[0].city} points={filteredOffers} activePoint={activePoint}/>
                   </section>
                 </div>
               </>

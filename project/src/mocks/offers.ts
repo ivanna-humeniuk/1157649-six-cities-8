@@ -1,5 +1,37 @@
 import {Offer, City} from '../types/offers';
 
+
+const CITY_LOCATION = {
+  latitude: 52.370216,
+  longitude: 4.895168,
+  zoom: 12,
+};
+
+const CITY_AMSTERDAM = {
+  location: CITY_LOCATION,
+  name: 'Amsterdam',
+};
+
+const CITY_PARIS = {
+  location: CITY_LOCATION,
+  name: 'Paris',
+};
+
+const CITY_HAMBURG = {
+  location: CITY_LOCATION,
+  name: 'Hamburg',
+};
+
+const CITY_COLOGNE = {
+  location: CITY_LOCATION,
+  name: 'Cologne',
+};
+
+const CITY_BRUSSELS = {
+  location: CITY_LOCATION,
+  name: 'Brussels',
+};
+
 export const offers: Offer[] = [
   {
     id: 1,
@@ -25,14 +57,7 @@ export const offers: Offer[] = [
       longitude: 4.85309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Amsterdam',
-    },
+    city: CITY_AMSTERDAM,
   },
   {
     id: 2,
@@ -51,14 +76,7 @@ export const offers: Offer[] = [
       longitude: 4.85309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Amsterdam',
-    },
+    city: CITY_AMSTERDAM,
   },
   {
     id: 3,
@@ -83,14 +101,7 @@ export const offers: Offer[] = [
       longitude: 4.929309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Amsterdam',
-    },
+    city: CITY_AMSTERDAM,
   },
   {
     id: 4,
@@ -115,14 +126,7 @@ export const offers: Offer[] = [
       longitude: 4.939309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Amsterdam',
-    },
+    city: CITY_AMSTERDAM,
   },
   {
     id: 5,
@@ -147,14 +151,7 @@ export const offers: Offer[] = [
       longitude: 4.939309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Paris',
-    },
+    city: CITY_PARIS,
   },
   {
     id: 6,
@@ -179,14 +176,7 @@ export const offers: Offer[] = [
       longitude: 4.929309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Cologne',
-    },
+    city: CITY_COLOGNE,
   },
   {
     id: 7,
@@ -211,14 +201,7 @@ export const offers: Offer[] = [
       longitude: 4.939309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Cologne',
-    },
+    city: CITY_COLOGNE,
   },
   {
     id: 8,
@@ -243,14 +226,7 @@ export const offers: Offer[] = [
       longitude: 4.939309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Brussels',
-    },
+    city: CITY_BRUSSELS,
   },
   {
     id: 9,
@@ -276,14 +252,7 @@ export const offers: Offer[] = [
       longitude: 4.85309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Hamburg',
-    },
+    city: CITY_HAMBURG,
   },
   {
     id: 10,
@@ -302,14 +271,7 @@ export const offers: Offer[] = [
       longitude: 4.85309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Hamburg',
-    },
+    city: CITY_HAMBURG,
   },
 ];
 

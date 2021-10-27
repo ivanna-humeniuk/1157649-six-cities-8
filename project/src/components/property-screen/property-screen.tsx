@@ -1,11 +1,10 @@
 import cn from 'classnames';
 import {useMemo} from 'react';
 import {Redirect, useParams} from 'react-router-dom';
+import {connector, ConnectedComponentProps} from './property-screen-connected';
 import useActivePoint from '../../hooks/useActivePoint';
 import Header from '../header/header';
 import Reviews from '../reviews/reviews';
-import {Offer} from '../../types/offers';
-import {Review} from '../../types/reviews';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import Map from '../map/map';
 import {city} from '../../mocks/offers';
@@ -16,22 +15,17 @@ const propertyClasses = {
   imageWrapper: 'near-places__image-wrapper',
 };
 
-type PropertyScreenProps = {
-  offers: Offer[],
-  reviews: Review[],
-}
-
-function PropertyScreen(props: PropertyScreenProps): JSX.Element {
+function PropertyScreen(props: ConnectedComponentProps): JSX.Element {
   const {offers, reviews} = props;
   const {id} = useParams<{ id?: string }>();
   const data = offers.find((item) => item.id === Number(id));
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
   const ratingWidth = useMemo(() => data && data.rating > 0 ? {width: `${data.rating * 20}%`} : {width: '0%'}, [data]);
-  const nearOffers = offers.filter((item) =>  item.city.name === data?.city.name);
 
   if (!data) {
     return <Redirect to={AppRoute.Main}/>;
   }
+  const nearOffers = offers.filter((item) =>  item.city.name === data?.city.name);
 
   const bookmarkBtnClasses = cn({
     'property__bookmark-button': true,
@@ -175,6 +169,6 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
     </div>
   );
 }
-
-export default PropertyScreen;
+export {PropertyScreen};
+export default connector(PropertyScreen);
 

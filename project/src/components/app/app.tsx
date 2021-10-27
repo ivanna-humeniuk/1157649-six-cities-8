@@ -6,17 +6,15 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import PropertyScreen from '../property-screen/property-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
 import {Listing} from '../../types/listings';
 
 type AppScreenProps = {
-  offers: Offer[],
   reviews: Review[],
   listings: Listing[],
 }
 
-function App({offers, reviews, listings}: AppScreenProps): JSX.Element {
+function App({reviews, listings}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
@@ -30,7 +28,7 @@ function App({offers, reviews, listings}: AppScreenProps): JSX.Element {
           <FavoritesScreen listings={listings} />
         </PrivateRoute>
         <Route exact path={AppRoute.Room}>
-          <PropertyScreen offers={offers} reviews={reviews}/>
+          <PropertyScreen reviews={reviews}/>
         </Route>
         <Route>
           <NotFoundScreen/>
