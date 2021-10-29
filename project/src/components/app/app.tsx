@@ -1,9 +1,9 @@
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import MainScreen from '../main-screen/main-screen';
+import MainScreen from '../main-screen/ main-screen-connected';
 import LoginScreen from '../login-screen/login-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
-import PropertyScreen from '../property-screen/property-screen';
+import PropertyScreen from '../property-screen/property-screen-connected';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import {Review} from '../../types/reviews';

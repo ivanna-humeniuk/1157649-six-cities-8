@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import {connector, PropsFromRedux} from './ main-screen-connected';
+import {PropsFromRedux} from './ main-screen-connected';
 import Header from '../header/header';
 import {AuthorizationStatus, CITIES} from '../../const';
 import OffersList from '../offers-list/offers-list';
@@ -92,4 +92,3 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
   );
 }
 export {MainScreen};
-export default connector(MainScreen);

@@ -1,6 +1,7 @@
 import {connect, ConnectedProps} from 'react-redux';
 import {State} from '../../types/state';
 import {Review} from '../../types/reviews';
+import {PropertyScreen} from './property-screen';
 
 type PropertyScreenProps = {
   reviews: Review[],
@@ -10,6 +11,8 @@ const mapStateToProps = (state: State) => ({
   offers: state.offers,
 });
 
-export const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
+
 export type ConnectedComponentProps = PropsFromRedux & PropertyScreenProps;
+export default connector(PropertyScreen);

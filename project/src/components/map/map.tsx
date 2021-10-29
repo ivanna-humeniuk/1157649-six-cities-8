@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef} from 'react';
 import leaflet, {Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {City, Offer} from '../../types/offers';
@@ -28,33 +28,27 @@ function Map(props: MapProps): JSX.Element {
   const {city, points, activePoint} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const [markers, setMarkers] = useState<Marker[]>([]);
 
   useEffect(() => {
     if (map) {
-      if(markers.length > 0) {
-        for(let i = 0; i < markers.length ; i++) {
-          /* eslint-disable no-console */
-          console.log('remove');
-          map.removeLayer(markers[i]);
-        }
-      }
+      const markers:Marker[] = [];
       points.forEach((point) => {
-        /* eslint-disable no-console */
-        console.log(point);
         const marker = leaflet.marker({
           lat: point.location.latitude,
           lng: point.location.longitude,
         }, {
           icon: activePoint !== undefined && activePoint === point.id ? currentCustomIcon : defaultCustomIcon,
         }).addTo(map);
-        setMarkers((prevMarkers) => {
-          if(prevMarkers.length === 0) {
-            return [marker];
-          }
-          return [...prevMarkers, marker];
-        });
+        markers.push(marker);
       });
+
+      return () => {
+        if(markers.length > 0) {
+          markers.forEach((item, index) => {
+            map.removeLayer(markers[index]);
+          });
+        }
+      };
     }
   },[map, points, activePoint]);
 

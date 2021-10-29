@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import {useMemo} from 'react';
 import {Redirect, useParams} from 'react-router-dom';
-import {connector, ConnectedComponentProps} from './property-screen-connected';
+import {ConnectedComponentProps} from './property-screen-connected';
 import useActivePoint from '../../hooks/useActivePoint';
 import Header from '../header/header';
 import Reviews from '../reviews/reviews';
@@ -170,5 +170,4 @@ function PropertyScreen(props: ConnectedComponentProps): JSX.Element {
   );
 }
 export {PropertyScreen};
-export default connector(PropertyScreen);
 

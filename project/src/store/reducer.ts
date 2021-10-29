@@ -11,12 +11,10 @@ const initialState = {
 const reducer = (state: State = initialState, action: Actions): State => {
   switch (action.type) {
     case ActionType.SetCity:
-      return {...state, city: action.payload};
-    case ActionType.SetOffers:
       return {
         ...state,
-        filteredOffers: offers.filter((offer)=> offer.city.name === action.payload),
-      };
+        city: action.payload,
+        filteredOffers: state.offers.filter((offer)=> offer.city.name === action.payload)};
     default:
       return {...state};
   }
