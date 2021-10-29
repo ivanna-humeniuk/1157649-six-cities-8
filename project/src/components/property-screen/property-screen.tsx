@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import {useMemo} from 'react';
 import {Redirect, useParams} from 'react-router-dom';
+import {ConnectedComponentProps} from './property-screen-connected';
+import useActivePoint from '../../hooks/useActivePoint';
 import Header from '../header/header';
 import Reviews from '../reviews/reviews';
-import {Offer} from '../../types/offers';
-import {Review} from '../../types/reviews';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import Map from '../map/map';
 import {city} from '../../mocks/offers';
@@ -15,19 +15,18 @@ const propertyClasses = {
   imageWrapper: 'near-places__image-wrapper',
 };
 
-type PropertyScreenProps = {
-  offers: Offer[],
-  reviews: Review[],
-}
-
-function PropertyScreen(props: PropertyScreenProps): JSX.Element {
+function PropertyScreen(props: ConnectedComponentProps): JSX.Element {
   const {offers, reviews} = props;
   const {id} = useParams<{ id?: string }>();
   const data = offers.find((item) => item.id === Number(id));
+  const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
   const ratingWidth = useMemo(() => data && data.rating > 0 ? {width: `${data.rating * 20}%`} : {width: '0%'}, [data]);
+
   if (!data) {
     return <Redirect to={AppRoute.Main}/>;
   }
+  const nearOffers = offers.filter((item) =>  item.city.name === data?.city.name);
+
   const bookmarkBtnClasses = cn({
     'property__bookmark-button': true,
     'property__bookmark-button--active': data.isFavorite,
@@ -151,15 +150,17 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map points={offers} city={city} activePoint={Number(id)}/>
+            <Map points={nearOffers} city={city} activePoint={activePoint}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OffersList
-              offers={offers}
+              offers={nearOffers}
               cardClasses={propertyClasses}
+              onCardHover={handleCardHoverOn}
+              onCardHoverOff={handleCardHoverOff}
               offerListClass="near-places__list"
             />
           </section>
@@ -168,6 +169,5 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
     </div>
   );
 }
-
-export default PropertyScreen;
+export {PropertyScreen};
 

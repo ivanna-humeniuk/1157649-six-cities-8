@@ -15,6 +15,7 @@ export type Offer = {
   maxAdults?: number,
   host?: User,
   location: Location,
+  city: City,
 };
 
 export type Location = {

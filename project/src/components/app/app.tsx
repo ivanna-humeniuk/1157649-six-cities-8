@@ -1,28 +1,25 @@
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import MainScreen from '../main-screen/main-screen';
+import MainScreen from '../main-screen/ main-screen-connected';
 import LoginScreen from '../login-screen/login-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
-import PropertyScreen from '../property-screen/property-screen';
+import PropertyScreen from '../property-screen/property-screen-connected';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import {City, Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
 import {Listing} from '../../types/listings';
 
 type AppScreenProps = {
-  offers: Offer[],
   reviews: Review[],
   listings: Listing[],
-  city: City,
 }
 
-function App({offers, reviews, listings, city}: AppScreenProps): JSX.Element {
+function App({reviews, listings}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Main}>
-          <MainScreen offers={offers} city={city}/>
+          <MainScreen/>
         </Route>
         <Route exact path={AppRoute.Login}>
           <LoginScreen/>
@@ -31,7 +28,7 @@ function App({offers, reviews, listings, city}: AppScreenProps): JSX.Element {
           <FavoritesScreen listings={listings} />
         </PrivateRoute>
         <Route exact path={AppRoute.Room}>
-          <PropertyScreen offers={offers} reviews={reviews}/>
+          <PropertyScreen reviews={reviews}/>
         </Route>
         <Route>
           <NotFoundScreen/>
