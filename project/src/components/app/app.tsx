@@ -1,4 +1,4 @@
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import MainScreen from '../main-screen/ main-screen-connected';
 import LoginScreen from '../login-screen/login-screen';
@@ -8,6 +8,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import {Review} from '../../types/reviews';
 import {Listing} from '../../types/listings';
+import browserHistory from '../../browser-history';
 
 type AppScreenProps = {
   reviews: Review[],
@@ -16,7 +17,7 @@ type AppScreenProps = {
 
 function App({reviews, listings}: AppScreenProps): JSX.Element {
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.Main}>
           <MainScreen/>
@@ -34,7 +35,7 @@ function App({reviews, listings}: AppScreenProps): JSX.Element {
           <NotFoundScreen/>
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 

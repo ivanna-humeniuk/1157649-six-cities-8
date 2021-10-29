@@ -12,6 +12,11 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  NearbyOffers = '/nearby',
+}
+
 export const REVIEW_MIN_LENGTH = 50;
 export const REVIEW_MAX_LENGTH = 300;
 
@@ -27,4 +32,6 @@ export const MAP_LAYER_OPTIONS =  {
 };
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const OFFERS_LOAD_FAIL_MESSAGE = 'Something went wrong, please try again!';
 

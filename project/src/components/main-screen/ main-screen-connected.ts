@@ -1,22 +1,20 @@
-import {Dispatch} from 'redux';
-import {connect, ConnectedProps} from 'react-redux';
+import {connect} from 'react-redux';
 import {State} from '../../types/state';
-import {Actions} from '../../types/actions';
+import {ThunkAppDispatch} from '../../types/actions';
 import {setCity} from '../../store/actions';
-import {MainScreen} from './main-screen';
+import MainScreen from './main-screen';
+import {fetchOffersAction} from '../../store/api-actions';
 
 const mapStateToProps = (state: State) => ({
   city: state.city,
   filteredOffers: state.filteredOffers,
+  isDataLoaded: state.isDataLoaded,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  handleActiveCity(city: string) {
-    dispatch(setCity(city));
-  },
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  handleActiveCity: (city: string) => dispatch(setCity(city)),
+  getOffers: () => dispatch(fetchOffersAction()),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export type PropsFromRedux = ConnectedProps<typeof connector>;
 export default connector(MainScreen);

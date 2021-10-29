@@ -1,20 +1,39 @@
 import cn from 'classnames';
-import {PropsFromRedux} from './ main-screen-connected';
+import {useEffect} from 'react';
 import Header from '../header/header';
 import {AuthorizationStatus, CITIES} from '../../const';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import CitiesList from '../cities-list/cities-list';
 import useActivePoint from '../../hooks/useActivePoint';
+import LoadingScreen from '../loading-screen/loading-screen';
+import {Offer} from '../../types/offers';
+
+export type MainScreenProps = {
+  filteredOffers: Offer[],
+  city: string,
+  isDataLoaded: boolean,
+  handleActiveCity: (city: string) => void,
+  getOffers: () => void,
+}
+
 
 const mainClasses = {
   article: 'cities__place-card',
   imageWrapper: 'cities__image-wrapper',
 };
 
-function MainScreen(props: PropsFromRedux): JSX.Element {
-  const { filteredOffers, city, handleActiveCity } = props;
+function MainScreen(props: MainScreenProps): JSX.Element {
+  const { filteredOffers, city, isDataLoaded, handleActiveCity, getOffers } = props;
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(0);
+
+  useEffect(() => {
+    getOffers();
+  }, [getOffers]);
+
+  if(!isDataLoaded) {
+    return <LoadingScreen/>;
+  }
 
   const mainPageClasses = cn({
     'page__main': true,
@@ -91,4 +110,4 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
     </div>
   );
 }
-export {MainScreen};
+export default MainScreen;

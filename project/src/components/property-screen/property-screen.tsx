@@ -1,40 +1,54 @@
 import cn from 'classnames';
-import {useMemo} from 'react';
-import {Redirect, useParams} from 'react-router-dom';
-import {ConnectedComponentProps} from './property-screen-connected';
+import {useEffect, useMemo} from 'react';
+import {useParams} from 'react-router-dom';
 import useActivePoint from '../../hooks/useActivePoint';
 import Header from '../header/header';
 import Reviews from '../reviews/reviews';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AuthorizationStatus} from '../../const';
 import Map from '../map/map';
-import {city} from '../../mocks/offers';
 import OffersList from '../offers-list/offers-list';
+import {Offer} from '../../types/offers';
+import {Review} from '../../types/reviews';
+
+type PropertyScreenProps = {
+  offer: Offer,
+  reviews: Review[],
+  nearbyOffers: Offer[],
+  getNearbyOffer: (id: string) => void,
+  getOffer: (id: string) => void,
+}
 
 const propertyClasses = {
   article: 'near-places__card',
   imageWrapper: 'near-places__image-wrapper',
 };
 
-function PropertyScreen(props: ConnectedComponentProps): JSX.Element {
-  const {offers, reviews} = props;
+function PropertyScreen(props: PropertyScreenProps): JSX.Element {
+  const {offer, reviews, nearbyOffers, getNearbyOffer, getOffer} = props;
   const {id} = useParams<{ id?: string }>();
-  const data = offers.find((item) => item.id === Number(id));
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
-  const ratingWidth = useMemo(() => data && data.rating > 0 ? {width: `${data.rating * 20}%`} : {width: '0%'}, [data]);
+  const ratingWidth = useMemo(() => offer && offer.rating > 0 ? {width: `${offer.rating * 20}%`} : {width: '0%'}, [offer]);
 
-  if (!data) {
-    return <Redirect to={AppRoute.Main}/>;
+  useEffect(() => {
+    if(id) {
+      getOffer(id);
+      getNearbyOffer(id);
+    }
+  }, [id, getOffer, getNearbyOffer]);
+
+  const points = [...nearbyOffers];
+  if(nearbyOffers.length > 0 && offer) {
+    points.push(offer);
   }
-  const nearOffers = offers.filter((item) =>  item.city.name === data?.city.name);
 
   const bookmarkBtnClasses = cn({
     'property__bookmark-button': true,
-    'property__bookmark-button--active': data.isFavorite,
+    'property__bookmark-button--active': offer.isFavorite,
     'button': true,
   });
   const avatarWrapperClasses = cn({
     'property__avatar-wrapper': true,
-    'property__avatar-wrapper--pro': data.host?.isPro,
+    'property__avatar-wrapper--pro': offer.host?.isPro,
     'user__avatar-wrapper': true,
   });
   return (
@@ -67,14 +81,14 @@ function PropertyScreen(props: ConnectedComponentProps): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {data.isPremium && (
+              {offer.isPremium && (
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>
               )}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {data.title}
+                  {offer.title}
                 </h1>
                 <button className={bookmarkBtnClasses} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -88,50 +102,50 @@ function PropertyScreen(props: ConnectedComponentProps): JSX.Element {
                   <span style={ratingWidth}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{data.rating}</span>
+                <span className="property__rating-value rating__value">{offer.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {data.type}
+                  {offer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {data.bedrooms} {data.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
+                  {offer.bedrooms} {offer.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {data.maxAdults} adults
+                  Max {offer.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro; {data.price}</b>
+                <b className="property__price-value">&euro; {offer.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {data.goods && data.goods.map((good) => (
+                  {offer.goods && offer.goods.map((good) => (
                     <li key={good} className="property__inside-item">
                       {good}
                     </li>
                   ))}
                 </ul>
               </div>
-              {data.host && (
+              {offer.host && (
                 <div className="property__host">
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
                     <div className={avatarWrapperClasses}>
                       <img
                         className="property__avatar user__avatar"
-                        src={data.host.avatarUrl}
+                        src={offer.host.avatarUrl}
                         width="74"
                         height="74"
                         alt="Host avatar"
                       />
                     </div>
                     <span className="property__user-name">
-                      {data.host.name}
+                      {offer.host.name}
                     </span>
-                    {data.host.isPro && (
+                    {offer.host.isPro && (
                       <span className="property__user-status">
                         Pro
                       </span>
@@ -139,7 +153,7 @@ function PropertyScreen(props: ConnectedComponentProps): JSX.Element {
                   </div>
                   <div className="property__description">
                     <p className="property__text">
-                      {data.description}
+                      {offer.description}
                     </p>
                   </div>
                 </div>
@@ -149,25 +163,30 @@ function PropertyScreen(props: ConnectedComponentProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map">
-            <Map points={nearOffers} city={city} activePoint={activePoint}/>
-          </section>
+          {points.length > 0 && offer.city && (
+            <section className="property__map map">
+              <Map points={points} city={offer.city} activePoint={activePoint}/>
+            </section>
+          )}
         </section>
         <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList
-              offers={nearOffers}
-              cardClasses={propertyClasses}
-              onCardHover={handleCardHoverOn}
-              onCardHoverOff={handleCardHoverOff}
-              offerListClass="near-places__list"
-            />
-          </section>
+          {nearbyOffers && (
+            <section className="near-places places">
+              <h2 className="near-places__title">Other places in the neighbourhood</h2>
+              <OffersList
+                offers={nearbyOffers}
+                cardClasses={propertyClasses}
+                onCardHover={handleCardHoverOn}
+                onCardHoverOff={handleCardHoverOff}
+                offerListClass="near-places__list"
+              />
+            </section>
+          )}
         </div>
       </main>
     </div>
   );
 }
-export {PropertyScreen};
+
+export default PropertyScreen;
 

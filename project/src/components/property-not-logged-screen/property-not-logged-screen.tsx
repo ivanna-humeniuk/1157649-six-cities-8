@@ -1,8 +1,9 @@
+import {connect, ConnectedProps} from 'react-redux';
 import OfferCard from '../offer-card/offer-card';
 import {AuthorizationStatus} from '../../const';
 import Header from '../header/header';
-import {offers} from '../../mocks/offers';
 import {Offer} from '../../types/offers';
+import {State} from '../../types/state';
 
 const propertyClasses = {
   article: 'near-places__card',
@@ -13,7 +14,15 @@ const ratingWidth = {
   width: '80%',
 };
 
-function PropertyNotLoggedScreen(): JSX.Element {
+const mapStateToProps = (state: State) => ({
+  offers: state.offers,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function PropertyNotLoggedScreen(props: PropsFromRedux): JSX.Element {
+  const {offers} = props;
   return (
     <div className="page">
       <Header authorizationStatus={AuthorizationStatus.NoAuth}/>
@@ -184,4 +193,4 @@ function PropertyNotLoggedScreen(): JSX.Element {
   );
 }
 
-export default PropertyNotLoggedScreen;
+export default connector(PropertyNotLoggedScreen);

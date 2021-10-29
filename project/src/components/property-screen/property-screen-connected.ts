@@ -1,18 +1,20 @@
-import {connect, ConnectedProps} from 'react-redux';
+import {connect} from 'react-redux';
 import {State} from '../../types/state';
-import {Review} from '../../types/reviews';
-import {PropertyScreen} from './property-screen';
+import PropertyScreen from './property-screen';
+import {fetchNearbyOffersAction, fetchOfferAction} from '../../store/api-actions';
+import {ThunkAppDispatch} from '../../types/actions';
 
-type PropertyScreenProps = {
-  reviews: Review[],
-}
 const mapStateToProps = (state: State) => ({
   city: state.city,
   offers: state.offers,
+  offer: state.offer,
+  nearbyOffers: state.nearbyOffers,
 });
 
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  getNearbyOffer: (id: string) => dispatch(fetchNearbyOffersAction(id)),
+  getOffer: (id: string) => dispatch(fetchOfferAction(id)),
+});
 
-export type ConnectedComponentProps = PropsFromRedux & PropertyScreenProps;
+const connector = connect(mapStateToProps, mapDispatchToProps);
 export default connector(PropertyScreen);

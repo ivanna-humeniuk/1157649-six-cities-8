@@ -5,8 +5,10 @@ import {MAP_LAYER, MAP_LAYER_OPTIONS} from '../const';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map | null {
   const [map, setMap] = useState<Map | null>(null);
-
   useEffect(() => {
+    if (map) {
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+    }
     if(mapRef.current !== null && map === null) {
       const instance = new Map(mapRef.current, {
         center: {
@@ -22,7 +24,6 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
       instance.scrollWheelZoom.disable();
       setMap(instance);
     }
-
   }, [mapRef, map, city]);
 
   return map;
