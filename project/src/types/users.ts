@@ -5,6 +5,7 @@ export type User = {
   name: string,
 }
 
+/* eslint-disable camelcase */
 export type APIUser = {
   avatar_url: string,
   id: number,

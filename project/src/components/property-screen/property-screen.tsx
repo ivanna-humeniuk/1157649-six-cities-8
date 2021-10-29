@@ -159,18 +159,18 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                 </div>
               )}
               <section className="property__reviews reviews">
-                <Reviews reviews={reviews}/>
+                <Reviews reviews={reviews} authorizationStatus={AuthorizationStatus.NoAuth}/>
               </section>
             </div>
           </div>
-          {points.length > 0 && offer.city && (
+          {points.length !== 0 && offer.city && (
             <section className="property__map map">
               <Map points={points} city={offer.city} activePoint={activePoint}/>
             </section>
           )}
         </section>
         <div className="container">
-          {nearbyOffers && (
+          {nearbyOffers.length !== 0 && (
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <OffersList

@@ -29,6 +29,7 @@ export type City = {
   location: Location,
 }
 
+/* eslint-disable camelcase */
 export type APIOffer = {
   id: number,
   preview_image: string,
@@ -46,4 +47,5 @@ export type APIOffer = {
   location: Location,
   city: City,
 };
+
 
