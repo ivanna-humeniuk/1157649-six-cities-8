@@ -4,18 +4,20 @@ import {useParams} from 'react-router-dom';
 import useActivePoint from '../../hooks/useActivePoint';
 import Header from '../header/header';
 import Reviews from '../reviews/reviews';
-import {AuthorizationStatus} from '../../const';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 type PropertyScreenProps = {
-  offer: Offer,
-  reviews: Review[],
-  nearbyOffers: Offer[],
-  getNearbyOffer: (id: string) => void,
-  getOffer: (id: string) => void,
+  offer: Offer | null;
+  reviews: Review[];
+  isDataLoaded: boolean;
+  nearbyOffers: Offer[];
+  getNearbyOffers: (id: string) => void;
+  getOffer: (id: string) => void;
+  authorizationStatus: boolean;
 }
 
 const propertyClasses = {
@@ -24,7 +26,7 @@ const propertyClasses = {
 };
 
 function PropertyScreen(props: PropertyScreenProps): JSX.Element {
-  const {offer, reviews, nearbyOffers, getNearbyOffer, getOffer} = props;
+  const {offer, reviews, authorizationStatus, isDataLoaded, nearbyOffers, getNearbyOffers, getOffer} = props;
   const {id} = useParams<{ id?: string }>();
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
   const ratingWidth = useMemo(() => offer && offer.rating > 0 ? {width: `${offer.rating * 20}%`} : {width: '0%'}, [offer]);
@@ -32,28 +34,38 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
   useEffect(() => {
     if(id) {
       getOffer(id);
-      getNearbyOffer(id);
+      getNearbyOffers(id);
     }
-  }, [id, getOffer, getNearbyOffer]);
+  }, [id, getOffer, getNearbyOffers]);
+
+  useEffect(() => {
+    if(window.scrollY !== 0) {
+      window.scrollTo(0, 0);
+    }
+  }, [id]);
+
+  if(!isDataLoaded || !offer) {
+    return <LoadingScreen/>;
+  }
 
   const points = [...nearbyOffers];
-  if(nearbyOffers.length > 0 && offer) {
+  if(offer) {
     points.push(offer);
   }
 
-  const bookmarkBtnClasses = cn({
+  const bookmarkBtnClass = cn({
     'property__bookmark-button': true,
     'property__bookmark-button--active': offer.isFavorite,
     'button': true,
   });
-  const avatarWrapperClasses = cn({
+  const avatarWrapperClass = cn({
     'property__avatar-wrapper': true,
     'property__avatar-wrapper--pro': offer.host?.isPro,
     'user__avatar-wrapper': true,
   });
   return (
     <div className="page">
-      <Header authorizationStatus={AuthorizationStatus.Auth}/>
+      <Header authorizationStatus={authorizationStatus}/>
 
       <main className="page__main page__main--property">
         <section className="property">
@@ -90,7 +102,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                 <h1 className="property__name">
                   {offer.title}
                 </h1>
-                <button className={bookmarkBtnClasses} type="button">
+                <button className={bookmarkBtnClass} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -133,7 +145,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                 <div className="property__host">
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
-                    <div className={avatarWrapperClasses}>
+                    <div className={avatarWrapperClass}>
                       <img
                         className="property__avatar user__avatar"
                         src={offer.host.avatarUrl}
@@ -159,7 +171,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                 </div>
               )}
               <section className="property__reviews reviews">
-                <Reviews reviews={reviews} authorizationStatus={AuthorizationStatus.NoAuth}/>
+                <Reviews reviews={reviews} authorizationStatus={authorizationStatus}/>
               </section>
             </div>
           </div>

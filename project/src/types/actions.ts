@@ -2,27 +2,27 @@ import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {State} from '../types/state';
 import {
-  loadNearbyOffers,
-  loadOffer,
-  loadOffers,
+  setNearbyOffers,
+  setOffer,
+  setOffers,
   setCity,
   redirectToRoute
 } from '../store/actions';
 
 export enum ActionType {
   SetCity = 'setCity',
-  LoadOffers = 'loadOffers',
-  LoadOffer = 'loadOffer',
-  LoadNearbyOffers = 'LoadNearbyOffers',
+  SetOffers = 'setOffers',
+  SetOffer = 'setOffer',
+  SetNearbyOffers = 'setNearbyOffers',
   LoadError = 'loadError',
   RedirectToRoute = 'redirectToRoute',
 }
 
 export type Actions =
-  | ReturnType<typeof loadOffers>
-  | ReturnType<typeof loadOffer>
+  | ReturnType<typeof setOffers>
+  | ReturnType<typeof setOffer>
   | ReturnType<typeof setCity>
-  | ReturnType<typeof loadNearbyOffers>
+  | ReturnType<typeof setNearbyOffers>
   | ReturnType<typeof redirectToRoute>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;

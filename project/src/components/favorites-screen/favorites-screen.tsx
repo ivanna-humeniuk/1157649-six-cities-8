@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import OfferCard from '../offer-card/offer-card';
-import {AuthorizationStatus} from '../../const';
 import Header from '../header/header';
 import {Offer} from '../../types/offers';
 import {Listing} from '../../types/listings';
@@ -13,26 +12,28 @@ const favoritesClasses = {
 };
 
 type FavoritesScreenProps = {
-  listings: Listing[],
+  listings: Listing[];
+  authorizationStatus: boolean;
 }
 
-function FavoritesScreen({listings}: FavoritesScreenProps): JSX.Element {
+function FavoritesScreen(props: FavoritesScreenProps): JSX.Element {
+  const {listings, authorizationStatus} = props;
 
-  const pageClasses = cn({
+  const pageClass = cn({
     'page': true,
     'page--favorites-empty': listings.length === 0,
   });
 
-  const mainPageClasses = cn({
+  const mainPageClass = cn({
     'page__main': true,
     'page__main--favorites': true,
     'page__main--favorites-empty': listings.length === 0,
   });
 
   return (
-    <div className={pageClasses}>
-      <Header authorizationStatus={AuthorizationStatus.Auth}/>
-      <main className={mainPageClasses}>
+    <div className={pageClass}>
+      <Header authorizationStatus={authorizationStatus}/>
+      <main className={mainPageClass}>
         <div className="page__favorites-container container">
           {listings.length !== 0 ? (
             <section className="favorites">

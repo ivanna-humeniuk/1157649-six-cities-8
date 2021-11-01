@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import {useEffect} from 'react';
 import Header from '../header/header';
-import {AuthorizationStatus, CITIES} from '../../const';
+import {CITIES} from '../../const';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import CitiesList from '../cities-list/cities-list';
@@ -10,12 +10,13 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {Offer} from '../../types/offers';
 
 export type MainScreenProps = {
-  filteredOffers: Offer[],
-  city: string,
-  isDataLoaded: boolean,
-  handleActiveCity: (city: string) => void,
-  getOffers: () => void,
-}
+  filteredOffers: Offer[];
+  city: string;
+  isDataLoaded: boolean;
+  handleActiveCity: (city: string) => void;
+  getOffers: () => void;
+  authorizationStatus: boolean;
+};
 
 
 const mainClasses = {
@@ -24,7 +25,7 @@ const mainClasses = {
 };
 
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const { filteredOffers, city, isDataLoaded, handleActiveCity, getOffers } = props;
+  const { filteredOffers, city, isDataLoaded, authorizationStatus, handleActiveCity, getOffers } = props;
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(0);
 
   useEffect(() => {
@@ -35,13 +36,13 @@ function MainScreen(props: MainScreenProps): JSX.Element {
     return <LoadingScreen/>;
   }
 
-  const mainPageClasses = cn({
+  const mainPageClass = cn({
     'page__main': true,
     'page__main--index': true,
     'page__main--index-empty': filteredOffers.length === 0,
   });
 
-  const citiesContainerClasses = cn({
+  const citiesContainerClass = cn({
     'cities__places-container': true,
     'cities__places-container--empty': filteredOffers.length === 0,
     'container': true,
@@ -49,8 +50,8 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header authorizationStatus={AuthorizationStatus.Auth}/>
-      <main className={mainPageClasses}>
+      <Header authorizationStatus={authorizationStatus}/>
+      <main className={mainPageClass}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -58,7 +59,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
           </section>
         </div>
         <div className="cities">
-          <div className={citiesContainerClasses}>
+          <div className={citiesContainerClass}>
             {filteredOffers.length !== 0 ? (
               <>
                 <section className="cities__places places">

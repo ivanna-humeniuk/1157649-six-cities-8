@@ -9,6 +9,7 @@ const mapStateToProps = (state: State) => ({
   city: state.city,
   filteredOffers: state.filteredOffers,
   isDataLoaded: state.isDataLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

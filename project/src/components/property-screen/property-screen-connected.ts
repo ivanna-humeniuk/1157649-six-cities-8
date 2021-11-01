@@ -6,13 +6,14 @@ import {ThunkAppDispatch} from '../../types/actions';
 
 const mapStateToProps = (state: State) => ({
   city: state.city,
-  offers: state.offers,
   offer: state.offer,
+  isDataLoaded: state.isDataLoaded,
   nearbyOffers: state.nearbyOffers,
+  authorizationStatus: state.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  getNearbyOffer: (id: string) => dispatch(fetchNearbyOffersAction(id)),
+  getNearbyOffers: (id: string) => dispatch(fetchNearbyOffersAction(id)),
   getOffer: (id: string) => dispatch(fetchOfferAction(id)),
 });
 

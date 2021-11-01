@@ -1,6 +1,6 @@
-import {APIOffer, Offer} from '../types/offers';
+import {RawOffer, Offer} from '../types/offers';
 
-export function OfferSnakeCaseMapper(item: APIOffer): Offer {
+export function OfferSnakeCaseMapper(item: RawOffer): Offer {
   return ({
     id: item.id,
     previewImage: item['preview_image'],

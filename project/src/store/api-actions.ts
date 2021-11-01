@@ -1,17 +1,16 @@
 import {toast} from 'react-toastify';
-import {APIOffer, Offer} from '../types/offers';
+import {RawOffer, Offer} from '../types/offers';
 import {APIRoute, AppRoute, OFFERS_LOAD_FAIL_MESSAGE} from '../const';
-import {loadNearbyOffers, loadOffer, loadOffers, redirectToRoute} from './actions';
+import {setNearbyOffers, setOffer, setOffers, redirectToRoute} from './actions';
 import {ThunkActionResult} from '../types/actions';
-import {OfferMapper, OfferSnakeCaseMapper} from '../services/adapter';
+import {OfferSnakeCaseMapper} from '../utills/snakeCaseMapper';
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const {data} = await api.get<APIOffer[]>(APIRoute.Offers);
-      const mapper:OfferMapper<APIOffer> = new OfferSnakeCaseMapper();
-      const hotels: Offer[] = data.map((item) => mapper.mapSnakeCase(item));
-      dispatch(loadOffers(hotels));
+      const {data} = await api.get<RawOffer[]>(APIRoute.Offers);
+      const hotels: Offer[] = data.map((item) => OfferSnakeCaseMapper(item));
+      dispatch(setOffers(hotels));
     } catch (error) {
       toast.info(OFFERS_LOAD_FAIL_MESSAGE);
       /* eslint-disable no-console */
@@ -22,10 +21,9 @@ export const fetchOffersAction = (): ThunkActionResult =>
 export const fetchOfferAction = (id: string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const {data} = await api.get<APIOffer>(`${APIRoute.Offers}/${id}`);
-      const mapper:OfferMapper<APIOffer> = new OfferSnakeCaseMapper();
-      const hotel: Offer = mapper.mapSnakeCase(data);
-      dispatch(loadOffer(hotel));
+      const {data} = await api.get<RawOffer>(`${APIRoute.Offers}/${id}`);
+      const hotel: Offer = OfferSnakeCaseMapper(data);
+      dispatch(setOffer(hotel));
     } catch (error) {
       dispatch(redirectToRoute(AppRoute.Main));
       /* eslint-disable no-console */
@@ -36,10 +34,9 @@ export const fetchOfferAction = (id: string): ThunkActionResult =>
 export const fetchNearbyOffersAction = (id: string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const {data} = await api.get<APIOffer[]>(`${APIRoute.Offers}/${id}${APIRoute.NearbyOffers}`);
-      const mapper:OfferMapper<APIOffer> = new OfferSnakeCaseMapper();
-      const hotels: Offer[] = data.map((item) => mapper.mapSnakeCase(item));
-      dispatch(loadNearbyOffers(hotels));
+      const {data} = await api.get<RawOffer[]>(`${APIRoute.Offers}/${id}${APIRoute.NearbyOffers}`);
+      const hotels: Offer[] = data.map((item) => OfferSnakeCaseMapper(item));
+      dispatch(setNearbyOffers(hotels));
     } catch (error) {
       /* eslint-disable no-console */
       console.error(error);

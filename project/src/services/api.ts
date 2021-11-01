@@ -1,7 +1,5 @@
 import axios, {AxiosInstance, AxiosResponse, AxiosError, AxiosRequestConfig} from 'axios';
-
-const URL_API = 'https://8.react.pages.academy/six-cities';
-const REQUEST_TIMEOUT = 5000;
+import {URL_API, REQUEST_TIMEOUT} from '../const';
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -13,7 +11,6 @@ export const createAPI = (): AxiosInstance => {
     (config: AxiosRequestConfig) => config,
     (error: AxiosError) => Promise.reject(error),
   );
-
 
   api.interceptors.response.use(
     (response: AxiosResponse) => response,

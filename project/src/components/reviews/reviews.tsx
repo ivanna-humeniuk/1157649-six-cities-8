@@ -1,11 +1,10 @@
 import ReviewForm from '../review-form/review-form';
 import {Review} from '../../types/reviews';
 import ReviewsList from '../reviews-list/reviews-list';
-import {AuthorizationStatus} from '../../const';
 
 type ReviewsProps = {
   reviews: Review[],
-  authorizationStatus: AuthorizationStatus;
+  authorizationStatus: boolean;
 }
 
 function Reviews({reviews, authorizationStatus}: ReviewsProps): JSX.Element {

@@ -4,8 +4,8 @@ function LoadingScreen(): JSX.Element {
   return (
     <div className="spinner">
       <div className="lds-ripple">
-        <div></div>
-        <div></div>
+        <div className="circle"/>
+        <div className="circle"/>
       </div>
     </div>
   );

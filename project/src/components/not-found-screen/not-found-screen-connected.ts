@@ -1,21 +1,10 @@
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
-import Header from '../header/header';
-import './not-found-screen.css';
+import {connect} from 'react-redux';
+import {State} from '../../types/state';
+import NotFoundScreen from './not-found-screen';
 
-function NotFoundScreen(): JSX.Element {
-  return (
-    <div className="page page--gray">
-      <Header authorizationStatus={AuthorizationStatus.NoAuth}/>
+const mapStateToProps = (state: State) => ({
+  authorizationStatus: state.authorizationStatus,
+});
 
-      <main className="page__main">
-        <section className="not-found">
-          <h1>404. Page not found</h1>
-          <Link to={AppRoute.Main}>Return to Home page</Link>
-        </section>
-      </main>
-    </div>
-  );
-}
-
-export default NotFoundScreen;
+const connector = connect(mapStateToProps);
+export default connector(NotFoundScreen);

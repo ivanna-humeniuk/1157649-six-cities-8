@@ -1,12 +1,17 @@
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import Header from '../header/header';
 import './not-found-screen.css';
 
-function NotFoundScreen(): JSX.Element {
+export type NotFoundScreenProps = {
+  authorizationStatus: boolean;
+};
+
+function NotFoundScreen(props: NotFoundScreenProps): JSX.Element {
+  const {authorizationStatus} = props;
   return (
     <div className="page page--gray">
-      <Header authorizationStatus={AuthorizationStatus.NoAuth}/>
+      <Header authorizationStatus={authorizationStatus}/>
 
       <main className="page__main">
         <section className="not-found">

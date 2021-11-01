@@ -1,4 +1,4 @@
-import {APIUser, User} from './users';
+import {RawUser, User} from './users';
 
 export type Offer = {
   id: number,
@@ -30,7 +30,7 @@ export type City = {
 }
 
 /* eslint-disable camelcase */
-export type APIOffer = {
+export type RawOffer = {
   id: number,
   preview_image: string,
   title: string,
@@ -43,9 +43,7 @@ export type APIOffer = {
   description: string,
   goods: Array<string>,
   max_adults: number,
-  host: APIUser,
+  host: RawUser,
   location: Location,
   city: City,
 };
-
-
