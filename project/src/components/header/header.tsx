@@ -1,9 +1,9 @@
 import {useLocation} from 'react-router-dom';
 import Logo from '../logo/logo';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 
 type HeaderProps = {
-  authorizationStatus: AuthorizationStatus;
+  authorizationStatus: boolean;
 }
 
 function Header({authorizationStatus}: HeaderProps): JSX.Element {
@@ -19,7 +19,7 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
           {!isLogin && (
             <nav className="header__nav">
               <ul className="header__nav-list">
-                {authorizationStatus === AuthorizationStatus.Auth ? (
+                {authorizationStatus ? (
                   <>
                     <li className="header__nav-item user">
                       <a className="header__nav-link header__nav-link--profile" href="/">

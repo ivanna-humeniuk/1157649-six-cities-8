@@ -9,7 +9,7 @@ type CitiesItemProps = {
 
 function CitiesItem(props: CitiesItemProps) :JSX.Element {
   const {city, activeCity, onActivateCity} = props;
-  const locationItemClasses= cn({
+  const locationItemClass= cn({
     'locations__item-link': true,
     'tabs__item': true,
     'tabs__item--active': activeCity === city,
@@ -22,7 +22,7 @@ function CitiesItem(props: CitiesItemProps) :JSX.Element {
 
   return (
     <li className="locations__item">
-      <a className={locationItemClasses} onClick={handleActiveCity} href="/">
+      <a className={locationItemClass} onClick={handleActiveCity} href="/">
         <span>{city}</span>
       </a>
     </li>

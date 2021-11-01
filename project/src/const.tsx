@@ -7,9 +7,9 @@ export enum AppRoute {
   Room = '/offer/:id',
 }
 
-export enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
+export enum APIRoute {
+  Offers = '/hotels',
+  NearbyOffers = '/nearby',
 }
 
 export const REVIEW_MIN_LENGTH = 50;
@@ -27,4 +27,9 @@ export const MAP_LAYER_OPTIONS =  {
 };
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const OFFERS_LOAD_FAIL_MESSAGE = 'Something went wrong, please reload page!';
+
+export const URL_API = 'https://8.react.pages.academy/six-cities';
+export const REQUEST_TIMEOUT = 5000;
 

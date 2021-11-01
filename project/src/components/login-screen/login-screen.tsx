@@ -1,10 +1,16 @@
-import {AuthorizationStatus} from '../../const';
 import Header from '../header/header';
 
-function LoginScreen(): JSX.Element {
+export type LoginScreenProps = {
+  authorizationStatus: boolean;
+};
+
+
+function LoginScreen(props: LoginScreenProps): JSX.Element {
+  const {authorizationStatus} = props;
+
   return (
     <div className="page page--gray page--login">
-      <Header authorizationStatus={AuthorizationStatus.NoAuth}/>
+      <Header authorizationStatus={authorizationStatus}/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">

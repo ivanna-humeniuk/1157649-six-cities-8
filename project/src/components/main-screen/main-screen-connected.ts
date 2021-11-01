@@ -1,21 +1,21 @@
 import {connect} from 'react-redux';
 import {State} from '../../types/state';
-import PropertyScreen from './property-screen';
-import {fetchNearbyOffersAction, fetchOfferAction} from '../../store/api-actions';
 import {ThunkAppDispatch} from '../../types/actions';
+import {setCity} from '../../store/actions';
+import MainScreen from './main-screen';
+import {fetchOffersAction} from '../../store/api-actions';
 
 const mapStateToProps = (state: State) => ({
   city: state.city,
-  offer: state.offer,
+  filteredOffers: state.filteredOffers,
   isDataLoaded: state.isDataLoaded,
-  nearbyOffers: state.nearbyOffers,
   authorizationStatus: state.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  getNearbyOffers: (id: string) => dispatch(fetchNearbyOffersAction(id)),
-  getOffer: (id: string) => dispatch(fetchOfferAction(id)),
+  handleActiveCity: (city: string) => dispatch(setCity(city)),
+  getOffers: () => dispatch(fetchOffersAction()),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connector(PropertyScreen);
+export default connector(MainScreen);

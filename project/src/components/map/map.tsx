@@ -43,11 +43,7 @@ function Map(props: MapProps): JSX.Element {
       });
 
       return () => {
-        if(markers.length > 0) {
-          markers.forEach((item, index) => {
-            map.removeLayer(markers[index]);
-          });
-        }
+        markers.forEach((item) => map.removeLayer(item));
       };
     }
   },[map, points, activePoint]);

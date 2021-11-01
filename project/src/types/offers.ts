@@ -1,4 +1,4 @@
-import {User} from './users';
+import {RawUser, User} from './users';
 
 export type Offer = {
   id: number,
@@ -7,13 +7,13 @@ export type Offer = {
   price: number,
   type: string,
   rating: number,
-  isPremium?: boolean,
-  isFavorite?: boolean,
-  bedrooms?: number,
-  description?: string,
-  goods?: Array<string>,
-  maxAdults?: number,
-  host?: User,
+  isPremium: boolean,
+  isFavorite: boolean,
+  bedrooms: number,
+  description: string,
+  goods: Array<string>,
+  maxAdults: number,
+  host: User,
   location: Location,
   city: City,
 };
@@ -28,3 +28,22 @@ export type City = {
   name: string,
   location: Location,
 }
+
+/* eslint-disable camelcase */
+export type RawOffer = {
+  id: number,
+  preview_image: string,
+  title: string,
+  price: number,
+  type: string,
+  rating: number,
+  is_premium: boolean,
+  is_favorite: boolean,
+  bedrooms: number,
+  description: string,
+  goods: Array<string>,
+  max_adults: number,
+  host: RawUser,
+  location: Location,
+  city: City,
+};
