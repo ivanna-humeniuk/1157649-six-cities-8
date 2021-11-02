@@ -1,5 +1,5 @@
 import {Offer} from './offers';
-import {AuthorizationStatus} from "../const";
+import {AuthorizationStatus} from '../const';
 import {AuthInfo} from './users';
 
 export type State = {
