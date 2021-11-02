@@ -2,8 +2,8 @@ import cn from 'classnames';
 import {useEffect, useMemo} from 'react';
 import {useParams} from 'react-router-dom';
 import useActivePoint from '../../hooks/useActivePoint';
-import Header from '../header/header';
-import Reviews from '../reviews/reviews';
+import Header from '../header/header-connected';
+import Reviews from '../reviews/reviews-connected';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import {Offer} from '../../types/offers';
@@ -13,11 +13,10 @@ import LoadingScreen from '../loading-screen/loading-screen';
 type PropertyScreenProps = {
   offer: Offer | null;
   reviews: Review[];
-  isDataLoaded: boolean;
   nearbyOffers: Offer[];
   getNearbyOffers: (id: string) => void;
   getOffer: (id: string) => void;
-  authorizationStatus: boolean;
+  offerLoading: boolean;
 }
 
 const propertyClasses = {
@@ -26,7 +25,7 @@ const propertyClasses = {
 };
 
 function PropertyScreen(props: PropertyScreenProps): JSX.Element {
-  const {offer, reviews, authorizationStatus, isDataLoaded, nearbyOffers, getNearbyOffers, getOffer} = props;
+  const {offer, reviews, offerLoading, nearbyOffers, getNearbyOffers, getOffer} = props;
   const {id} = useParams<{ id?: string }>();
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
   const ratingWidth = useMemo(() => offer && offer.rating > 0 ? {width: `${offer.rating * 20}%`} : {width: '0%'}, [offer]);
@@ -44,7 +43,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
     }
   }, [id]);
 
-  if(!isDataLoaded || !offer) {
+  if(offerLoading || !offer) {
     return <LoadingScreen/>;
   }
 
@@ -65,8 +64,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
   });
   return (
     <div className="page">
-      <Header authorizationStatus={authorizationStatus}/>
-
+      <Header/>
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -171,7 +169,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                 </div>
               )}
               <section className="property__reviews reviews">
-                <Reviews reviews={reviews} authorizationStatus={authorizationStatus}/>
+                <Reviews reviews={reviews}/>
               </section>
             </div>
           </div>

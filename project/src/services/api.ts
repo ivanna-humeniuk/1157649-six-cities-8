@@ -1,20 +1,34 @@
 import axios, {AxiosInstance, AxiosResponse, AxiosError, AxiosRequestConfig} from 'axios';
-import {URL_API, REQUEST_TIMEOUT} from '../const';
+import {URL_API, REQUEST_TIMEOUT, HttpCode} from '../const';
+import {getToken} from './token';
 
-export const createAPI = (): AxiosInstance => {
+type UnauthorizedCallback = () => void;
+
+export const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance => {
   const api = axios.create({
     baseURL: URL_API,
     timeout: REQUEST_TIMEOUT,
   });
 
   api.interceptors.request.use(
-    (config: AxiosRequestConfig) => config,
+    (config: AxiosRequestConfig) =>  {
+      const token = getToken();
+      if (token) {
+        config.headers['x-token'] = token;
+      }
+      return config;
+    },
     (error: AxiosError) => Promise.reject(error),
   );
 
   api.interceptors.response.use(
     (response: AxiosResponse) => response,
-    (error: AxiosError) => Promise.reject(error),
+    (error: AxiosError) => {
+      if (error.response?.status === HttpCode.Unauthorized) {
+        onUnauthorized();
+      }
+      return Promise.reject(error);
+    },
   );
 
   return api;

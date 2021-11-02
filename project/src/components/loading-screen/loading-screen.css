@@ -12,14 +12,14 @@
   width: 80px;
   height: 80px;
 }
-.lds-ripple .circle {
+.lds-ripple .lds-ripple__circle {
   position: absolute;
   border: 4px solid #4481c3;
   opacity: 1;
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
-.lds-ripple .circle:nth-child(2) {
+.lds-ripple .lds-ripple__circle--outer {
   animation-delay: -0.5s;
 }
 @keyframes lds-ripple {

@@ -5,11 +5,9 @@ import {fetchNearbyOffersAction, fetchOfferAction} from '../../store/api-actions
 import {ThunkAppDispatch} from '../../types/actions';
 
 const mapStateToProps = (state: State) => ({
-  city: state.city,
-  offer: state.offer,
-  isDataLoaded: state.isDataLoaded,
-  nearbyOffers: state.nearbyOffers,
-  authorizationStatus: state.authorizationStatus,
+  offer: state.offer.offer,
+  nearbyOffers: state.offer.nearbyOffers,
+  offerLoading: state.offer.offerLoading,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -17,5 +15,4 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   getOffer: (id: string) => dispatch(fetchOfferAction(id)),
 });
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connector(PropertyScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(PropertyScreen);

@@ -4,7 +4,7 @@ import MainScreen from '../main-screen/main-screen-connected';
 import LoginScreen from '../login-screen/login-screen-connected';
 import FavoritesScreen from '../favorites-screen/favorites-screen-connected';
 import PropertyScreen from '../property-screen/property-screen-connected';
-import NotFoundScreen from '../not-found-screen/not-found-screen-connected';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route-connected';
 import {Review} from '../../types/reviews';
 import {Listing} from '../../types/listings';

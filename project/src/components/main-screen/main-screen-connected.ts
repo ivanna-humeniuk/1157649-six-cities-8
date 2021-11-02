@@ -6,10 +6,9 @@ import MainScreen from './main-screen';
 import {fetchOffersAction} from '../../store/api-actions';
 
 const mapStateToProps = (state: State) => ({
-  city: state.city,
-  filteredOffers: state.filteredOffers,
-  isDataLoaded: state.isDataLoaded,
-  authorizationStatus: state.authorizationStatus,
+  city: state.offers.city,
+  filteredOffers: state.offers.filteredOffers,
+  offersLoading: state.offers.offersLoading,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -17,5 +16,4 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   getOffers: () => dispatch(fetchOffersAction()),
 });
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connector(MainScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
