@@ -6,7 +6,8 @@ import {
   setOffer,
   setOffers,
   setCity,
-  redirectToRoute
+  redirectToRoute,
+  setSortedOffers
 } from '../store/actions';
 
 export enum ActionType {
@@ -16,6 +17,7 @@ export enum ActionType {
   SetNearbyOffers = 'setNearbyOffers',
   LoadError = 'loadError',
   RedirectToRoute = 'redirectToRoute',
+  SetSortedOffers = 'setSortedOffers'
 }
 
 export type Actions =
@@ -23,7 +25,8 @@ export type Actions =
   | ReturnType<typeof setOffer>
   | ReturnType<typeof setCity>
   | ReturnType<typeof setNearbyOffers>
-  | ReturnType<typeof redirectToRoute>;
+  | ReturnType<typeof redirectToRoute>
+  | ReturnType<typeof setSortedOffers>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;

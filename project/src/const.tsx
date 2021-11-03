@@ -33,3 +33,9 @@ export const OFFERS_LOAD_FAIL_MESSAGE = 'Something went wrong, please reload pag
 export const URL_API = 'https://8.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 
+export enum SortOptions {
+  Popular = 'Popular',
+  FromLowToHighPrice = 'Price: low to high',
+  FromHighToLowPrice = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
+}

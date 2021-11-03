@@ -1,6 +1,6 @@
 import {ActionType} from '../types/actions';
 import {Offer} from '../types/offers';
-import {AppRoute} from '../const';
+import {AppRoute, SortOptions} from '../const';
 
 export const setOffers = (offers: Offer[]) => ({
   type: ActionType.SetOffers,
@@ -25,4 +25,9 @@ export const setNearbyOffers = (offers: Offer[]) => ({
 export const redirectToRoute = (url: AppRoute) => ({
   type: ActionType.RedirectToRoute,
   payload: url,
+} as const);
+
+export const setSortedOffers = (option: SortOptions) => ({
+  type: ActionType.SetSortedOffers,
+  payload: option,
 } as const);
