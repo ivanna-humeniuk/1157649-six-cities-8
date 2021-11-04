@@ -1,8 +1,9 @@
 import {OffersState} from '../../types/state';
 import {Actions, ActionType} from '../../types/actions';
+import {CITIES} from '../../const';
 
 const initialState = {
-  city: 'Paris',
+  city: CITIES[0],
   offers: [],
   filteredOffers: [],
   offersLoading: false,
@@ -14,8 +15,8 @@ const offersReducer = (state: OffersState = initialState, action: Actions): Offe
       return {
         ...state,
         offers: action.payload,
-        filteredOffers: action.payload.filter((offer)=> offer.city.name === state.city)};
-    case ActionType.SetCity:
+      };
+    case ActionType.FilterOffers:
       return {
         ...state,
         city: action.payload,

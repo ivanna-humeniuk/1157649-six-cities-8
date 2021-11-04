@@ -1,6 +1,6 @@
 import {RawOffer, Offer} from '../types/offers';
 
-export const snakeCaseAdapter = (item: RawOffer): Offer => ({
+export const adaptToCamelCase = (item: RawOffer): Offer => ({
   id: item.id,
   previewImage: item['preview_image'],
   title: item.title,

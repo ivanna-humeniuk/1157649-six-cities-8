@@ -1,23 +1,23 @@
 import {useCallback} from 'react';
 import {useLocation, Link} from 'react-router-dom';
 import Logo from '../logo/logo';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthStatus} from '../../const';
 import {AuthInfo} from '../../types/users';
 
 type HeaderProps = {
   authInfo: AuthInfo | null;
-  authorizationStatus: AuthorizationStatus;
-  handleLogout: () => void;
+  authStatus: AuthStatus;
+  onLogout: () => void;
 }
 
 function Header(props: HeaderProps): JSX.Element {
-  const {authorizationStatus, authInfo, handleLogout} = props;
+  const {authStatus, authInfo, onLogout} = props;
   const {pathname} = useLocation();
   const isLogin = pathname === AppRoute.Login;
-  const onLogoutLink = useCallback((event: React.MouseEvent) => {
+  const handleLogoutLink = useCallback((event: React.MouseEvent) => {
     event.preventDefault();
-    handleLogout();
-  }, [handleLogout]);
+    onLogout();
+  }, [onLogout]);
 
   return (
     <header className="header">
@@ -29,7 +29,7 @@ function Header(props: HeaderProps): JSX.Element {
           {!isLogin && (
             <nav className="header__nav">
               <ul className="header__nav-list">
-                {authorizationStatus === AuthorizationStatus.Auth ? (
+                {authStatus === AuthStatus.Auth ? (
                   <>
                     <li className="header__nav-item user">
                       <a className="header__nav-link header__nav-link--profile" href="/">
@@ -38,7 +38,7 @@ function Header(props: HeaderProps): JSX.Element {
                       </a>
                     </li>
                     <li className="header__nav-item">
-                      <a className="header__nav-link" href="/" onClick={onLogoutLink}>
+                      <a className="header__nav-link" href="/" onClick={handleLogoutLink}>
                         <span className="header__signout">Sign out</span>
                       </a>
                     </li>

@@ -9,6 +9,11 @@ import PrivateRoute from '../private-route/private-route-connected';
 import {Review} from '../../types/reviews';
 import {Listing} from '../../types/listings';
 import browserHistory from '../../browser-history';
+import {store} from '../../store/store';
+import {ThunkAppDispatch} from '../../types/actions';
+import {checkAuthAction} from '../../store/api-actions';
+
+(store.dispatch as ThunkAppDispatch)(checkAuthAction());
 
 type AppScreenProps = {
   reviews: Review[];

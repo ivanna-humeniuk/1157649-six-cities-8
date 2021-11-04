@@ -1,5 +1,5 @@
 import axios, {AxiosInstance, AxiosResponse, AxiosError, AxiosRequestConfig} from 'axios';
-import {URL_API, REQUEST_TIMEOUT, HttpCode} from '../const';
+import {URL_API, REQUEST_TIMEOUT, HttpCode, HEADERS_TOKEN} from '../const';
 import {getToken} from './token';
 
 type UnauthorizedCallback = () => void;
@@ -14,7 +14,7 @@ export const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance =
     (config: AxiosRequestConfig) =>  {
       const token = getToken();
       if (token) {
-        config.headers['x-token'] = token;
+        config.headers[HEADERS_TOKEN] = token;
       }
       return config;
     },

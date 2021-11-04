@@ -14,7 +14,7 @@ export enum APIRoute {
   NearbyOffers = '/nearby',
 }
 
-export enum AuthorizationStatus {
+export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -38,7 +38,8 @@ export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', '
 
 export const OFFERS_LOAD_FAIL_MESSAGE = 'Something went wrong, please reload page!';
 export const AUTH_INFO_MESSAGE = 'Don\'t forget to log in!';
-export const AUTH_FAIL_MESSAGE = 'Something went wrong, please try again!';
+export const AUTH_FAIL_MESSAGE = 'Something went wrong, please try to log in again!';
+export const LOGOUT_FAIL_MESSAGE = 'Something went wrong, please try to log out again!';
 export const PASSWORD_ERROR_MESSAGE = 'The password should include at least one letter and one number.';
 
 export const URL_API = 'https://8.react.pages.academy/six-cities';
@@ -50,3 +51,8 @@ export enum HttpCode {
 
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-8-token-key';
 
+export const TOAST_CLOSE_TIME = 2500;
+
+export const PASSWORD_REG_EXP = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/);
+
+export const HEADERS_TOKEN = 'x-token';

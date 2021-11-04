@@ -1,5 +1,5 @@
 import {Offer} from './offers';
-import {AuthorizationStatus} from '../const';
+import {AuthStatus} from '../const';
 import {AuthInfo} from './users';
 
 export type State = {
@@ -16,12 +16,12 @@ export type OffersState = {
 }
 export type OfferState = {
   offer: Offer | null;
-  nearbyOffers: Offer[];
-  offerLoading: boolean;
+  nearbyList: Offer[];
+  loading: boolean;
 }
 
 export type AuthState = {
-  authorizationStatus: AuthorizationStatus;
-  authInfo: AuthInfo | null;
-  authLoading: boolean;
+  status: AuthStatus;
+  info: AuthInfo | null;
+  isLoading: boolean;
 }

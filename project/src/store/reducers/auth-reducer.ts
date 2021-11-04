@@ -1,35 +1,35 @@
 import {AuthState} from '../../types/state';
 import {Actions, ActionType} from '../../types/actions';
-import {AuthorizationStatus} from '../../const';
+import {AuthStatus} from '../../const';
 
 const initialState = {
-  authorizationStatus: AuthorizationStatus.Unknown,
-  authInfo: null,
-  authLoading: false,
+  status: AuthStatus.Unknown,
+  info: null,
+  isLoading: false,
 };
 
 const authReducer = (state: AuthState = initialState, action: Actions): AuthState => {
   switch (action.type) {
-    case ActionType.RequireAuthorization:
+    case ActionType.SetAuthStatus:
       return {
         ...state,
-        authorizationStatus: action.payload,
+        status: action.payload,
       };
     case ActionType.SetAuthInfo:
       return {
         ...state,
-        authInfo: action.payload,
+        info: action.payload,
       };
     case  ActionType.RequireLogout:
       return {
         ...state,
-        authorizationStatus: AuthorizationStatus.NoAuth,
-        authInfo: null,
+        status: AuthStatus.NoAuth,
+        info: null,
       };
     case ActionType.SetAuthLoading: {
       return {
         ...state,
-        authLoading: action.payload,
+        isLoading: action.payload,
       };
     }
     default:

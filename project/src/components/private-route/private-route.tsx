@@ -1,24 +1,24 @@
 import {Route, Redirect} from 'react-router-dom';
 import {RouteProps} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthStatus} from '../../const';
 import LoadingScreen from '../loading-screen/loading-screen';
-import {isCheckedAuth} from '../../utills/is-checked-auth';
+import {checkIfAuthUnknown} from '../../utills/check-if-auth-unknown';
 
 type PrivateRouteProps = RouteProps & {
-  authorizationStatus: AuthorizationStatus;
+  authStatus: AuthStatus;
 }
 
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {children, authorizationStatus, ...rest} = props;
+  const {children, authStatus, ...rest} = props;
 
-  if(isCheckedAuth(authorizationStatus)) {
+  if(checkIfAuthUnknown(authStatus)) {
     return <LoadingScreen/>;
   }
 
   return (
     <Route {...rest}>
-      {authorizationStatus === AuthorizationStatus.Auth
+      {authStatus === AuthStatus.Auth
         ? children
         : <Redirect to={AppRoute.Login}/>}
     </Route>

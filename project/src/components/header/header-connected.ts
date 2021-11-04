@@ -5,12 +5,12 @@ import {ThunkAppDispatch} from '../../types/actions';
 import {logoutAction} from '../../store/api-actions';
 
 const mapStateToProps = (state: State) => ({
-  authInfo: state.auth.authInfo,
-  authorizationStatus: state.auth.authorizationStatus,
+  authInfo: state.auth.info,
+  authStatus: state.auth.status,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  handleLogout: () => dispatch(logoutAction()),
+  onLogout: () => dispatch(logoutAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

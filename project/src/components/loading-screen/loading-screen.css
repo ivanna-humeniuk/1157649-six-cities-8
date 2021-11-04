@@ -19,7 +19,7 @@
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
-.lds-ripple .lds-ripple__circle--outer {
+.lds-ripple__circle--outer {
   animation-delay: -0.5s;
 }
 @keyframes lds-ripple {

@@ -6,8 +6,8 @@ import {ThunkAppDispatch} from '../../types/actions';
 
 const mapStateToProps = (state: State) => ({
   offer: state.offer.offer,
-  nearbyOffers: state.offer.nearbyOffers,
-  offerLoading: state.offer.offerLoading,
+  nearbyOffers: state.offer.nearbyList,
+  offerLoading: state.offer.loading,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

@@ -1,6 +1,6 @@
 import {ActionType} from '../types/actions';
 import {Offer} from '../types/offers';
-import {AppRoute, AuthorizationStatus} from '../const';
+import {AppRoute, AuthStatus} from '../const';
 import {AuthInfo} from '../types/users';
 
 export const setOffers = (offers: Offer[]) => ({
@@ -13,8 +13,8 @@ export const setOffer = (offer: Offer) => ({
   payload: offer,
 } as const);
 
-export const setCity = (city: string) => ({
-  type: ActionType.SetCity,
+export const filterOffers = (city: string) => ({
+  type: ActionType.FilterOffers,
   payload: city,
 } as const);
 
@@ -28,8 +28,8 @@ export const redirectToRoute = (url: AppRoute) => ({
   payload: url,
 } as const);
 
-export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
-  type: ActionType.RequireAuthorization,
+export const setAuthStatus = (authStatus: AuthStatus) => ({
+  type: ActionType.SetAuthStatus,
   payload: authStatus,
 } as const);
 

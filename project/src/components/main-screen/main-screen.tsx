@@ -13,7 +13,7 @@ export type MainScreenProps = {
   filteredOffers: Offer[];
   city: string;
   offersLoading: boolean;
-  handleActiveCity: (city: string) => void;
+  onActiveCity: (city: string) => void;
   getOffers: () => void;
 };
 
@@ -24,7 +24,7 @@ const mainClasses = {
 };
 
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const { filteredOffers, city, offersLoading, handleActiveCity, getOffers } = props;
+  const { filteredOffers, city, offersLoading, onActiveCity, getOffers } = props;
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(0);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ function MainScreen(props: MainScreenProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList activeCity={city} cities={CITIES} onActivateCity={handleActiveCity}/>
+            <CitiesList activeCity={city} cities={CITIES} onActivateCity={onActiveCity}/>
           </section>
         </div>
         <div className="cities">

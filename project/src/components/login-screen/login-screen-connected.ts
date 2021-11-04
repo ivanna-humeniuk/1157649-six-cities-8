@@ -6,12 +6,12 @@ import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/users';
 
 const mapStateToProps = (state: State) => ({
-  authorizationStatus: state.auth.authorizationStatus,
-  authLoading: state.auth.authLoading,
+  authStatus: state.auth.status,
+  authLoading: state.auth.isLoading,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  handleLogin: ({email,password} :AuthData) => dispatch(loginAction({email,password})),
+  onLogout: ({email,password} :AuthData) => dispatch(loginAction({email,password})),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

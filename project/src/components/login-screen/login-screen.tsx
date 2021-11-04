@@ -2,45 +2,43 @@ import {Redirect} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {ChangeEvent, FormEvent, useCallback, useState} from 'react';
 import Header from '../header/header-connected';
-import {AppRoute, AuthorizationStatus, PASSWORD_ERROR_MESSAGE} from '../../const';
+import {AppRoute, AuthStatus, PASSWORD_ERROR_MESSAGE, PASSWORD_REG_EXP, TOAST_CLOSE_TIME} from '../../const';
 import {AuthData} from '../../types/users';
 
 export type LoginScreenProps = {
-  handleLogin: ({email,password} :AuthData) => void;
-  authorizationStatus: AuthorizationStatus;
+  onLogout: ({email,password} :AuthData) => void;
+  authStatus: AuthStatus;
   authLoading: boolean;
 };
 
-const regExp = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/);
-
 function LoginScreen(props: LoginScreenProps): JSX.Element {
-  const {authorizationStatus, handleLogin, authLoading} = props;
+  const {authStatus, onLogout, authLoading} = props;
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(false);
 
   const handleEmailInput = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setEmail(value.trim());
+    const value = event.target.value.trim();
+    setEmail(value);
   }, []);
 
   const handlePasswordInput = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setPassword(value.trim());
-    setIsValid(regExp.test(value.trim()));
+    const value = event.target.value.trim();
+    setPassword(value);
+    setIsValid(PASSWORD_REG_EXP.test(value));
   }, []);
 
   const handleSubmitForm = useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(!isValid) {
-      toast.error(PASSWORD_ERROR_MESSAGE, {autoClose: 2500});
+    if(isValid) {
+      onLogout({email,password});
     } else {
-      handleLogin({email,password});
+      toast.error(PASSWORD_ERROR_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
     }
-  }, [isValid, handleLogin, email, password]);
+  }, [isValid, onLogout, email, password]);
 
-  if(authorizationStatus === AuthorizationStatus.Auth) {
+  if(authStatus === AuthStatus.Auth) {
     return <Redirect to={AppRoute.Main}/>;
   }
 

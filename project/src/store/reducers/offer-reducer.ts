@@ -3,8 +3,8 @@ import {Actions, ActionType} from '../../types/actions';
 
 const initialState = {
   offer: null,
-  nearbyOffers: [],
-  offerLoading: false,
+  nearbyList: [],
+  loading: false,
 };
 
 const offerReducer = (state: OfferState = initialState, action: Actions): OfferState => {
@@ -17,12 +17,12 @@ const offerReducer = (state: OfferState = initialState, action: Actions): OfferS
     case ActionType.SetNearbyOffers:
       return {
         ...state,
-        nearbyOffers: action.payload,
+        nearbyList: action.payload,
       };
     case ActionType.SetOfferLoading:
       return {
         ...state,
-        offerLoading: action.payload,
+        loading: action.payload,
       };
     default:
       return {...state};

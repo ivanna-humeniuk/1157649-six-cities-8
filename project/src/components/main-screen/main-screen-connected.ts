@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {State} from '../../types/state';
 import {ThunkAppDispatch} from '../../types/actions';
-import {setCity} from '../../store/actions';
+import {filterOffers} from '../../store/actions';
 import MainScreen from './main-screen';
 import {fetchOffersAction} from '../../store/api-actions';
 
@@ -12,7 +12,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  handleActiveCity: (city: string) => dispatch(setCity(city)),
+  onActiveCity: (city: string) => dispatch(filterOffers(city)),
   getOffers: () => dispatch(fetchOffersAction()),
 });
 

@@ -2,13 +2,13 @@ import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {State} from './state';
 import {
-  requireAuthorization,
+  setAuthStatus,
   setAuthInfo,
   requireLogout,
   setNearbyOffers,
   setOffer,
   setOffers,
-  setCity,
+  filterOffers,
   redirectToRoute,
   setOfferLoading,
   setOffersLoading,
@@ -16,14 +16,13 @@ import {
 } from '../store/actions';
 
 export enum ActionType {
-  RequireAuthorization = 'requireAuthorization',
+  SetAuthStatus = 'setAuthStatus',
   SetAuthInfo = 'setAuthInfo',
   RequireLogout = 'requireLogout',
-  SetCity = 'setCity',
+  FilterOffers = 'filterOffers',
   SetOffers = 'setOffers',
   SetOffer = 'setOffer',
   SetNearbyOffers = 'setNearbyOffers',
-  LoadError = 'loadError',
   RedirectToRoute = 'redirectToRoute',
   SetOfferLoading = 'setOfferLoading',
   SetOffersLoading = 'setOffersLoading',
@@ -31,12 +30,12 @@ export enum ActionType {
 }
 
 export type Actions =
-  | ReturnType<typeof requireAuthorization>
+  | ReturnType<typeof setAuthStatus>
   | ReturnType<typeof setAuthInfo>
   | ReturnType<typeof requireLogout>
   | ReturnType<typeof setOffers>
   | ReturnType<typeof setOffer>
-  | ReturnType<typeof setCity>
+  | ReturnType<typeof filterOffers>
   | ReturnType<typeof setNearbyOffers>
   | ReturnType<typeof redirectToRoute>
   | ReturnType<typeof setOfferLoading>
