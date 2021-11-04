@@ -5,8 +5,8 @@ import {CITIES} from '../../const';
 const initialState = {
   city: CITIES[0],
   offers: [],
-  filteredOffers: [],
-  offersLoading: false,
+  filteredList: [],
+  isLoadingStatus: false,
 };
 
 const offersReducer = (state: OffersState = initialState, action: Actions): OffersState => {
@@ -20,11 +20,11 @@ const offersReducer = (state: OffersState = initialState, action: Actions): Offe
       return {
         ...state,
         city: action.payload,
-        filteredOffers: state.offers.filter((offer)=> offer.city.name === action.payload)};
+        filteredList: state.offers.filter((offer)=> offer.city.name === action.payload)};
     case ActionType.SetOffersLoading:
       return {
         ...state,
-        offersLoading: action.payload,
+        isLoadingStatus: action.payload,
       };
     default:
       return {...state};

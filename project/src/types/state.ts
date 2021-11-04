@@ -11,8 +11,8 @@ export type State = {
 export type OffersState = {
   city: string;
   offers: Offer[];
-  filteredOffers: Offer[];
-  offersLoading: boolean;
+  filteredList: Offer[];
+  isLoadingStatus: boolean;
 }
 export type OfferState = {
   offer: Offer | null;

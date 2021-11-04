@@ -7,8 +7,8 @@ import {fetchOffersAction} from '../../store/api-actions';
 
 const mapStateToProps = (state: State) => ({
   city: state.offers.city,
-  filteredOffers: state.offers.filteredOffers,
-  offersLoading: state.offers.offersLoading,
+  filteredOffers: state.offers.filteredList,
+  offersLoading: state.offers.isLoadingStatus,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
