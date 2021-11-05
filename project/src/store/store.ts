@@ -1,11 +1,19 @@
 import {composeWithDevTools} from 'redux-devtools-extension';
-import {applyMiddleware, createStore} from 'redux';
+import {applyMiddleware, createStore, combineReducers} from 'redux';
 import {createAPI} from '../services/api';
 import thunk from 'redux-thunk';
 import {redirect} from './middlewares/redirect';
-import {reducer} from './reducer';
+import {setAuthStatus} from './actions';
+import {AuthStatus} from '../const';
+import {offersReducer} from './reducers/offers-reducer';
+import {authReducer} from './reducers/auth-reducer';
+import {offerReducer} from './reducers/offer-reducer';
 
-const api = createAPI();
+export const reducer = combineReducers({offers: offersReducer, offer: offerReducer, auth: authReducer});
+
+const api = createAPI(
+  () => store.dispatch(setAuthStatus(AuthStatus.NoAuth)),
+);
 const middlewares = [thunk.withExtraArgument(api), redirect];
 
 export const store = createStore(

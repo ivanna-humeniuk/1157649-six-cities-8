@@ -2,8 +2,8 @@ import cn from 'classnames';
 import {useEffect, useMemo} from 'react';
 import {useParams} from 'react-router-dom';
 import useActivePoint from '../../hooks/useActivePoint';
-import Header from '../header/header';
-import Reviews from '../reviews/reviews';
+import Header from '../header/header-connected';
+import Reviews from '../reviews/reviews-connected';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import {Offer} from '../../types/offers';
@@ -13,11 +13,10 @@ import LoadingScreen from '../loading-screen/loading-screen';
 type PropertyScreenProps = {
   offer: Offer | null;
   reviews: Review[];
-  isDataLoaded: boolean;
   nearbyOffers: Offer[];
   getNearbyOffers: (id: string) => void;
   getOffer: (id: string) => void;
-  authorizationStatus: boolean;
+  offerLoading: boolean;
 }
 
 const propertyClasses = {
@@ -26,7 +25,7 @@ const propertyClasses = {
 };
 
 function PropertyScreen(props: PropertyScreenProps): JSX.Element {
-  const {offer, reviews, authorizationStatus, isDataLoaded, nearbyOffers, getNearbyOffers, getOffer} = props;
+  const {offer, reviews, offerLoading, nearbyOffers, getNearbyOffers, getOffer} = props;
   const {id} = useParams<{ id?: string }>();
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
   const ratingWidth = useMemo(() => offer && offer.rating > 0 ? {width: `${offer.rating * 20}%`} : {width: '0%'}, [offer]);
@@ -44,7 +43,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
     }
   }, [id]);
 
-  if(!isDataLoaded || !offer) {
+  if(offerLoading) {
     return <LoadingScreen/>;
   }
 
@@ -55,18 +54,17 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
 
   const bookmarkBtnClass = cn({
     'property__bookmark-button': true,
-    'property__bookmark-button--active': offer.isFavorite,
+    'property__bookmark-button--active': offer?.isFavorite,
     'button': true,
   });
   const avatarWrapperClass = cn({
     'property__avatar-wrapper': true,
-    'property__avatar-wrapper--pro': offer.host?.isPro,
+    'property__avatar-wrapper--pro': offer?.host?.isPro,
     'user__avatar-wrapper': true,
   });
   return (
     <div className="page">
-      <Header authorizationStatus={authorizationStatus}/>
-
+      <Header/>
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -93,14 +91,14 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offer.isPremium && (
+              {offer?.isPremium && (
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>
               )}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {offer.title}
+                  {offer?.title}
                 </h1>
                 <button className={bookmarkBtnClass} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -114,34 +112,34 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                   <span style={ratingWidth}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{offer.rating}</span>
+                <span className="property__rating-value rating__value">{offer?.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {offer.type}
+                  {offer?.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {offer.bedrooms} {offer.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
+                  {offer?.bedrooms} {offer?.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {offer.maxAdults} adults
+                  Max {offer?.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro; {offer.price}</b>
+                <b className="property__price-value">&euro; {offer?.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offer.goods && offer.goods.map((good) => (
+                  {offer?.goods && offer?.goods.map((good) => (
                     <li key={good} className="property__inside-item">
                       {good}
                     </li>
                   ))}
                 </ul>
               </div>
-              {offer.host && (
+              {offer?.host && (
                 <div className="property__host">
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
@@ -171,13 +169,13 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                 </div>
               )}
               <section className="property__reviews reviews">
-                <Reviews reviews={reviews} authorizationStatus={authorizationStatus}/>
+                <Reviews reviews={reviews}/>
               </section>
             </div>
           </div>
-          {points.length !== 0 && offer.city && (
+          {points.length !== 0 && offer?.city && (
             <section className="property__map map">
-              <Map points={points} city={offer.city} activePoint={activePoint}/>
+              <Map points={points} city={offer?.city} activePoint={activePoint}/>
             </section>
           )}
         </section>

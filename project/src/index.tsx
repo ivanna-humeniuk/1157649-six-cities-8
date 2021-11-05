@@ -8,6 +8,7 @@ import {reviews} from './mocks/reviews';
 import {listings} from './mocks/listings';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

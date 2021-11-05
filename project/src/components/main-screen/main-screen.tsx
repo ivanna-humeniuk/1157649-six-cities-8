@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import {useEffect} from 'react';
-import Header from '../header/header';
+import Header from '../header/header-connected';
 import {CITIES} from '../../const';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
@@ -12,10 +12,9 @@ import {Offer} from '../../types/offers';
 export type MainScreenProps = {
   filteredOffers: Offer[];
   city: string;
-  isDataLoaded: boolean;
-  handleActiveCity: (city: string) => void;
+  offersLoading: boolean;
+  onActiveCity: (city: string) => void;
   getOffers: () => void;
-  authorizationStatus: boolean;
 };
 
 
@@ -25,14 +24,14 @@ const mainClasses = {
 };
 
 function MainScreen(props: MainScreenProps): JSX.Element {
-  const { filteredOffers, city, isDataLoaded, authorizationStatus, handleActiveCity, getOffers } = props;
+  const { filteredOffers, city, offersLoading, onActiveCity, getOffers } = props;
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(0);
 
   useEffect(() => {
     getOffers();
   }, [getOffers]);
 
-  if(!isDataLoaded) {
+  if(offersLoading) {
     return <LoadingScreen/>;
   }
 
@@ -50,12 +49,12 @@ function MainScreen(props: MainScreenProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header authorizationStatus={authorizationStatus}/>
+      <Header/>
       <main className={mainPageClass}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList activeCity={city} cities={CITIES} onActivateCity={handleActiveCity}/>
+            <CitiesList activeCity={city} cities={CITIES} onActivateCity={onActiveCity}/>
           </section>
         </div>
         <div className="cities">
