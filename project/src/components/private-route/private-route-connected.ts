@@ -3,7 +3,7 @@ import {State} from '../../types/state';
 import PrivateRoute from './private-route';
 
 const mapStateToProps = (state: State) => ({
-  authorizationStatus: state.authorizationStatus,
+  authStatus: state.auth.status,
 });
 
 const connector = connect(mapStateToProps);

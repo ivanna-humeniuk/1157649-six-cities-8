@@ -6,7 +6,7 @@ import {ThunkAppDispatch} from '../../types/actions';
 import {setSortedOffers} from '../../store/actions';
 
 const mapStateToProps = (state: State) => ({
-  sortedOption: state.sortedOption,
+  sortedOption: state.offers.sortedOption,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

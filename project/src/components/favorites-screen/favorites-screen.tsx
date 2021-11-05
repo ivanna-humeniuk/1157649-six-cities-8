@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import OfferCard from '../offer-card/offer-card';
-import Header from '../header/header';
+import Header from '../header/header-connected';
 import {Offer} from '../../types/offers';
 import {Listing} from '../../types/listings';
 import './favorites-screen.css';
@@ -13,11 +13,10 @@ const favoritesClasses = {
 
 type FavoritesScreenProps = {
   listings: Listing[];
-  authorizationStatus: boolean;
 }
 
 function FavoritesScreen(props: FavoritesScreenProps): JSX.Element {
-  const {listings, authorizationStatus} = props;
+  const {listings} = props;
 
   const pageClass = cn({
     'page': true,
@@ -32,7 +31,7 @@ function FavoritesScreen(props: FavoritesScreenProps): JSX.Element {
 
   return (
     <div className={pageClass}>
-      <Header authorizationStatus={authorizationStatus}/>
+      <Header/>
       <main className={mainPageClass}>
         <div className="page__favorites-container container">
           {listings.length !== 0 ? (

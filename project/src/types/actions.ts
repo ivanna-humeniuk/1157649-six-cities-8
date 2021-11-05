@@ -1,32 +1,49 @@
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
-import {State} from '../types/state';
+import {State} from './state';
 import {
+  setAuthStatus,
+  setAuthInfo,
+  requireLogout,
   setNearbyOffers,
   setOffer,
   setOffers,
-  setCity,
   redirectToRoute,
-  setSortedOffers
+  setSortedOffers,
+  filterOffers,
+  setOfferLoading,
+  setOffersLoading,
+  setAuthLoading
 } from '../store/actions';
 
 export enum ActionType {
-  SetCity = 'setCity',
+  SetAuthStatus = 'setAuthStatus',
+  SetAuthInfo = 'setAuthInfo',
+  RequireLogout = 'requireLogout',
+  FilterOffers = 'filterOffers',
   SetOffers = 'setOffers',
   SetOffer = 'setOffer',
   SetNearbyOffers = 'setNearbyOffers',
-  LoadError = 'loadError',
   RedirectToRoute = 'redirectToRoute',
-  SetSortedOffers = 'setSortedOffers'
+  SetSortedOffers = 'setSortedOffers',
+  SetOfferLoading = 'setOfferLoading',
+  SetOffersLoading = 'setOffersLoading',
+  SetAuthLoading = 'setAuthLoading',
 }
 
 export type Actions =
+  | ReturnType<typeof setAuthStatus>
+  | ReturnType<typeof setAuthInfo>
+  | ReturnType<typeof requireLogout>
   | ReturnType<typeof setOffers>
   | ReturnType<typeof setOffer>
-  | ReturnType<typeof setCity>
+  | ReturnType<typeof filterOffers>
   | ReturnType<typeof setNearbyOffers>
   | ReturnType<typeof redirectToRoute>
-  | ReturnType<typeof setSortedOffers>;
+  | ReturnType<typeof setSortedOffers>
+  | ReturnType<typeof setOfferLoading>
+  | ReturnType<typeof setOffersLoading>
+  | ReturnType<typeof setAuthLoading>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;

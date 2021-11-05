@@ -8,8 +8,16 @@ export enum AppRoute {
 }
 
 export enum APIRoute {
+  Login = '/login',
+  Logout = '/logout',
   Offers = '/hotels',
   NearbyOffers = '/nearby',
+}
+
+export enum AuthStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
 }
 
 export const REVIEW_MIN_LENGTH = 50;
@@ -29,6 +37,10 @@ export const MAP_LAYER_OPTIONS =  {
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const OFFERS_LOAD_FAIL_MESSAGE = 'Something went wrong, please reload page!';
+export const AUTH_INFO_MESSAGE = 'Don\'t forget to log in!';
+export const AUTH_FAIL_MESSAGE = 'Something went wrong, please try to log in again!';
+export const LOGOUT_FAIL_MESSAGE = 'Something went wrong, please try to log out again!';
+export const PASSWORD_ERROR_MESSAGE = 'The password should include at least one letter and one number.';
 
 export const URL_API = 'https://8.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
@@ -39,3 +51,15 @@ export enum SortOptions {
   FromHighToLowPrice = 'Price: high to low',
   TopRatedFirst = 'Top rated first',
 }
+
+export enum HttpCode {
+  Unauthorized = 401,
+}
+
+export const AUTH_TOKEN_KEY_NAME = 'six-cities-8-token-key';
+
+export const TOAST_CLOSE_TIME = 2500;
+
+export const PASSWORD_REG_EXP = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/);
+
+export const HEADERS_TOKEN = 'x-token';
