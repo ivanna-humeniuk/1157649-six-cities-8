@@ -7,15 +7,14 @@ import Reviews from '../reviews/reviews-connected';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import {Offer} from '../../types/offers';
-import {Review} from '../../types/reviews';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 type PropertyScreenProps = {
   offer: Offer | null;
-  reviews: Review[];
   nearbyOffers: Offer[];
   getNearbyOffers: (id: string) => void;
   getOffer: (id: string) => void;
+  getReviews: (id: string) => void;
   offerLoading: boolean;
 }
 
@@ -25,8 +24,8 @@ const propertyClasses = {
 };
 
 function PropertyScreen(props: PropertyScreenProps): JSX.Element {
-  const {offer, reviews, offerLoading, nearbyOffers, getNearbyOffers, getOffer} = props;
-  const {id} = useParams<{ id?: string }>();
+  const {offer, offerLoading, nearbyOffers, getNearbyOffers, getOffer, getReviews} = props;
+  const {id} = useParams<{ id: string }>();
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
   const ratingWidth = useMemo(() => offer && offer.rating > 0 ? {width: `${offer.rating * 20}%`} : {width: '0%'}, [offer]);
 
@@ -34,8 +33,9 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
     if(id) {
       getOffer(id);
       getNearbyOffers(id);
+      getReviews(id);
     }
-  }, [id, getOffer, getNearbyOffers]);
+  }, [id, getOffer, getNearbyOffers, getReviews]);
 
   useEffect(() => {
     if(window.scrollY !== 0) {
@@ -169,7 +169,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                 </div>
               )}
               <section className="property__reviews reviews">
-                <Reviews reviews={reviews}/>
+                <Reviews offerId={id}/>
               </section>
             </div>
           </div>

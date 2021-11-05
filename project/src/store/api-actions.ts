@@ -18,12 +18,14 @@ import {
   setOffer,
   setOfferLoading,
   setOffers,
-  filterOffers
+  filterOffers,
+  setReviews, setReview, setReviewLoading
 } from './actions';
 import {ThunkActionResult} from '../types/actions';
-import {adaptToCamelCase} from '../utills/adapt-to-camel-case';
+import {adaptOfferToCamelCase, adaptReviewToCamelCase} from '../utills/adapt-to-camel-case';
 import {AuthData, AuthInfo} from '../types/users';
 import {dropToken, setToken} from '../services/token';
+import {RawReview, Review, ReviewPost} from '../types/reviews';
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
@@ -72,7 +74,7 @@ export const fetchOffersAction = (): ThunkActionResult =>
     dispatch(setOfferLoading(true));
     try {
       const {data} = await api.get<RawOffer[]>(APIRoute.Offers);
-      const hotels: Offer[] = data.map(adaptToCamelCase);
+      const hotels: Offer[] = data.map(adaptOfferToCamelCase);
       dispatch(setOffers(hotels));
       dispatch(filterOffers(getState().offers.city));
     } catch (error) {
@@ -89,7 +91,7 @@ export const fetchOfferAction = (id: string): ThunkActionResult =>
     dispatch(setOfferLoading(true));
     try {
       const {data} = await api.get<RawOffer>(`${APIRoute.Offers}/${id}`);
-      const hotel: Offer = adaptToCamelCase(data);
+      const hotel: Offer = adaptOfferToCamelCase(data);
       dispatch(setOffer(hotel));
     } catch (error) {
       dispatch(redirectToRoute(AppRoute.Main));
@@ -104,10 +106,38 @@ export const fetchNearbyOffersAction = (id: string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
       const {data} = await api.get<RawOffer[]>(`${APIRoute.Offers}/${id}${APIRoute.NearbyOffers}`);
-      const hotels: Offer[] = data.map(adaptToCamelCase);
+      const hotels: Offer[] = data.map(adaptOfferToCamelCase);
       dispatch(setNearbyOffers(hotels));
     } catch (error) {
       /* eslint-disable no-console */
       console.error(error);
+    }
+  };
+
+export const fetchReviewsAction = (id: string): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      const {data} = await api.get<RawReview[]>(`${APIRoute.Reviews}/${id}`);
+      const reviews: Review[] = data.map(adaptReviewToCamelCase);
+      dispatch(setReviews(reviews));
+    } catch (error) {
+      /* eslint-disable no-console */
+      console.error(error);
+    }
+  };
+
+export const fetchReviewAction = (id: string, review: ReviewPost): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    dispatch(setReviewLoading(true));
+    try {
+      const {data} = await api.post<RawReview[]>(`${APIRoute.Reviews}/${id}`, review);
+      const reviews: Review[] = data.map(adaptReviewToCamelCase);
+      dispatch(setReviews(reviews));
+      dispatch(setReview({comment: '', rating: 0}));
+    } catch (error) {
+      /* eslint-disable no-console */
+      console.error(error);
+    } finally {
+      dispatch(setReviewLoading(false));
     }
   };

@@ -1,19 +1,35 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import { REVIEW_MIN_LENGTH, REVIEW_MAX_LENGTH} from '../../const';
+import {ReviewPost} from '../../types/reviews';
+
+type ReviewFormProps = {
+  onSubmitReview: (offerId: string, review: ReviewPost) => void;
+  onChangeReview: (review: ReviewPost) => void;
+  offerId: string;
+  review: ReviewPost;
+  isReviewLoading: boolean;
+}
 
 const ratingLabels = ['perfect', 'good', 'terribly', 'not bad', 'badly'];
 
-function ReviewForm(): JSX.Element {
-  const [review, setReview] = useState<string>();
-  const [rating, setRating] = useState<string>();
-  const isInvalid = !(review && review.length >= REVIEW_MIN_LENGTH && review.length <= REVIEW_MAX_LENGTH) || !rating;
+function ReviewForm(props: ReviewFormProps): JSX.Element {
+  const {onSubmitReview, onChangeReview, offerId, review, isReviewLoading} = props;
+  const isInvalid = !(review && review.comment.length >= REVIEW_MIN_LENGTH && review.comment.length <= REVIEW_MAX_LENGTH) || !review.rating;
 
   const handleRatingChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
-    setRating(e.currentTarget.value);
-  }, []);
+    onChangeReview({...review, rating: Number(e.currentTarget.value)});
+  }, [onChangeReview, review]);
+
   const handleReviewChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setReview(e.target.value);
-  }, []);
+    onChangeReview({...review, comment: e.currentTarget.value});
+  }, [onChangeReview, review]);
+
+  const handleSubmitFormReview = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    if(!isInvalid) {
+      onSubmitReview(offerId, review);
+    }
+  }, [isInvalid, offerId, review, onSubmitReview]);
 
   const stars = ratingLabels.map((item, index)=> (
     <React.Fragment key={item}>
@@ -23,7 +39,7 @@ function ReviewForm(): JSX.Element {
         value={ratingLabels.length - index}
         id={`${ratingLabels.length - index}-stars`}
         type="radio"
-        checked={rating === `${ratingLabels.length - index}`}
+        checked={String(review.rating) === `${ratingLabels.length - index}`}
         onChange={handleRatingChange}
       />
       <label htmlFor={`${ratingLabels.length - index}-stars`} className="reviews__rating-label form__rating-label" title={item}>
@@ -35,7 +51,7 @@ function ReviewForm(): JSX.Element {
   ));
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmitFormReview}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {stars}
@@ -43,7 +59,7 @@ function ReviewForm(): JSX.Element {
       <textarea className="reviews__textarea form__textarea"
         id="review"
         name="review"
-        value={review}
+        value={review.comment}
         onChange={handleReviewChange}
         placeholder="Tell how was your stay, what you like and what can be improved"
       />
@@ -52,7 +68,7 @@ function ReviewForm(): JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit"  disabled={isInvalid}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit"  disabled={isInvalid || isReviewLoading}>Submit</button>
       </div>
     </form>
   );

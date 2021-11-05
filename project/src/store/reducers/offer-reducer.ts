@@ -5,6 +5,12 @@ const initialState = {
   offer: null,
   nearbyList: [],
   loading: false,
+  reviews: [],
+  review: {
+    comment: '',
+    rating: 0,
+  },
+  isReviewLoading: false,
 };
 
 const offerReducer = (state: OfferState = initialState, action: Actions): OfferState => {
@@ -23,6 +29,25 @@ const offerReducer = (state: OfferState = initialState, action: Actions): OfferS
       return {
         ...state,
         loading: action.payload,
+      };
+    case ActionType.SetReviews:
+      return {
+        ...state,
+        reviews: action.payload,
+      };
+    case ActionType.SetReview:
+      return {
+        ...state,
+        review: {
+          ...state.review,
+          comment: action.payload.comment,
+          rating: action.payload.rating,
+        },
+      };
+    case ActionType.SetReviewLoading:
+      return {
+        ...state,
+        isReviewLoading: action.payload,
       };
     default:
       return {...state};

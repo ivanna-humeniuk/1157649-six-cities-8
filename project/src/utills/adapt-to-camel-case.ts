@@ -1,6 +1,7 @@
 import {RawOffer, Offer} from '../types/offers';
+import {RawReview, Review} from '../types/reviews';
 
-export const adaptToCamelCase = (item: RawOffer): Offer => ({
+export const adaptOfferToCamelCase = (item: RawOffer): Offer => ({
   id: item.id,
   previewImage: item['preview_image'],
   title: item.title,
@@ -21,4 +22,17 @@ export const adaptToCamelCase = (item: RawOffer): Offer => ({
   },
   location: {...item.location},
   city: {...item.city},
+});
+
+export const adaptReviewToCamelCase = (item: RawReview): Review => ({
+  comment: item.comment,
+  date: item.date,
+  id: item.id,
+  rating: item.rating,
+  user: {
+    id: item.user.id,
+    name: item.user.name,
+    avatarUrl: item.user['avatar_url'],
+    isPro: item.user['is_pro'],
+  },
 });

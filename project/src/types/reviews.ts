@@ -1,9 +1,18 @@
-import {User} from './users';
+import {RawUser, User} from './users';
 
-export type Review = {
+export type ReviewPost = {
   comment: string,
-  date: string,
-  id: number,
   rating: number,
+};
+
+export type Review = ReviewPost & {
+  id: number,
+  date: string,
   user: User,
+};
+
+export type RawReview = ReviewPost & {
+  id: number,
+  date: string,
+  user: RawUser,
 };
