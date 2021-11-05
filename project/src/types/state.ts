@@ -1,7 +1,7 @@
 import {Offer} from './offers';
 import {AuthStatus} from '../const';
 import {AuthInfo} from './users';
-import {Review, ReviewPost} from "./reviews";
+import {Review, ReviewPost} from './reviews';
 
 export type State = {
   offer: OfferState,
