@@ -169,7 +169,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
                 </div>
               )}
               <section className="property__reviews reviews">
-                <Reviews offerId={id}/>
+                <Reviews/>
               </section>
             </div>
           </div>

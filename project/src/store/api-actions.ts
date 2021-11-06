@@ -25,7 +25,8 @@ import {ThunkActionResult} from '../types/actions';
 import {adaptOfferToCamelCase, adaptReviewToCamelCase} from '../utills/adapt-to-camel-case';
 import {AuthData, AuthInfo} from '../types/users';
 import {dropToken, setToken} from '../services/token';
-import {RawReview, Review, ReviewPost} from '../types/reviews';
+import {RawReview, Review} from '../types/reviews';
+import {store} from './store';
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
@@ -94,7 +95,7 @@ export const fetchOfferAction = (id: string): ThunkActionResult =>
       const hotel: Offer = adaptOfferToCamelCase(data);
       dispatch(setOffer(hotel));
     } catch (error) {
-      dispatch(redirectToRoute(AppRoute.Main));
+      dispatch(redirectToRoute(AppRoute.NotFound));
       /* eslint-disable no-console */
       console.error(error);
     } finally {
@@ -126,11 +127,12 @@ export const fetchReviewsAction = (id: string): ThunkActionResult =>
     }
   };
 
-export const fetchReviewAction = (id: string, review: ReviewPost): ThunkActionResult =>
+export const submitReviewAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setReviewLoading(true));
+    const {offer, review} = store.getState().offer;
     try {
-      const {data} = await api.post<RawReview[]>(`${APIRoute.Reviews}/${id}`, review);
+      const {data} = await api.post<RawReview[]>(`${APIRoute.Reviews}/${offer?.id}`, review);
       const reviews: Review[] = data.map(adaptReviewToCamelCase);
       dispatch(setReviews(reviews));
       dispatch(setReview({comment: '', rating: 0}));

@@ -6,10 +6,9 @@ import {AuthStatus} from '../../const';
 type ReviewsProps = {
   reviews: Review[],
   authStatus: AuthStatus;
-  offerId: string;
 }
 
-function Reviews({reviews, authStatus, offerId}: ReviewsProps): JSX.Element {
+function Reviews({reviews, authStatus}: ReviewsProps): JSX.Element {
   const sortReviews = reviews.slice(0,10).sort((reviewA, reviewB) => {
     const dateB = new Date(reviewB.date).getTime();
     const dateA = new Date(reviewA.date).getTime();
@@ -23,7 +22,7 @@ function Reviews({reviews, authStatus, offerId}: ReviewsProps): JSX.Element {
         </h2>
       )}
       <ReviewsList reviews={sortReviews}/>
-      {authStatus === AuthStatus.Auth && <ReviewForm offerId={offerId}/>}
+      {authStatus === AuthStatus.Auth && <ReviewForm/>}
     </>
   );
 }

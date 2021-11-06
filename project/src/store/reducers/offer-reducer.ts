@@ -38,11 +38,7 @@ const offerReducer = (state: OfferState = initialState, action: Actions): OfferS
     case ActionType.SetReview:
       return {
         ...state,
-        review: {
-          ...state.review,
-          comment: action.payload.comment,
-          rating: action.payload.rating,
-        },
+        review: {...action.payload},
       };
     case ActionType.SetReviewLoading:
       return {
