@@ -5,11 +5,11 @@ import SortOption from '../sort-option/sort-option';
 
 type SortProps = {
   sortedOption: SortOptions;
-  handleSortedOffers: (option: SortOptions) => void;
+  onSortedOffers: (option: SortOptions) => void;
 };
 
 function Sort(props: SortProps):JSX.Element {
-  const {sortedOption, handleSortedOffers} = props;
+  const {sortedOption, onSortedOffers} = props;
   const [openOptions, setOpenOptions] = useState<boolean>(false);
   const sortRef = useRef<HTMLSpanElement>(null);
   const options = Object.values(SortOptions);
@@ -20,17 +20,15 @@ function Sort(props: SortProps):JSX.Element {
 
   const handleOptionClick = useCallback((option: SortOptions) => {
     if(option !== sortedOption) {
-      handleSortedOffers(option);
+      onSortedOffers(option);
     }
     setOpenOptions((prevState) => !prevState);
-  }, [sortedOption, handleSortedOffers]);
+  }, [sortedOption, onSortedOffers]);
 
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
-      if(sortRef.current &&
-        sortRef.current !== event.target &&
-        sortRef.current.nextSibling === event.target) {
-        setOpenOptions((prevState) => !prevState);
+      if(sortRef.current && !sortRef.current.contains(event.target as Node)) {
+        setOpenOptions(false);
       }
     }
     document.addEventListener('mousedown', handleOutsideClick);
@@ -38,6 +36,18 @@ function Sort(props: SortProps):JSX.Element {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, [sortRef]);
+
+  useEffect(() => {
+    function closeSortByEscape(event: KeyboardEvent) {
+      if(event.code === 'Escape') {
+        setOpenOptions(false);
+      }
+    }
+    document.addEventListener('keydown', closeSortByEscape);
+    return () => {
+      document.removeEventListener('keydown', closeSortByEscape);
+    };
+  });
 
   const placesOptionsClass = cn({
     'places__options': true,
@@ -48,26 +58,28 @@ function Sort(props: SortProps):JSX.Element {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
-      <span ref={sortRef}
-        className="places__sorting-type"
-        tabIndex={0}
-        onClick={handleOptionsClick}
-      >
-        &nbsp;{sortedOption}
-        <svg className="places__sorting-arrow" width="7" height="4">
-          <use xlinkHref="#icon-arrow-select"/>
-        </svg>
+      <span ref={sortRef}>
+        <span
+          className="places__sorting-type"
+          tabIndex={0}
+          onClick={handleOptionsClick}
+        >
+          &nbsp;{sortedOption}
+          <svg className="places__sorting-arrow" width="7" height="4">
+            <use xlinkHref="#icon-arrow-select"/>
+          </svg>
+        </span>
+        <ul className={placesOptionsClass}>
+          {options.map((option) => (
+            <SortOption
+              key={option}
+              option={option}
+              currentOption={sortedOption}
+              onOptionClick={handleOptionClick}
+            />
+          ))}
+        </ul>
       </span>
-      <ul className={placesOptionsClass}>
-        {options.map((option) => (
-          <SortOption
-            key={option}
-            option={option}
-            currentOption={sortedOption}
-            onOptionClick={handleOptionClick}
-          />
-        ))}
-      </ul>
     </form>
   );
 }

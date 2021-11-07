@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import {useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {SortOptions} from '../../const';
 
 type SortOptionProps = {
@@ -11,7 +11,8 @@ type SortOptionProps = {
 function SortOption(props: SortOptionProps):JSX.Element {
   const {option, currentOption, onOptionClick} = props;
 
-  const handleOptionClick = useCallback(() => {
+  const handleOptionClick = useCallback((event: React.MouseEvent) => {
+    event.stopPropagation();
     onOptionClick(option);
   }, [option, onOptionClick]);
 
@@ -22,7 +23,6 @@ function SortOption(props: SortOptionProps):JSX.Element {
 
   return (
     <li className={placesOptionClass}
-      key={option}
       onClick={handleOptionClick}
       tabIndex={0}
     >

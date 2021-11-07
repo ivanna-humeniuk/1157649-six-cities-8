@@ -1,6 +1,7 @@
 import {OffersState} from '../../types/state';
 import {Actions, ActionType} from '../../types/actions';
 import {CITIES, SortOptions} from '../../const';
+import {Offer} from '../../types/offers';
 
 const initialState = {
   city: CITIES[0],
@@ -8,6 +9,17 @@ const initialState = {
   offers: [],
   filteredList: [],
   isLoadingStatus: false,
+};
+
+const pickSortFunction = (sorting: SortOptions) => {
+  switch (sorting) {
+    case SortOptions.FromLowToHighPrice:
+      return function sortByPriceToHigh (offerA: Offer, offerB: Offer){ return offerA.price - offerB.price;};
+    case SortOptions.FromHighToLowPrice:
+      return function sortByPriceToLow (offerA: Offer, offerB: Offer){ return offerB.price - offerA.price;};
+    case SortOptions.TopRatedFirst:
+      return function sortByTopRatedFirst (offerA: Offer, offerB: Offer){ return offerB.rating - offerA.rating;};
+  }
 };
 
 const offersReducer = (state: OffersState = initialState, action: Actions): OffersState => {
@@ -21,44 +33,18 @@ const offersReducer = (state: OffersState = initialState, action: Actions): Offe
       return {
         ...state,
         city: action.payload,
-        sortedOption: SortOptions.Popular,
-        filteredList: state.offers.filter((offer)=> offer.city.name === action.payload)};
+        filteredList: state.offers.filter((offer)=> offer.city.name === action.payload).sort(pickSortFunction(state.sortedOption))};
     case ActionType.SetOffersLoading:
       return {
         ...state,
         isLoadingStatus: action.payload,
       };
     case ActionType.SetSortedOffers:
-      switch (action.payload) {
-        case SortOptions.FromLowToHighPrice:
-          return {
-            ...state,
-            sortedOption: action.payload,
-            filteredList: state.filteredList.sort((offerA, offerB ) => offerA.price - offerB.price),
-          };
-        case SortOptions.FromHighToLowPrice:
-          return {
-            ...state,
-            sortedOption: action.payload,
-            filteredList: state.filteredList.sort((offerA, offerB ) => offerB.price - offerA.price),
-          };
-        case SortOptions.TopRatedFirst:
-          return {
-            ...state,
-            sortedOption: action.payload,
-            filteredList: state.filteredList.sort((offerA, offerB ) => offerB.rating - offerA.rating),
-          };
-        case SortOptions.Popular:
-          return {
-            ...state,
-            sortedOption: action.payload,
-            filteredList: state.offers.filter((offer)=> offer.city.name === state.city),
-          };
-        default:
-          return {
-            ...state,
-          };
-      }
+      return {
+        ...state,
+        sortedOption: action.payload,
+        filteredList: state.offers.filter((offer)=> offer.city.name === state.city).sort(pickSortFunction(action.payload)),
+      };
     default:
       return {...state};
   }

@@ -10,7 +10,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  handleSortedOffers: (option: SortOptions) => dispatch(setSortedOffers(option)),
+  onSortedOffers: (option: SortOptions) => dispatch(setSortedOffers(option)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sort);
