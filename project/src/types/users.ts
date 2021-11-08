@@ -6,13 +6,13 @@ export type User = {
 }
 
 export type AuthData = {
-  email: string,
-  password: string,
+  email: string;
+  password: string;
 }
 
 export type AuthInfo = User & {
-  email: string,
-  token: string,
+  email: string;
+  token: string;
 }
 
 /* eslint-disable camelcase */

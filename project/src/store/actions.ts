@@ -2,6 +2,7 @@ import {ActionType} from '../types/actions';
 import {Offer} from '../types/offers';
 import {AppRoute, AuthStatus, SortOptions} from '../const';
 import {AuthInfo} from '../types/users';
+import {Review, ReviewPost} from '../types/reviews';
 
 export const setOffers = (offers: Offer[]) => ({
   type: ActionType.SetOffers,
@@ -60,4 +61,19 @@ export const setOffersLoading = (loading: boolean) => ({
 export const setAuthLoading = (loading: boolean) => ({
   type: ActionType.SetAuthLoading,
   payload: loading,
+} as const);
+
+export const setReviews = (reviews: Review[]) => ({
+  type: ActionType.SetReviews,
+  payload: reviews,
+} as const);
+
+export const setReview = (review: ReviewPost) => ({
+  type: ActionType.SetReview,
+  payload: review,
+} as const);
+
+export const setReviewLoading = (isReviewLoading: boolean) => ({
+  type: ActionType.SetReviewLoading,
+  payload: isReviewLoading,
 } as const);

@@ -13,7 +13,10 @@ import {
   filterOffers,
   setOfferLoading,
   setOffersLoading,
-  setAuthLoading
+  setAuthLoading,
+  setReviews,
+  setReview,
+  setReviewLoading
 } from '../store/actions';
 
 export enum ActionType {
@@ -29,6 +32,9 @@ export enum ActionType {
   SetOfferLoading = 'setOfferLoading',
   SetOffersLoading = 'setOffersLoading',
   SetAuthLoading = 'setAuthLoading',
+  SetReviews = 'setReviews',
+  SetReview = 'setReview',
+  SetReviewLoading = 'setReviewLoading'
 }
 
 export type Actions =
@@ -43,7 +49,10 @@ export type Actions =
   | ReturnType<typeof setSortedOffers>
   | ReturnType<typeof setOfferLoading>
   | ReturnType<typeof setOffersLoading>
-  | ReturnType<typeof setAuthLoading>;
+  | ReturnType<typeof setAuthLoading>
+  | ReturnType<typeof setReviews>
+  | ReturnType<typeof setReview>
+  | ReturnType<typeof setReviewLoading>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
