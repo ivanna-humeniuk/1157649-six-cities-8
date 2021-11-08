@@ -1,6 +1,7 @@
 import {Offer} from './offers';
 import {AuthStatus} from '../const';
 import {AuthInfo} from './users';
+import {Review, ReviewPost} from './reviews';
 
 export type State = {
   offer: OfferState,
@@ -18,6 +19,9 @@ export type OfferState = {
   offer: Offer | null;
   nearbyList: Offer[];
   loading: boolean;
+  reviews: Review[];
+  review: ReviewPost;
+  isReviewLoading: boolean;
 }
 
 export type AuthState = {

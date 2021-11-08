@@ -1,4 +1,4 @@
-import {Switch, Route, Router} from 'react-router-dom';
+import {Switch, Route, Router, Redirect} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import MainScreen from '../main-screen/main-screen-connected';
 import LoginScreen from '../login-screen/login-screen-connected';
@@ -6,7 +6,6 @@ import FavoritesScreen from '../favorites-screen/favorites-screen-connected';
 import PropertyScreen from '../property-screen/property-screen-connected';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route-connected';
-import {Review} from '../../types/reviews';
 import {Listing} from '../../types/listings';
 import browserHistory from '../../browser-history';
 import {store} from '../../store/store';
@@ -16,11 +15,10 @@ import {checkAuthAction} from '../../store/api-actions';
 (store.dispatch as ThunkAppDispatch)(checkAuthAction());
 
 type AppScreenProps = {
-  reviews: Review[];
   listings: Listing[];
 }
 
-function App({reviews, listings}: AppScreenProps): JSX.Element {
+function App({listings}: AppScreenProps): JSX.Element {
   return (
     <Router history={browserHistory}>
       <Switch>
@@ -34,11 +32,12 @@ function App({reviews, listings}: AppScreenProps): JSX.Element {
           <FavoritesScreen listings={listings} />
         </PrivateRoute>
         <Route exact path={AppRoute.Room}>
-          <PropertyScreen reviews={reviews}/>
+          <PropertyScreen/>
         </Route>
-        <Route>
+        <Route path={AppRoute.NotFound}>
           <NotFoundScreen/>
         </Route>
+        <Redirect to={AppRoute.NotFound} />
       </Switch>
     </Router>
   );
