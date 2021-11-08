@@ -47,6 +47,13 @@ export const PASSWORD_ERROR_MESSAGE = 'The password should include at least one 
 export const URL_API = 'https://8.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 
+export enum SortOptions {
+  Popular = 'Popular',
+  FromLowToHighPrice = 'Price: low to high',
+  FromHighToLowPrice = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
+}
+
 export enum HttpCode {
   Unauthorized = 401,
 }

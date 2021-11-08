@@ -8,13 +8,15 @@ import {
   setNearbyOffers,
   setOffer,
   setOffers,
-  filterOffers,
   redirectToRoute,
+  setSortedOffers,
+  filterOffers,
   setOfferLoading,
   setOffersLoading,
   setAuthLoading,
   setReviews,
-  setReview, setReviewLoading
+  setReview,
+  setReviewLoading
 } from '../store/actions';
 
 export enum ActionType {
@@ -26,12 +28,13 @@ export enum ActionType {
   SetOffer = 'setOffer',
   SetNearbyOffers = 'setNearbyOffers',
   RedirectToRoute = 'redirectToRoute',
+  SetSortedOffers = 'setSortedOffers',
   SetOfferLoading = 'setOfferLoading',
   SetOffersLoading = 'setOffersLoading',
   SetAuthLoading = 'setAuthLoading',
   SetReviews = 'setReviews',
   SetReview = 'setReview',
-  SetReviewLoading = 'setReviewLoading',
+  SetReviewLoading = 'setReviewLoading'
 }
 
 export type Actions =
@@ -43,6 +46,7 @@ export type Actions =
   | ReturnType<typeof filterOffers>
   | ReturnType<typeof setNearbyOffers>
   | ReturnType<typeof redirectToRoute>
+  | ReturnType<typeof setSortedOffers>
   | ReturnType<typeof setOfferLoading>
   | ReturnType<typeof setOffersLoading>
   | ReturnType<typeof setAuthLoading>

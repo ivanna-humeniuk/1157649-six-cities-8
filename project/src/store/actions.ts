@@ -1,6 +1,6 @@
 import {ActionType} from '../types/actions';
 import {Offer} from '../types/offers';
-import {AppRoute, AuthStatus} from '../const';
+import {AppRoute, AuthStatus, SortOptions} from '../const';
 import {AuthInfo} from '../types/users';
 import {Review, ReviewPost} from '../types/reviews';
 
@@ -29,6 +29,11 @@ export const redirectToRoute = (url: AppRoute) => ({
   payload: url,
 } as const);
 
+export const setSortedOffers = (option: SortOptions) => ({
+  type: ActionType.SetSortedOffers,
+  payload: option,
+} as const);
+
 export const setAuthStatus = (authStatus: AuthStatus) => ({
   type: ActionType.SetAuthStatus,
   payload: authStatus,
@@ -47,7 +52,6 @@ export const setOfferLoading = (loading: boolean) => ({
   type: ActionType.SetOfferLoading,
   payload: loading,
 } as const);
-
 
 export const setOffersLoading = (loading: boolean) => ({
   type: ActionType.SetOffersLoading,
@@ -73,4 +77,3 @@ export const setReviewLoading = (isReviewLoading: boolean) => ({
   type: ActionType.SetReviewLoading,
   payload: isReviewLoading,
 } as const);
-

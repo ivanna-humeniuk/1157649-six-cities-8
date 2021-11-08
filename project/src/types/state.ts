@@ -1,4 +1,5 @@
 import {Offer} from './offers';
+import {SortOptions} from '../const';
 import {AuthStatus} from '../const';
 import {AuthInfo} from './users';
 import {Review, ReviewPost} from './reviews';
@@ -11,10 +12,12 @@ export type State = {
 
 export type OffersState = {
   city: string;
+  sortedOption: SortOptions;
   offers: Offer[];
   filteredList: Offer[];
   isLoadingStatus: boolean;
 }
+
 export type OfferState = {
   offer: Offer | null;
   nearbyList: Offer[];
