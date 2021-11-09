@@ -6,7 +6,7 @@ import {NameSpace, SortOptions} from '../../const';
 export const getOffers = (state: State): Offer[] => state[NameSpace.offers].offers;
 export const getActiveCity = (state: State): string => state[NameSpace.offers].city;
 export const getSortedOption = (state: State): SortOptions => state[NameSpace.offers].sortedOption;
-export const getLoadingStatus = (state: State): boolean => state[NameSpace.offers].isLoadingStatus;
+export const getOffersLoadingStatus = (state: State): boolean => state[NameSpace.offers].isLoadingStatus;
 
 
 const sortByPriceToHigh = (offerA: Offer, offerB: Offer): number => offerA.price - offerB.price;

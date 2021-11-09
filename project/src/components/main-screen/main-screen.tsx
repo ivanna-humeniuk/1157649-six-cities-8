@@ -11,7 +11,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import Sort from '../sort/sort';
 import {fetchOffersAction} from '../../store/api-actions';
 import {setCity} from '../../store/actions';
-import {getActiveCity, getFilteredOffers, getLoadingStatus} from '../../store/offers-data/selectors';
+import {getActiveCity, getFilteredOffers, getOffersLoadingStatus} from '../../store/offers-data/selectors';
 
 const mainClasses = {
   article: 'cities__place-card',
@@ -20,7 +20,7 @@ const mainClasses = {
 
 function MainScreen(): JSX.Element {
   const city = useSelector(getActiveCity);
-  const isLoading = useSelector(getLoadingStatus);
+  const isLoading = useSelector(getOffersLoadingStatus);
   const filteredOffers = useSelector(getFilteredOffers);
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(0);
   const dispatch = useDispatch();

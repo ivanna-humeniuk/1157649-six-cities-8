@@ -4,7 +4,7 @@ import {REVIEW_MIN_LENGTH, REVIEW_MAX_LENGTH} from '../../const';
 import {ReviewPost} from '../../types/reviews';
 import {setReview} from '../../store/actions';
 import {submitReviewAction} from '../../store/api-actions';
-import {getReview, getReviewLoading} from '../../store/offer-data/selectors';
+import {getReview, getReviewLoadingStatus} from '../../store/offer-data/selectors';
 
 const isValidComment = (review: ReviewPost): boolean =>
   (review && review.comment.length >= REVIEW_MIN_LENGTH &&
@@ -14,7 +14,7 @@ const ratingLabels = ['perfect', 'good', 'terribly', 'not bad', 'badly'];
 
 function ReviewForm(): JSX.Element {
   const review = useSelector(getReview);
-  const isReviewLoading = useSelector(getReviewLoading);
+  const isReviewLoading = useSelector(getReviewLoadingStatus);
   const dispatch = useDispatch();
   const isValid = isValidComment(review);
 

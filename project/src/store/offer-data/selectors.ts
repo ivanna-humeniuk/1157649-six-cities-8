@@ -8,6 +8,6 @@ export const getNearbyList = (state: State): Offer[] => state[NameSpace.offer].n
 export const getLoadingOffer = (state: State): boolean=> state[NameSpace.offer].loading;
 export const getReviews = (state: State): Review[] => state[NameSpace.offer].reviews;
 export const getReview = (state: State): ReviewPost => state[NameSpace.offer].review;
-export const getReviewLoading = (state: State): boolean => state[NameSpace.offer].isReviewLoading;
+export const getReviewLoadingStatus = (state: State): boolean => state[NameSpace.offer].isReviewLoading;
 
 

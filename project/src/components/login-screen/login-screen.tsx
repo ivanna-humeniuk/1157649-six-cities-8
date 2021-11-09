@@ -4,12 +4,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import Header from '../header/header';
 import {loginAction} from '../../store/api-actions';
-import {getAuthLoading, getAuthStatus} from '../../store/auth-data/selectors';
+import {getAuthLoadingStatus, getAuthStatus} from '../../store/auth-data/selectors';
 import {AppRoute, AuthStatus, PASSWORD_ERROR_MESSAGE, PASSWORD_REG_EXP, TOAST_CLOSE_TIME} from '../../const';
 
 function LoginScreen(): JSX.Element {
   const authStatus = useSelector(getAuthStatus);
-  const isAuthLoading = useSelector(getAuthLoading);
+  const isAuthLoading = useSelector(getAuthLoadingStatus);
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
