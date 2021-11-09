@@ -1,19 +1,16 @@
-import {Redirect} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {ChangeEvent, FormEvent, useCallback, useState} from 'react';
-import Header from '../header/header-connected';
+import {useDispatch, useSelector} from 'react-redux';
+import {Redirect} from 'react-router-dom';
+import Header from '../header/header';
+import {loginAction} from '../../store/api-actions';
+import {getAuthLoading, getAuthStatus} from '../../store/auth-data/selectors';
 import {AppRoute, AuthStatus, PASSWORD_ERROR_MESSAGE, PASSWORD_REG_EXP, TOAST_CLOSE_TIME} from '../../const';
-import {AuthData} from '../../types/users';
 
-export type LoginScreenProps = {
-  onLogout: ({email,password} :AuthData) => void;
-  authStatus: AuthStatus;
-  authLoading: boolean;
-};
-
-function LoginScreen(props: LoginScreenProps): JSX.Element {
-  const {authStatus, onLogout, authLoading} = props;
-
+function LoginScreen(): JSX.Element {
+  const authStatus = useSelector(getAuthStatus);
+  const isAuthLoading = useSelector(getAuthLoading);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -32,11 +29,11 @@ function LoginScreen(props: LoginScreenProps): JSX.Element {
   const handleSubmitForm = useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(isValid) {
-      onLogout({email,password});
+      dispatch(loginAction({email,password}));
     } else {
       toast.error(PASSWORD_ERROR_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
     }
-  }, [isValid, onLogout, email, password]);
+  }, [dispatch, isValid, email, password]);
 
   if(authStatus === AuthStatus.Auth) {
     return <Redirect to={AppRoute.Main}/>;
@@ -74,7 +71,7 @@ function LoginScreen(props: LoginScreenProps): JSX.Element {
                   required
                 />
               </div>
-              <button disabled={authLoading} className="login__submit form__submit button" type="submit">Sign in</button>
+              <button disabled={isAuthLoading} className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">

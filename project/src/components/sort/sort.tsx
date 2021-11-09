@@ -1,18 +1,17 @@
-import {useCallback, useEffect, useRef, useState} from 'react';
 import cn from 'classnames';
+import {useCallback, useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {SortOptions} from '../../const';
 import SortOption from '../sort-option/sort-option';
+import {setSortedOption} from '../../store/actions';
+import {getSortedOption} from '../../store/offers-data/selectors';
 
-type SortProps = {
-  sortedOption: SortOptions;
-  onSortedOffers: (option: SortOptions) => void;
-};
-
-function Sort(props: SortProps):JSX.Element {
-  const {sortedOption, onSortedOffers} = props;
+function Sort():JSX.Element {
+  const sortedOption = useSelector(getSortedOption);
   const [openOptions, setOpenOptions] = useState<boolean>(false);
   const sortRef = useRef<HTMLSpanElement>(null);
   const options = Object.values(SortOptions);
+  const dispatch = useDispatch();
 
   const handleOptionsClick = useCallback(() => {
     setOpenOptions((prevState) => !prevState);
@@ -20,12 +19,13 @@ function Sort(props: SortProps):JSX.Element {
 
   const handleOptionClick = useCallback((option: SortOptions) => {
     if(option !== sortedOption) {
-      onSortedOffers(option);
+      dispatch(setSortedOption(option));
     }
     setOpenOptions((prevState) => !prevState);
-  }, [sortedOption, onSortedOffers]);
+  }, [sortedOption, dispatch]);
 
   useEffect(() => {
+    if (!openOptions) {return;}
     function handleOutsideClick(event: MouseEvent) {
       if(sortRef.current && !sortRef.current.contains(event.target as Node)) {
         setOpenOptions(false);
@@ -35,9 +35,11 @@ function Sort(props: SortProps):JSX.Element {
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [sortRef]);
+  }, [sortRef, openOptions]);
 
   useEffect(() => {
+
+    if (!openOptions) {return;}
     function closeSortByEscape(event: KeyboardEvent) {
       if(event.code === 'Escape') {
         setOpenOptions(false);
@@ -47,7 +49,7 @@ function Sort(props: SortProps):JSX.Element {
     return () => {
       document.removeEventListener('keydown', closeSortByEscape);
     };
-  });
+  }, [openOptions]);
 
   const placesOptionsClass = cn({
     'places__options': true,

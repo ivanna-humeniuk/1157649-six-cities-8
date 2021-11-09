@@ -1,38 +1,39 @@
 import cn from 'classnames';
 import {useEffect} from 'react';
-import Header from '../header/header-connected';
+import {useDispatch, useSelector} from 'react-redux';
+import Header from '../header/header';
 import {CITIES} from '../../const';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import CitiesList from '../cities-list/cities-list';
 import useActivePoint from '../../hooks/useActivePoint';
 import LoadingScreen from '../loading-screen/loading-screen';
-import Sort from '../sort/sort-connected';
-import {Offer} from '../../types/offers';
-
-export type MainScreenProps = {
-  filteredOffers: Offer[];
-  city: string;
-  offersLoading: boolean;
-  onActiveCity: (city: string) => void;
-  getOffers: () => void;
-};
-
+import Sort from '../sort/sort';
+import {fetchOffersAction} from '../../store/api-actions';
+import {setCity} from '../../store/actions';
+import {getActiveCity, getFilteredOffers, getLoadingStatus} from '../../store/offers-data/selectors';
 
 const mainClasses = {
   article: 'cities__place-card',
   imageWrapper: 'cities__image-wrapper',
 };
 
-function MainScreen(props: MainScreenProps): JSX.Element {
-  const { filteredOffers, city, offersLoading, onActiveCity, getOffers } = props;
+function MainScreen(): JSX.Element {
+  const city = useSelector(getActiveCity);
+  const isLoading = useSelector(getLoadingStatus);
+  const filteredOffers = useSelector(getFilteredOffers);
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(0);
+  const dispatch = useDispatch();
+
+  const onActiveCity = (activeCity: string) => {
+    dispatch(setCity(activeCity));
+  };
 
   useEffect(() => {
-    getOffers();
-  }, [getOffers]);
+    dispatch(fetchOffersAction());
+  }, [dispatch]);
 
-  if(offersLoading) {
+  if(isLoading) {
     return <LoadingScreen/>;
   }
 
@@ -97,4 +98,5 @@ function MainScreen(props: MainScreenProps): JSX.Element {
     </div>
   );
 }
+
 export default MainScreen;

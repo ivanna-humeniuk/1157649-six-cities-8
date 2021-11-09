@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import Header from '../header/header-connected';
+import Header from '../header/header';
 import './not-found-screen.css';
 
 

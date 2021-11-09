@@ -1,79 +1,106 @@
+import {createAction} from '@reduxjs/toolkit';
 import {ActionType} from '../types/actions';
 import {Offer} from '../types/offers';
 import {AppRoute, AuthStatus, SortOptions} from '../const';
 import {AuthInfo} from '../types/users';
 import {Review, ReviewPost} from '../types/reviews';
 
-export const setOffers = (offers: Offer[]) => ({
-  type: ActionType.SetOffers,
-  payload: offers,
-} as const);
+export const setOffers = createAction(
+  ActionType.SetOffers,
+  (offers: Offer[]) => ({
+    payload: offers,
+  }),
+);
 
-export const setOffer = (offer: Offer) => ({
-  type: ActionType.SetOffer,
-  payload: offer,
-} as const);
+export const setOffer = createAction(
+  ActionType.SetOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
 
-export const filterOffers = (city: string) => ({
-  type: ActionType.FilterOffers,
-  payload: city,
-} as const);
+export const setCity = createAction(
+  ActionType.SetCity,
+  (city: string) => ({
+    payload: city,
+  }),
+);
 
-export const setNearbyOffers = (offers: Offer[]) => ({
-  type: ActionType.SetNearbyOffers,
-  payload: offers,
-} as const);
+export const setNearbyOffers = createAction(
+  ActionType.SetNearbyOffers,
+  (offers: Offer[]) => ({
+    payload: offers,
+  }),
+);
 
-export const redirectToRoute = (url: AppRoute) => ({
-  type: ActionType.RedirectToRoute,
-  payload: url,
-} as const);
+export const redirectToRoute = createAction(
+  ActionType.RedirectToRoute,
+  (url: AppRoute) => ({
+    payload: url,
+  }),
+);
 
-export const setSortedOffers = (option: SortOptions) => ({
-  type: ActionType.SetSortedOffers,
-  payload: option,
-} as const);
+export const setSortedOption = createAction(
+  ActionType.SetSortedOption,
+  (option: SortOptions) => ({
+    payload: option,
+  }),
+);
 
-export const setAuthStatus = (authStatus: AuthStatus) => ({
-  type: ActionType.SetAuthStatus,
-  payload: authStatus,
-} as const);
+export const setAuthStatus = createAction(
+  ActionType.SetAuthStatus,
+  (authStatus: AuthStatus) => ({
+    payload: authStatus,
+  }),
+);
 
-export const setAuthInfo = (authInfo: AuthInfo) => ({
-  type: ActionType.SetAuthInfo,
-  payload: authInfo,
-} as const);
+export const setAuthInfo = createAction(
+  ActionType.SetAuthInfo,
+  (authInfo: AuthInfo) => ({
+    payload: authInfo,
+  }),
+);
 
-export const requireLogout = () => ({
-  type: ActionType.RequireLogout,
-} as const);
+export const requireLogout = createAction(ActionType.RequireLogout);
 
-export const setOfferLoading = (loading: boolean) => ({
-  type: ActionType.SetOfferLoading,
-  payload: loading,
-} as const);
+export const setOfferLoading = createAction(
+  ActionType.SetOfferLoading,
+  (loading: boolean) => ({
+    payload: loading,
+  }),
+);
 
-export const setOffersLoading = (loading: boolean) => ({
-  type: ActionType.SetOffersLoading,
-  payload: loading,
-} as const);
+export const setOffersLoading = createAction(
+  ActionType.SetOffersLoading,
+  (loading: boolean) => ({
+    payload: loading,
+  }),
+);
 
-export const setAuthLoading = (loading: boolean) => ({
-  type: ActionType.SetAuthLoading,
-  payload: loading,
-} as const);
+export const setAuthLoading = createAction(
+  ActionType.SetAuthLoading,
+  (loading: boolean) => ({
+    payload: loading,
+  }),
+);
 
-export const setReviews = (reviews: Review[]) => ({
-  type: ActionType.SetReviews,
-  payload: reviews,
-} as const);
+export const setReviews = createAction(
+  ActionType.SetReviews,
+  (reviews: Review[]) => ({
+    payload: reviews,
+  }),
+);
 
-export const setReview = (review: ReviewPost) => ({
-  type: ActionType.SetReview,
-  payload: review,
-} as const);
+export const setReview = createAction(
+  ActionType.SetReview,
+  (review: ReviewPost) => ({
+    payload: review,
+  }),
+);
 
-export const setReviewLoading = (isReviewLoading: boolean) => ({
-  type: ActionType.SetReviewLoading,
-  payload: isReviewLoading,
-} as const);
+export const setReviewLoading = createAction(
+  ActionType.SetReviewLoading,
+  (isReviewLoading: boolean) => ({
+    payload: isReviewLoading,
+  }),
+);

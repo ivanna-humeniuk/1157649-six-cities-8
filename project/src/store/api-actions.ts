@@ -18,7 +18,6 @@ import {
   setOffer,
   setOfferLoading,
   setOffers,
-  filterOffers,
   setReviews, setReview, setReviewLoading
 } from './actions';
 import {ThunkActionResult} from '../types/actions';
@@ -76,7 +75,6 @@ export const fetchOffersAction = (): ThunkActionResult =>
       const {data} = await api.get<RawOffer[]>(APIRoute.Offers);
       const hotels: Offer[] = data.map(adaptOfferToCamelCase);
       dispatch(setOffers(hotels));
-      dispatch(filterOffers(getState().offers.city));
     } catch (error) {
       toast.info(OFFERS_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
       /* eslint-disable no-console */

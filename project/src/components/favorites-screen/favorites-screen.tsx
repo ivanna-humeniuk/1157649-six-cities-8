@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import OfferCard from '../offer-card/offer-card';
-import Header from '../header/header-connected';
+import Header from '../header/header';
 import {Offer} from '../../types/offers';
 import {Listing} from '../../types/listings';
 import './favorites-screen.css';

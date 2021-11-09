@@ -1,13 +1,10 @@
 import React, {useCallback} from 'react';
-import { REVIEW_MIN_LENGTH, REVIEW_MAX_LENGTH} from '../../const';
+import {useDispatch, useSelector} from 'react-redux';
+import {REVIEW_MIN_LENGTH, REVIEW_MAX_LENGTH} from '../../const';
 import {ReviewPost} from '../../types/reviews';
-
-type ReviewFormProps = {
-  onSubmitReview: () => void;
-  onChangeReview: (review: ReviewPost) => void;
-  review: ReviewPost;
-  isReviewLoading: boolean;
-}
+import {setReview} from '../../store/actions';
+import {submitReviewAction} from '../../store/api-actions';
+import {getReview, getReviewLoading} from '../../store/offer-data/selectors';
 
 const isValidComment = (review: ReviewPost): boolean =>
   (review && review.comment.length >= REVIEW_MIN_LENGTH &&
@@ -15,24 +12,26 @@ const isValidComment = (review: ReviewPost): boolean =>
 
 const ratingLabels = ['perfect', 'good', 'terribly', 'not bad', 'badly'];
 
-function ReviewForm(props: ReviewFormProps): JSX.Element {
-  const {onSubmitReview, onChangeReview, review, isReviewLoading} = props;
+function ReviewForm(): JSX.Element {
+  const review = useSelector(getReview);
+  const isReviewLoading = useSelector(getReviewLoading);
+  const dispatch = useDispatch();
   const isValid = isValidComment(review);
 
   const handleRatingChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
-    onChangeReview({...review, rating: Number(e.currentTarget.value)});
-  }, [onChangeReview, review]);
+    dispatch(setReview({...review, rating: Number(e.currentTarget.value)}));
+  }, [dispatch, review]);
 
   const handleReviewChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onChangeReview({...review, comment: e.currentTarget.value});
-  }, [onChangeReview, review]);
+    dispatch(setReview({...review, comment: e.currentTarget.value}));
+  }, [dispatch, review]);
 
   const handleSubmitFormReview = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if(isValid) {
-      onSubmitReview();
+      dispatch(submitReviewAction());
     }
-  }, [isValid, onSubmitReview]);
+  }, [isValid, dispatch]);
 
   const stars = ratingLabels.map((item, index)=> (
     <React.Fragment key={item}>
