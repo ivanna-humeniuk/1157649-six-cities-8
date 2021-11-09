@@ -22,6 +22,12 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum NameSpace {
+  offers = 'offers',
+  offer = 'offer',
+  auth = 'auth',
+}
+
 export const REVIEW_MIN_LENGTH = 50;
 export const REVIEW_MAX_LENGTH = 300;
 

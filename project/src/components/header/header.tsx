@@ -1,23 +1,22 @@
-import {useCallback} from 'react';
+import React, {useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {useLocation, Link} from 'react-router-dom';
 import Logo from '../logo/logo';
 import {AppRoute, AuthStatus} from '../../const';
-import {AuthInfo} from '../../types/users';
+import {logoutAction} from '../../store/api-actions';
+import {getAuthInfo, getAuthStatus} from '../../store/auth-data/selectors';
 
-type HeaderProps = {
-  authInfo: AuthInfo | null;
-  authStatus: AuthStatus;
-  onLogout: () => void;
-}
-
-function Header(props: HeaderProps): JSX.Element {
-  const {authStatus, authInfo, onLogout} = props;
+function Header(): JSX.Element {
+  const authInfo = useSelector(getAuthInfo);
+  const authStatus = useSelector(getAuthStatus);
+  const dispatch = useDispatch();
   const {pathname} = useLocation();
   const isLogin = pathname === AppRoute.Login;
+
   const handleLogoutLink = useCallback((event: React.MouseEvent) => {
     event.preventDefault();
-    onLogout();
-  }, [onLogout]);
+    dispatch(logoutAction());
+  }, [dispatch]);
 
   return (
     <header className="header">
@@ -60,4 +59,4 @@ function Header(props: HeaderProps): JSX.Element {
   );
 }
 
-export default Header;
+export default React.memo(Header);

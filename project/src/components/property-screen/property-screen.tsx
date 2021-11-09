@@ -1,41 +1,46 @@
 import cn from 'classnames';
 import {useEffect, useMemo} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import useActivePoint from '../../hooks/useActivePoint';
-import Header from '../header/header-connected';
-import Reviews from '../reviews/reviews-connected';
+import Header from '../header/header';
+import Reviews from '../reviews/reviews';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
-import {Offer} from '../../types/offers';
 import LoadingScreen from '../loading-screen/loading-screen';
+import {
+  fetchNearbyOffersAction,
+  fetchOfferAction,
+  fetchReviewsAction
+} from '../../store/api-actions';
+import {
+  getLoadingOffer,
+  getNearbyList,
+  getOffer
+} from '../../store/offer-data/selectors';
 
-type PropertyScreenProps = {
-  offer: Offer | null;
-  nearbyOffers: Offer[];
-  getNearbyOffers: (id: string) => void;
-  getOffer: (id: string) => void;
-  getReviews: (id: string) => void;
-  offerLoading: boolean;
-}
 
 const propertyClasses = {
   article: 'near-places__card',
   imageWrapper: 'near-places__image-wrapper',
 };
 
-function PropertyScreen(props: PropertyScreenProps): JSX.Element {
-  const {offer, offerLoading, nearbyOffers, getNearbyOffers, getOffer, getReviews} = props;
+function PropertyScreen(): JSX.Element {
+  const offer = useSelector(getOffer);
+  const nearbyList = useSelector(getNearbyList);
+  const isLoading = useSelector(getLoadingOffer);
+  const dispatch = useDispatch();
   const {id} = useParams<{ id: string }>();
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
   const ratingWidth = useMemo(() => offer && offer.rating > 0 ? {width: `${offer.rating * 20}%`} : {width: '0%'}, [offer]);
 
   useEffect(() => {
     if(id) {
-      getOffer(id);
-      getNearbyOffers(id);
-      getReviews(id);
+      dispatch(fetchOfferAction(id));
+      dispatch(fetchNearbyOffersAction(id));
+      dispatch(fetchReviewsAction(id));
     }
-  }, [id, getOffer, getNearbyOffers, getReviews]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if(window.scrollY !== 0) {
@@ -43,11 +48,11 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
     }
   }, [id]);
 
-  if(offerLoading) {
+  if(isLoading) {
     return <LoadingScreen/>;
   }
 
-  const points = [...nearbyOffers];
+  const points = [...nearbyList];
   if(offer) {
     points.push(offer);
   }
@@ -180,11 +185,11 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
           )}
         </section>
         <div className="container">
-          {nearbyOffers.length !== 0 && (
+          {nearbyList.length !== 0 && (
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <OffersList
-                offers={nearbyOffers}
+                offers={nearbyList}
                 cardClasses={propertyClasses}
                 onCardHover={handleCardHoverOn}
                 onCardHoverOff={handleCardHoverOff}

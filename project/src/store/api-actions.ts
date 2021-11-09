@@ -18,8 +18,7 @@ import {
   setOffer,
   setOfferLoading,
   setOffers,
-  filterOffers,
-  setReviews, setReview, setReviewLoading
+  setReviews, setReview, setReviewLoading, setOffersLoading
 } from './actions';
 import {ThunkActionResult} from '../types/actions';
 import {adaptOfferToCamelCase, adaptReviewToCamelCase} from '../utills/adapt-to-camel-case';
@@ -71,18 +70,17 @@ export const logoutAction = (): ThunkActionResult =>
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
-    dispatch(setOfferLoading(true));
+    dispatch(setOffersLoading(true));
     try {
       const {data} = await api.get<RawOffer[]>(APIRoute.Offers);
       const hotels: Offer[] = data.map(adaptOfferToCamelCase);
       dispatch(setOffers(hotels));
-      dispatch(filterOffers(getState().offers.city));
     } catch (error) {
       toast.info(OFFERS_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
       /* eslint-disable no-console */
       console.error(error);
     } finally {
-      dispatch(setOfferLoading(false));
+      dispatch(setOffersLoading(false));
     }
   };
 

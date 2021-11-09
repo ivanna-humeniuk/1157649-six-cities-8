@@ -1,19 +1,21 @@
-import ReviewForm from '../review-form/review-form-connected';
-import {Review} from '../../types/reviews';
+import React from 'react';
+import {useSelector} from 'react-redux';
+import ReviewForm from '../review-form/review-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import {AuthStatus} from '../../const';
+import {getAuthStatus} from '../../store/auth-data/selectors';
+import {getReviews} from '../../store/offer-data/selectors';
 
-type ReviewsProps = {
-  reviews: Review[],
-  authStatus: AuthStatus;
-}
+function Reviews(): JSX.Element {
+  const reviews = useSelector(getReviews);
+  const authStatus = useSelector(getAuthStatus);
 
-function Reviews({reviews, authStatus}: ReviewsProps): JSX.Element {
   const sortReviews = reviews.slice(0,10).sort((reviewA, reviewB) => {
     const dateB = new Date(reviewB.date).getTime();
     const dateA = new Date(reviewA.date).getTime();
     return dateB - dateA;
   });
+
   return (
     <>
       {reviews.length > 0 && (
@@ -27,4 +29,4 @@ function Reviews({reviews, authStatus}: ReviewsProps): JSX.Element {
   );
 }
 
-export default Reviews;
+export default React.memo(Reviews);
