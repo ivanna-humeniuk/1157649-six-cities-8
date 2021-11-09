@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Header from '../header/header';
 import {CITIES} from '../../const';
@@ -25,9 +25,9 @@ function MainScreen(): JSX.Element {
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(0);
   const dispatch = useDispatch();
 
-  const onActiveCity = (activeCity: string) => {
+  const onActiveCity = useCallback((activeCity: string) => {
     dispatch(setCity(activeCity));
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchOffersAction());

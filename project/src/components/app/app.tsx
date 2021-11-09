@@ -11,7 +11,7 @@ import browserHistory from '../../browser-history';
 import {store} from '../../store/store';
 import {checkAuthAction} from '../../store/api-actions';
 
-(store.dispatch)(checkAuthAction());
+store.dispatch(checkAuthAction());
 
 type AppScreenProps = {
   listings: Listing[];
