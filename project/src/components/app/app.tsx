@@ -2,22 +2,17 @@ import {Switch, Route, Router, Redirect} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import MainScreen from '../main-screen/main-screen';
 import LoginScreen from '../login-screen/login-screen';
-import FavoritesScreen from '../favorites-screen/favorites-screen-connected';
+import FavoritesScreen from '../favorites-screen/favorites-screen';
 import PropertyScreen from '../property-screen/property-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import {Listing} from '../../types/listings';
 import browserHistory from '../../browser-history';
 import {store} from '../../store/store';
 import {checkAuthAction} from '../../store/api-actions';
 
 store.dispatch(checkAuthAction());
 
-type AppScreenProps = {
-  listings: Listing[];
-}
-
-function App({listings}: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <Router history={browserHistory}>
       <Switch>
@@ -28,7 +23,7 @@ function App({listings}: AppScreenProps): JSX.Element {
           <LoginScreen/>
         </Route>
         <PrivateRoute exact path={AppRoute.Favorites}>
-          <FavoritesScreen listings={listings} />
+          <FavoritesScreen />
         </PrivateRoute>
         <Route exact path={AppRoute.Room}>
           <PropertyScreen/>

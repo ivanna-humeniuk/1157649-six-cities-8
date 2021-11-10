@@ -8,6 +8,7 @@ export type State = {
   offer: OfferState,
   offers: OffersState,
   auth: AuthState,
+  favorite: FavoriteOffersState,
 };
 
 export type OffersState = {
@@ -30,4 +31,9 @@ export type AuthState = {
   status: AuthStatus;
   info: AuthInfo | null;
   isLoading: boolean;
+}
+
+export type FavoriteOffersState = {
+  favoriteOffers: Offer[];
+  isLoadingFavorite: boolean;
 }

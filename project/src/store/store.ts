@@ -7,11 +7,13 @@ import {AuthStatus, NameSpace} from '../const';
 import {offersReducer} from './offers-data/offers-reducer';
 import {authReducer} from './auth-data/auth-reducer';
 import {offerReducer} from './offer-data/offer-reducer';
+import {favoriteOffersReducer} from './favorite-offers-data/favorite-offers-reducer';
 
 export const rootReducer = combineReducers({
   [NameSpace.offers]: offersReducer,
   [NameSpace.offer]: offerReducer,
   [NameSpace.auth]: authReducer,
+  [NameSpace.favorite]: favoriteOffersReducer,
 });
 
 const api = createAPI(
