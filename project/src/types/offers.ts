@@ -16,6 +16,7 @@ export type Offer = {
   host: User;
   location: Location;
   city: City;
+  images: [];
 };
 
 export type Location = {
@@ -46,4 +47,5 @@ export type RawOffer = {
   host: RawUser;
   location: Location;
   city: City;
+  images: [];
 };

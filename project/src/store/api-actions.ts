@@ -3,10 +3,12 @@ import {Offer, RawOffer} from '../types/offers';
 import {
   APIRoute,
   AppRoute,
+  AuthStatus,
   AUTH_FAIL_MESSAGE,
   AUTH_INFO_MESSAGE,
-  AuthStatus, LOGOUT_FAIL_MESSAGE,
-  OFFERS_LOAD_FAIL_MESSAGE, TOAST_CLOSE_TIME
+  DATA_LOAD_FAIL_MESSAGE,
+  LOGOUT_FAIL_MESSAGE,
+  TOAST_CLOSE_TIME
 } from '../const';
 import {
   redirectToRoute,
@@ -18,7 +20,13 @@ import {
   setOffer,
   setOfferLoading,
   setOffers,
-  setReviews, setReview, setReviewLoading, setOffersLoading
+  setReviews,
+  setReview,
+  setReviewLoading,
+  setOffersLoading,
+  setFavoriteOffers,
+  setLoadingFavoriteOffers,
+  toggleFavoriteOffer
 } from './actions';
 import {ThunkActionResult} from '../types/actions';
 import {adaptOfferToCamelCase, adaptReviewToCamelCase} from '../utills/adapt-to-camel-case';
@@ -76,7 +84,7 @@ export const fetchOffersAction = (): ThunkActionResult =>
       const hotels: Offer[] = data.map(adaptOfferToCamelCase);
       dispatch(setOffers(hotels));
     } catch (error) {
-      toast.info(OFFERS_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
+      toast.info(DATA_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
       /* eslint-disable no-console */
       console.error(error);
     } finally {
@@ -138,5 +146,34 @@ export const submitReviewAction = (): ThunkActionResult =>
       console.error(error);
     } finally {
       dispatch(setReviewLoading(false));
+    }
+  };
+
+export const fetchFavoriteOffersAction = (): ThunkActionResult =>
+  async (dispatch, getState, api): Promise<void> => {
+    dispatch(setLoadingFavoriteOffers(true));
+    try {
+      const {data} = await api.get<RawOffer[]>(APIRoute.Favorite);
+      const favoriteHotels: Offer[] = data.map(adaptOfferToCamelCase);
+      dispatch(setFavoriteOffers(favoriteHotels));
+    } catch (error) {
+      toast.info(DATA_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
+      /* eslint-disable no-console */
+      console.error(error);
+    } finally {
+      dispatch(setLoadingFavoriteOffers(false));
+    }
+  };
+
+export const submitFavoriteAction = (id: number, status: number): ThunkActionResult =>
+  async (dispatch, getState, api): Promise<void> => {
+    try {
+      const {data} = await api.post<RawOffer>(`${APIRoute.Favorite}/${id}/${status}`);
+      const hotel: Offer = adaptOfferToCamelCase(data);
+      dispatch(toggleFavoriteOffer(hotel));
+    } catch (error) {
+      /* eslint-disable no-console */
+      console.log(error);
+      dispatch(redirectToRoute(AppRoute.Login));
     }
   };

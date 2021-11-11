@@ -5,7 +5,7 @@ import {
   setOfferLoading,
   setReview,
   setReviewLoading,
-  setReviews
+  setReviews, toggleFavoriteOffer
 } from '../actions';
 import {OfferState} from '../../types/state';
 
@@ -29,6 +29,10 @@ const offerReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setNearbyOffers, (state, action) => {
       state.nearbyList = action.payload;
+    })
+    .addCase(toggleFavoriteOffer, (state, action) => {
+      state.nearbyList = state.nearbyList.map((offer) => offer.id === action.payload.id ? action.payload : offer);
+      state.offer = state.offer?.id === action.payload.id ? action.payload : state.offer;
     })
     .addCase(setOfferLoading, (state, action) => {
       state.loading = action.payload;
