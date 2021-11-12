@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import {useEffect, useMemo} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import useActivePoint from '../../hooks/useActivePoint';
@@ -11,7 +11,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {
   fetchNearbyOffersAction,
   fetchOfferAction,
-  fetchReviewsAction
+  fetchReviewsAction, submitFavoriteAction
 } from '../../store/api-actions';
 import {
   getLoadingOffer,
@@ -32,7 +32,12 @@ function PropertyScreen(): JSX.Element {
   const dispatch = useDispatch();
   const {id} = useParams<{ id: string }>();
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
-  const ratingWidth = useMemo(() => offer && offer.rating > 0 ? {width: `${offer.rating * 20}%`} : {width: '0%'}, [offer]);
+  const ratingWidth = useMemo(() =>offer && offer.rating > 0 ?{width: `${offer.rating * 20}%`} :{width: '0%'}, [offer]);
+
+  const handleBookmarkButtonClick = useCallback(() => {
+    const status = offer?.isFavorite ? 0 : 1;
+    dispatch(submitFavoriteAction(Number(id), status));
+  }, [dispatch, id, offer?.isFavorite]);
 
   useEffect(() => {
     if(id) {
@@ -53,6 +58,7 @@ function PropertyScreen(): JSX.Element {
   }
 
   const points = [...nearbyList];
+
   if(offer) {
     points.push(offer);
   }
@@ -74,24 +80,11 @@ function PropertyScreen(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Studio"/>
-              </div>
+              {offer?.images.slice(0,6).map((image) => (
+                <div className="property__image-wrapper" key={image}>
+                  <img className="property__image" src={image} alt="Studio"/>
+                </div>
+              ))}
             </div>
           </div>
           <div className="property__container container">
@@ -105,7 +98,7 @@ function PropertyScreen(): JSX.Element {
                 <h1 className="property__name">
                   {offer?.title}
                 </h1>
-                <button className={bookmarkBtnClass} type="button">
+                <button className={bookmarkBtnClass} type="button" onClick={handleBookmarkButtonClick}>
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>

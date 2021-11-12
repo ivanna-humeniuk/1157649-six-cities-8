@@ -14,6 +14,7 @@ export enum APIRoute {
   Offers = '/hotels',
   NearbyOffers = '/nearby',
   Reviews = '/comments',
+  Favorite ='/favorite',
 }
 
 export enum AuthStatus {
@@ -26,6 +27,7 @@ export enum NameSpace {
   offers = 'offers',
   offer = 'offer',
   auth = 'auth',
+  favorite = 'favorite',
 }
 
 export const REVIEW_MIN_LENGTH = 50;
@@ -44,7 +46,7 @@ export const MAP_LAYER_OPTIONS =  {
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export const OFFERS_LOAD_FAIL_MESSAGE = 'Something went wrong, please reload page!';
+export const DATA_LOAD_FAIL_MESSAGE = 'Something went wrong, please reload page!';
 export const AUTH_INFO_MESSAGE = 'Don\'t forget to log in!';
 export const AUTH_FAIL_MESSAGE = 'Something went wrong, please try to log in again!';
 export const LOGOUT_FAIL_MESSAGE = 'Something went wrong, please try to log out again!';

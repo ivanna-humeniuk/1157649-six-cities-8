@@ -36,6 +36,7 @@ export const offers: Offer[] = [
   {
     id: 1,
     previewImage: 'img/apartment-01.jpg',
+    images: [],
     title: 'Beautiful & luxurious apartment at great location',
     price: 120,
     type: 'Apartment',
@@ -61,6 +62,7 @@ export const offers: Offer[] = [
   },
   {
     id: 2,
+    images: [],
     previewImage: 'img/room.jpg',
     title: 'Wood and stone place',
     price: 80,
@@ -87,6 +89,7 @@ export const offers: Offer[] = [
   },
   {
     id: 3,
+    images: [],
     previewImage: 'img/apartment-02.jpg',
     title: 'Canal View Prinsengracht',
     price: 132,
@@ -113,6 +116,7 @@ export const offers: Offer[] = [
   },
   {
     id: 4,
+    images: [],
     previewImage: 'img/apartment-03.jpg',
     title: 'Nice, cozy, warm big bed apartment',
     price: 180,
@@ -139,6 +143,7 @@ export const offers: Offer[] = [
   },
   {
     id: 5,
+    images: [],
     previewImage: 'img/apartment-03.jpg',
     title: 'Nice, cozy, warm big bed apartment',
     price: 180,
@@ -165,6 +170,7 @@ export const offers: Offer[] = [
   },
   {
     id: 6,
+    images: [],
     previewImage: 'img/apartment-02.jpg',
     title: 'Canal View Prinsengracht',
     price: 132,
@@ -191,6 +197,7 @@ export const offers: Offer[] = [
   },
   {
     id: 7,
+    images: [],
     previewImage: 'img/apartment-03.jpg',
     title: 'Nice, cozy, warm big bed apartment',
     price: 180,
@@ -217,6 +224,7 @@ export const offers: Offer[] = [
   },
   {
     id: 8,
+    images: [],
     previewImage: 'img/apartment-03.jpg',
     title: 'Nice, cozy, warm big bed apartment',
     price: 180,
@@ -243,6 +251,7 @@ export const offers: Offer[] = [
   },
   {
     id: 9,
+    images: [],
     previewImage: 'img/apartment-01.jpg',
     title: 'Beautiful & luxurious apartment at great location',
     price: 120,
@@ -269,6 +278,7 @@ export const offers: Offer[] = [
   },
   {
     id: 10,
+    images: [],
     previewImage: 'img/room.jpg',
     title: 'Wood and stone place',
     price: 80,

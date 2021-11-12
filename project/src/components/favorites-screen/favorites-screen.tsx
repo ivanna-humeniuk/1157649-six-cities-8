@@ -1,9 +1,15 @@
 import cn from 'classnames';
+import {useEffect, useMemo} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import OfferCard from '../offer-card/offer-card';
 import Header from '../header/header';
 import {Offer} from '../../types/offers';
-import {Listing} from '../../types/listings';
 import './favorites-screen.css';
+import {getFavoriteOffers, getLoadingFavoriteStatus} from '../../store/favorite-offers-data/selectors';
+import {fetchFavoriteOffersAction} from '../../store/api-actions';
+import {CITIES} from '../../const';
+import {Listing} from '../../types/listings';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 const favoritesClasses = {
   article: 'favorites__card',
@@ -11,12 +17,34 @@ const favoritesClasses = {
   info: 'favorites__card-info',
 };
 
-type FavoritesScreenProps = {
-  listings: Listing[];
-}
 
-function FavoritesScreen(props: FavoritesScreenProps): JSX.Element {
-  const {listings} = props;
+function FavoritesScreen(): JSX.Element {
+  const favoriteOffers = useSelector(getFavoriteOffers);
+  const isLoading = useSelector(getLoadingFavoriteStatus);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+  }, [dispatch]);
+
+  const listings =  useMemo(() => {
+    if(favoriteOffers.length !== 0) {
+      return CITIES.reduce((acc: Listing[], cur) => (
+        [
+          ...acc,
+          {
+            city: cur,
+            offers: favoriteOffers.filter((item) => item.city.name === cur),
+          },
+        ]
+      ), []);
+    }
+    return [];
+  }, [favoriteOffers]);
+
+  if(isLoading) {
+    return <LoadingScreen/>;
+  }
 
   const pageClass = cn({
     'page': true,
@@ -38,22 +66,27 @@ function FavoritesScreen(props: FavoritesScreenProps): JSX.Element {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                {listings.map((listing) => (
-                  <li className="favorites__locations-items" key={listing.id}>
-                    <div className="favorites__locations locations locations--current">
-                      <div className="locations__item">
-                        <a className="locations__item-link" href="/">
-                          <span>{listing.title}</span>
-                        </a>
+                {listings.map((listing) => {
+                  if (listing.offers.length === 0) {
+                    return false;
+                  }
+                  return (
+                    <li className="favorites__locations-items" key={listing.city}>
+                      <div className="favorites__locations locations locations--current">
+                        <div className="locations__item">
+                          <a className="locations__item-link" href="/">
+                            <span>{listing.city}</span>
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                    <div className="favorites__places">
-                      {listing.places.map((place: Offer)=> (
-                        <OfferCard key={place.id} place={place} cardClasses={favoritesClasses}/>
-                      ))}
-                    </div>
-                  </li>
-                ))}
+                      <div className="favorites__places">
+                        {listing.offers.map((place: Offer)=> (
+                          <OfferCard key={place.id} place={place} cardClasses={favoritesClasses}/>
+                        ))}
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           ):(

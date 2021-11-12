@@ -104,3 +104,25 @@ export const setReviewLoading = createAction(
     payload: isReviewLoading,
   }),
 );
+
+export const setFavoriteOffers = createAction(
+  ActionType.SetFavoriteOffers,
+  (offers: Offer[]) => ({
+    payload: offers,
+  }),
+);
+
+export const toggleFavoriteOffer = createAction(
+  ActionType.ToggleFavoriteOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+
+export const setLoadingFavoriteOffers = createAction(
+  ActionType.SetLoadingFavoriteOffers,
+  (isLoading: boolean) => ({
+    payload: isLoading,
+  }),
+);
+

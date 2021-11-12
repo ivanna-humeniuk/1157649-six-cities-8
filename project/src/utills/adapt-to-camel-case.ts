@@ -22,6 +22,7 @@ export const adaptOfferToCamelCase = (item: RawOffer): Offer => ({
   },
   location: {...item.location},
   city: {...item.city},
+  images: [...item.images],
 });
 
 export const adaptReviewToCamelCase = (item: RawReview): Review => ({
