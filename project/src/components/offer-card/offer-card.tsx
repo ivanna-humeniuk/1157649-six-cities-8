@@ -1,9 +1,8 @@
 import {useCallback, useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
 import cn from 'classnames';
 import {Offer} from '../../types/offers';
-import {submitFavoriteAction} from '../../store/api-actions';
+import useFavoriteAction from '../../hooks/useFavoriteAction';
 
 type PlaceCardProps = {
   cardClasses: {
@@ -18,18 +17,14 @@ type PlaceCardProps = {
 
 function OfferCard(props: PlaceCardProps): JSX.Element {
   const {cardClasses, onCardHover, onCardHoverOff, place} = props;
-  const dispatch = useDispatch();
   const startWidth = useMemo(() => place.rating > 0 ? { width: `${place.rating * 20}%` } : { width: '0%'}, [place.rating]);
+
+  const handleBookmarkButtonClick = useFavoriteAction( place, place.id);
   const handleCardMouseEnter = useCallback(()=> {
     if (onCardHover) {
       return onCardHover(place.id);
     }
   }, [onCardHover, place.id]);
-
-  const handleBookmarkButtonClick = useCallback(() => {
-    const status = place.isFavorite ? 0 : 1;
-    dispatch(submitFavoriteAction(place.id, status));
-  }, [dispatch, place.id, place.isFavorite]);
 
   const bookmarkButtonClass = cn({
     'button': true,

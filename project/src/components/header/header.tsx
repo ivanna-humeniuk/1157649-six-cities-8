@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useLocation, Link} from 'react-router-dom';
 import Logo from '../logo/logo';
 import {AppRoute, AuthStatus} from '../../const';
-import {logoutAction} from '../../store/api-actions';
+import {logoutAction} from '../../store/actions/api-actions';
 import {getAuthInfo, getAuthStatus} from '../../store/auth-data/selectors';
 
 function Header(): JSX.Element {

@@ -3,13 +3,9 @@ import {SortOptions} from '../const';
 import {AuthStatus} from '../const';
 import {AuthInfo} from './users';
 import {Review, ReviewPost} from './reviews';
+import {RootState} from '../store/store';
 
-export type State = {
-  offer: OfferState,
-  offers: OffersState,
-  auth: AuthState,
-  favorite: FavoriteOffersState,
-};
+export type State = RootState
 
 export type OffersState = {
   city: string;
@@ -34,6 +30,5 @@ export type AuthState = {
 }
 
 export type FavoriteOffersState = {
-  favoriteOffers: Offer[];
   isLoadingFavorite: boolean;
 }

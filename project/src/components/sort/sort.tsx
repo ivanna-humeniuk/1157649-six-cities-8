@@ -3,7 +3,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {SortOptions} from '../../const';
 import SortOption from '../sort-option/sort-option';
-import {setSortedOption} from '../../store/actions';
+import {setSortedOption} from '../../store/actions/actions';
 import {getSortedOption} from '../../store/offers-data/selectors';
 
 function Sort():JSX.Element {

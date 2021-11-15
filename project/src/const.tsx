@@ -24,10 +24,10 @@ export enum AuthStatus {
 }
 
 export enum NameSpace {
-  offers = 'offers',
-  offer = 'offer',
-  auth = 'auth',
-  favorite = 'favorite',
+  offers = 'OFFERS',
+  offer = 'OFFER',
+  auth = 'AUTH',
+  favorite = 'FAVORITE',
 }
 
 export const REVIEW_MIN_LENGTH = 50;

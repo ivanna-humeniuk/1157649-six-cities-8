@@ -2,7 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import {combineReducers} from 'redux';
 import {createAPI} from '../services/api';
 import {redirect} from './middlewares/redirect';
-import {setAuthStatus} from './actions';
+import {setAuthStatus} from './actions/actions';
 import {AuthStatus, NameSpace} from '../const';
 import {offersReducer} from './offers-data/offers-reducer';
 import {authReducer} from './auth-data/auth-reducer';
@@ -29,3 +29,5 @@ export const store = configureStore({
       },
     }).concat(redirect),
 });
+
+export type RootState = ReturnType<typeof rootReducer>;

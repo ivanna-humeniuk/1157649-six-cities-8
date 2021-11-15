@@ -1,9 +1,9 @@
 import {createAction} from '@reduxjs/toolkit';
-import {ActionType} from '../types/actions';
-import {Offer} from '../types/offers';
-import {AppRoute, AuthStatus, SortOptions} from '../const';
-import {AuthInfo} from '../types/users';
-import {Review, ReviewPost} from '../types/reviews';
+import {ActionType} from '../../types/actions';
+import {Offer} from '../../types/offers';
+import {AppRoute, AuthStatus, SortOptions} from '../../const';
+import {AuthInfo} from '../../types/users';
+import {Review, ReviewPost} from '../../types/reviews';
 
 export const setOffers = createAction(
   ActionType.SetOffers,

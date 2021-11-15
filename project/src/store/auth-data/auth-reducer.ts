@@ -5,7 +5,7 @@ import {
   setAuthInfo,
   setAuthLoading,
   setAuthStatus
-} from '../actions';
+} from '../actions/actions';
 import {AuthState} from '../../types/state';
 
 const initialState: AuthState= {
