@@ -13,18 +13,18 @@ import {mockPostReview, mockReviews} from '../../mocks/reviews';
 describe('Reducer: offerReducer', () => {
 
   it('should return initial state without additional parameters', () =>{
-     expect(offerReducer(void 0, {type: 'UNKNOWN_ACTION'}))
-       .toEqual({
-         offer: null,
-         nearbyList: [],
-         loading: false,
-         reviews: [],
-         review: {
-           comment: '',
-           rating: 0,
-         },
-         isReviewLoading: false,
-       });
+    expect(offerReducer(void 0, {type: 'UNKNOWN_ACTION'}))
+      .toEqual({
+        offer: null,
+        nearbyList: [],
+        loading: false,
+        reviews: [],
+        review: {
+          comment: '',
+          rating: 0,
+        },
+        isReviewLoading: false,
+      });
   });
 
   it('should update offer by load offer', () => {
@@ -92,7 +92,7 @@ describe('Reducer: offerReducer', () => {
       isReviewLoading: false,
     };
 
-    const mockResultNearbyList = state.nearbyList.map((offer) => offer.id === mockFavoriteOffer.id ? mockFavoriteOffer : offer)
+    const mockResultNearbyList = state.nearbyList.map((offer) => offer.id === mockFavoriteOffer.id ? mockFavoriteOffer : offer);
     const mockResultOffer = state.offer?.id === mockFavoriteOffer.id ? mockFavoriteOffer : state.offer;
 
     expect(offerReducer(state, toggleFavoriteOffer(mockFavoriteOffer)))

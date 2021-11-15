@@ -121,7 +121,7 @@ describe('Async actions', () => {
 
     const store = mockStore();
     await store.dispatch(fetchOffersAction());
-    const adaptMockOffers = mockRawOffers.map(adaptOfferToCamelCase)
+    const adaptMockOffers = mockRawOffers.map(adaptOfferToCamelCase);
 
     expect(store.getActions()).toEqual([
       setOffersLoading(true),
@@ -131,7 +131,7 @@ describe('Async actions', () => {
   });
 
   it('should set offer by id', async () => {
-    const OFFER_ID = 1
+    const OFFER_ID = 1;
     mockAPI
       .onGet(`${APIRoute.Offers}/${OFFER_ID}`)
       .reply(200, mockRawOffer);
@@ -148,14 +148,14 @@ describe('Async actions', () => {
   });
 
   it('should set nearby offers', async () => {
-    const OFFER_ID = 1
+    const OFFER_ID = 1;
     mockAPI
       .onGet(`${APIRoute.Offers}/${OFFER_ID}${APIRoute.NearbyOffers}`)
       .reply(200, mockRawOffers);
 
     const store = mockStore();
     await store.dispatch(fetchNearbyOffersAction(String(OFFER_ID)));
-    const adaptMockOffers = mockRawOffers.map(adaptOfferToCamelCase)
+    const adaptMockOffers = mockRawOffers.map(adaptOfferToCamelCase);
 
     expect(store.getActions()).toEqual([
       setNearbyOffers(adaptMockOffers),
@@ -163,14 +163,14 @@ describe('Async actions', () => {
   });
 
   it('should set offer reviews', async () => {
-    const OFFER_ID = 1
+    const OFFER_ID = 1;
     mockAPI
       .onGet(`${APIRoute.Reviews}/${OFFER_ID}`)
       .reply(200, mockRawReviews);
 
     const store = mockStore();
     await store.dispatch(fetchReviewsAction(String(OFFER_ID)));
-    const adaptMockReviews = mockRawReviews.map(adaptReviewToCamelCase)
+    const adaptMockReviews = mockRawReviews.map(adaptReviewToCamelCase);
     expect(store.getActions()).toEqual([
       setReviews(adaptMockReviews),
     ]);
@@ -181,7 +181,7 @@ describe('Async actions', () => {
       OFFER: {
         offer: mockOffer,
         review: mockPostReview,
-      }
+      },
     });
     const {OFFER} = store.getState();
     mockAPI
@@ -189,7 +189,7 @@ describe('Async actions', () => {
       .reply(200, mockRawReviews);
 
     await store.dispatch(submitReviewAction());
-    const adaptMockReviews = mockRawReviews.map(adaptReviewToCamelCase)
+    const adaptMockReviews = mockRawReviews.map(adaptReviewToCamelCase);
     expect(store.getActions()).toEqual([
       setReviewLoading(true),
       setReviews(adaptMockReviews),
@@ -205,18 +205,18 @@ describe('Async actions', () => {
 
     const store = mockStore();
     await store.dispatch(fetchFavoriteOffersAction());
-    const adaptFavoriteMockOffers = mockRawFavoriteOffers.map(adaptOfferToCamelCase)
+    const adaptFavoriteMockOffers = mockRawFavoriteOffers.map(adaptOfferToCamelCase);
 
     expect(store.getActions()).toEqual([
       setLoadingFavoriteOffers(true),
       setFavoriteOffers(adaptFavoriteMockOffers),
-      setLoadingFavoriteOffers(false)
+      setLoadingFavoriteOffers(false),
     ]);
   });
 
   it('should toggle favorite offer if user click on bookmark', async () => {
     const OFFER_ID = 1;
-    const status = 1
+    const status = 1;
     mockAPI
       .onPost(`${APIRoute.Favorite}/${OFFER_ID}/${status}`)
       .reply(200, mockRawFavoriteOffer);
@@ -232,7 +232,7 @@ describe('Async actions', () => {
 
   it('should redirect to login page if user not log in', async () => {
     const OFFER_ID = 1;
-    const status = 1
+    const status = 1;
     mockAPI
       .onPost(`${APIRoute.Favorite}/${OFFER_ID}/${status}`)
       .reply(401);
@@ -241,7 +241,7 @@ describe('Async actions', () => {
     await store.dispatch(submitFavoriteAction(OFFER_ID, status));
 
     expect(store.getActions()).toEqual([
-      redirectToRoute(AppRoute.Login)
+      redirectToRoute(AppRoute.Login),
     ]);
   });
 });

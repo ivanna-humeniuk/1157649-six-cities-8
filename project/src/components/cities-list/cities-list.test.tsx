@@ -22,7 +22,7 @@ describe('Component: CitiesList', () => {
         <Router history={history}>
           <CitiesList activeCity={activeCity} cities={CITIES} onActivateCity={fakeOnActiveCity}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(city)).toBeInTheDocument();

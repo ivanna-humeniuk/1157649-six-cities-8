@@ -5,12 +5,12 @@ import {fakeUser} from '../../mocks/user';
 
 describe('Reducer: authReducer', () => {
   it('should return initial state without additional parameters', () =>{
-     expect(authReducer(undefined, {type: 'UNKNOWN_ACTION'}))
-       .toEqual({
-         status: AuthStatus.Unknown,
-         info: null,
-         isLoading: false,
-       });
+    expect(authReducer(undefined, {type: 'UNKNOWN_ACTION'}))
+      .toEqual({
+        status: AuthStatus.Unknown,
+        info: null,
+        isLoading: false,
+      });
   });
 
   it('should update authorizationStatus to "AUTH"', () =>{
@@ -18,7 +18,7 @@ describe('Reducer: authReducer', () => {
       status: AuthStatus.Unknown,
       info: null,
       isLoading: false,
-    }
+    };
     expect(authReducer(state, setAuthStatus(AuthStatus.Auth)))
       .toEqual({
         status: AuthStatus.Auth,
@@ -32,7 +32,7 @@ describe('Reducer: authReducer', () => {
       status: AuthStatus.Unknown,
       info: null,
       isLoading: false,
-    }
+    };
     expect(authReducer(state, setAuthStatus(AuthStatus.NoAuth)))
       .toEqual({
         status: AuthStatus.NoAuth,
@@ -46,7 +46,7 @@ describe('Reducer: authReducer', () => {
       status: AuthStatus.Unknown,
       info: null,
       isLoading: false,
-    }
+    };
     expect(authReducer(state, setAuthInfo(fakeUser)))
       .toEqual({
         status: AuthStatus.Unknown,
@@ -60,7 +60,7 @@ describe('Reducer: authReducer', () => {
       status: AuthStatus.Unknown,
       info: null,
       isLoading: false,
-    }
+    };
     expect(authReducer(state, requireLogout()))
       .toEqual({
         status: AuthStatus.NoAuth,
@@ -74,7 +74,7 @@ describe('Reducer: authReducer', () => {
       status: AuthStatus.Unknown,
       info: null,
       isLoading: false,
-    }
+    };
     expect(authReducer(state, setAuthLoading(true)))
       .toEqual({
         status: AuthStatus.Unknown,
@@ -88,7 +88,7 @@ describe('Reducer: authReducer', () => {
       status: AuthStatus.Unknown,
       info: null,
       isLoading: true,
-    }
+    };
     expect(authReducer(state, setAuthLoading(false)))
       .toEqual({
         status: AuthStatus.Unknown,

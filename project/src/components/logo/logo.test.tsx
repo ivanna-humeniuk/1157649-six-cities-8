@@ -1,8 +1,9 @@
 import {render, screen} from '@testing-library/react';
 import {Route, Router, Switch} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
+import userEvent from '@testing-library/user-event';
 import Logo from './logo';
-import userEvent from "@testing-library/user-event";
+
 
 const history = createMemoryHistory();
 
@@ -29,8 +30,8 @@ describe('Component: Logo', () => {
             <Logo />
           </Route>
         </Switch>
-      </Router>
-    )
+      </Router>,
+    );
 
     expect(screen.queryByText(/This is main page/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByRole('link'));

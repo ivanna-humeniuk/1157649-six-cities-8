@@ -16,7 +16,7 @@ describe('Component: NotFoundScreen', () => {
       status: AuthStatus.NoAuth,
       info: null,
       isLoading: false,
-    }
+    },
   });
 
   it('should render correctly', () => {
@@ -26,7 +26,7 @@ describe('Component: NotFoundScreen', () => {
         <Router history={history}>
           <NotFoundScreen/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/404. Page not found/i)).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('Component: NotFoundScreen', () => {
 
   it('should go to the main page when user click on "Return to Home page"', () => {
 
-    history.push('/non-existent-route')
+    history.push('/non-existent-route');
 
     render(
       <Provider store={store}>
@@ -49,12 +49,12 @@ describe('Component: NotFoundScreen', () => {
             </Route>
           </Switch>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
-    expect(screen.queryByText(/This is main page/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/This is main page/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByText(/Return to Home page/i));
-    expect(screen.queryByText(/This is main page/i)).toBeInTheDocument()
+    expect(screen.queryByText(/This is main page/i)).toBeInTheDocument();
   });
 
 });

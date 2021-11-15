@@ -23,7 +23,7 @@ describe('Component: CitiesItem', () => {
         <Router history={history}>
           <CitiesItem activeCity={activeCity} city={city} onActivateCity={fakeOnActiveCity}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(city)).toBeInTheDocument();
@@ -38,14 +38,14 @@ describe('Component: CitiesItem', () => {
         <Router history={history}>
           <CitiesItem activeCity={activeCity} city={city} onActivateCity={fakeOnActiveCity}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(city)).toBeInTheDocument();
     expect(container.querySelector('.tabs__item--active')).not.toBeInTheDocument();
   });
 
-  it('should handler function if user choose city  ', () => {
+  it('should handler function if user choose city', () => {
     const activeCity = CITIES[0];
 
     render(
@@ -53,7 +53,7 @@ describe('Component: CitiesItem', () => {
         <Router history={history}>
           <CitiesItem activeCity={activeCity} city={city} onActivateCity={fakeOnActiveCity}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     userEvent.click(screen.getByText(city));

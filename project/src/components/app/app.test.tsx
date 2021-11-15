@@ -8,11 +8,11 @@ import MockAdapter from 'axios-mock-adapter';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {State} from '../../types/state';
 import {AppRoute, AuthStatus, CITIES, SortOptions} from '../../const';
-import {mockFavoriteOffers, mockOffer, mockOffers} from '../../mocks/offers';
+import {mockOffer, mockOffers} from '../../mocks/offers';
 import {mockReviews} from '../../mocks/reviews';
 import {createAPI} from '../../services/api';
 import App from './app';
-import {fakeUser} from "../../mocks/user";
+import {fakeUser} from '../../mocks/user';
 
 const onFakeUnauthorized = jest.fn();
 const api = createAPI(onFakeUnauthorized());
@@ -51,7 +51,7 @@ const store = mockStore({
   },
   FAVORITE: {
     isLoadingFavorite: false,
-  }
+  },
 });
 
 
@@ -77,7 +77,7 @@ describe('Application Routing', () => {
     history.push(AppRoute.Main);
     render(fakeApp);
     expect(screen.getByText(/Cities/i)).toBeInTheDocument();
-  })
+  });
 
   it('should render "LoginScreen" when user navigate to "/login"', () => {
     const authScreenStore  = mockStore({
@@ -97,7 +97,7 @@ describe('Application Routing', () => {
     expect(screen.getByText(/Amsterdam/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Email/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Password/i)).toBeInTheDocument();
-  })
+  });
 
   it('should render "FavoritesScreen" when user navigate to "/favorites"', () => {
     history.push(AppRoute.Favorites);

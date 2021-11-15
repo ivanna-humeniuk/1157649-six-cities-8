@@ -7,19 +7,19 @@ import {
   setSortedOption,
   toggleFavoriteOffer
 } from '../actions/actions';
-import {mockFavoriteOffer, mockFavoriteOffers, mockOffer, mockOffers} from '../../mocks/offers';
+import {mockFavoriteOffer, mockFavoriteOffers, mockOffers} from '../../mocks/offers';
 import {CITIES, SortOptions} from '../../const';
 
 describe('Reducer: offersReducer', () => {
 
   it('should return initial state without additional parameters', () =>{
-     expect(offersReducer(void 0, {type: 'UNKNOWN_ACTION'}))
-       .toEqual({
-         city: CITIES[0],
-         sortedOption: SortOptions.Popular,
-         offers: [],
-         isLoadingStatus: false,
-       });
+    expect(offersReducer(void 0, {type: 'UNKNOWN_ACTION'}))
+      .toEqual({
+        city: CITIES[0],
+        sortedOption: SortOptions.Popular,
+        offers: [],
+        isLoadingStatus: false,
+      });
   });
 
   it('should update offers by load offers', () => {
@@ -28,7 +28,7 @@ describe('Reducer: offersReducer', () => {
       sortedOption: SortOptions.Popular,
       offers: [],
       isLoadingStatus: false,
-    }
+    };
     expect(offersReducer(state, setOffers(mockOffers)))
       .toEqual({
         city: CITIES[0],
@@ -45,7 +45,7 @@ describe('Reducer: offersReducer', () => {
       sortedOption: SortOptions.Popular,
       offers: mockOffers,
       isLoadingStatus: false,
-    }
+    };
 
     const mockOffersResult = state.offers.map((offer) => {
       const matchMockOffer = mockFavoriteOffers.find((favor) => offer.id === favor.id);
@@ -70,7 +70,7 @@ describe('Reducer: offersReducer', () => {
       sortedOption: SortOptions.Popular,
       offers: mockOffers,
       isLoadingStatus: false,
-    }
+    };
     const mockOffersResult = state.offers.map((offer) => offer.id === mockFavoriteOffer.id ? mockFavoriteOffer : offer);
 
     expect(offersReducer(state, toggleFavoriteOffer(mockFavoriteOffer)))
@@ -88,7 +88,7 @@ describe('Reducer: offersReducer', () => {
       sortedOption: SortOptions.Popular,
       offers: [],
       isLoadingStatus: false,
-    }
+    };
     const city = CITIES[1];
     expect(offersReducer(state, setCity(city)))
       .toEqual({
@@ -105,7 +105,7 @@ describe('Reducer: offersReducer', () => {
       sortedOption: SortOptions.Popular,
       offers: [],
       isLoadingStatus: false,
-    }
+    };
     const sortedOption = SortOptions.FromHighToLowPrice;
     expect(offersReducer(state, setSortedOption(sortedOption)))
       .toEqual({
@@ -122,7 +122,7 @@ describe('Reducer: offersReducer', () => {
       sortedOption: SortOptions.Popular,
       offers: [],
       isLoadingStatus: false,
-    }
+    };
     expect(offersReducer(state, setOffersLoading(true)))
       .toEqual({
         city: CITIES[0],
@@ -138,7 +138,7 @@ describe('Reducer: offersReducer', () => {
       sortedOption: SortOptions.Popular,
       offers: [],
       isLoadingStatus: false,
-    }
+    };
     expect(offersReducer(state, setOffersLoading(false)))
       .toEqual({
         city: CITIES[0],

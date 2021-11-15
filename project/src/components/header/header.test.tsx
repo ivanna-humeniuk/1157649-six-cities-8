@@ -23,7 +23,7 @@ const history = createMemoryHistory();
 
 describe('Component: Header', () => {
 
-  it('should render correctly if this is main page and  user does not login in ', () => {
+  it('should render correctly if this is main page and  user does not login in', () => {
     const store = mockStore({
       AUTH: {status: AuthStatus.NoAuth},
     });
@@ -40,7 +40,7 @@ describe('Component: Header', () => {
     expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
   });
 
-  it('should render correctly if this is not login page and  user login in ', () => {
+  it('should render correctly if this is not login page and user login in', () => {
     const store = mockStore({
       AUTH: {status: AuthStatus.Auth},
     });
@@ -74,8 +74,8 @@ describe('Component: Header', () => {
             </Route>
           </Switch>
         </Router>
-      </Provider>
-    )
+      </Provider>,
+    );
 
     expect(screen.queryByText(/This is login page/i)).not.toBeInTheDocument();
     expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
@@ -83,12 +83,12 @@ describe('Component: Header', () => {
     expect(screen.queryByText(/Login page/i)).toBeInTheDocument();
   });
 
-  it('should render correctly if it is login page and  user does not login in ', () => {
+  it('should render correctly if it is login page and user does not login in', () => {
     const store = mockStore({
       AUTH: {status: AuthStatus.NoAuth},
     });
 
-    history.push(AppRoute.Login)
+    history.push(AppRoute.Login);
 
     const {container} = render(
       <Provider store={store}>
@@ -106,7 +106,7 @@ describe('Component: Header', () => {
       AUTH: {status: AuthStatus.Auth},
     });
 
-    history.push(AppRoute.Main)
+    history.push(AppRoute.Main);
 
     render(
       <Provider store={store}>
@@ -115,7 +115,7 @@ describe('Component: Header', () => {
         </Router>
       </Provider>);
 
-    expect(screen.getByText(/Sign out/i));
+    expect(screen.getByText(/Sign out/i)).toBeInTheDocument();
   });
 
 });

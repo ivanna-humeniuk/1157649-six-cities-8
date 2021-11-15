@@ -4,7 +4,7 @@ import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import OfferCard from './offer-card';
-import {mockOffer} from "../../mocks/offers";
+import {mockOffer} from '../../mocks/offers';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
@@ -15,7 +15,7 @@ describe('Component: OfferCard', () => {
   const fakeOfferClasses = {
     article: 'cities__place-card',
     imageWrapper: 'cities__image-wrapper',
-  }
+  };
 
   it('should render correctly', () => {
     const {container} = render(
@@ -23,7 +23,7 @@ describe('Component: OfferCard', () => {
         <Router history={history}>
           <OfferCard place={mockOffer} cardClasses={fakeOfferClasses}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/To bookmarks/i)).toBeInTheDocument();

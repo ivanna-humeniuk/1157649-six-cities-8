@@ -8,9 +8,9 @@ export const  fakeUser: AuthInfo = {
   isPro: false,
   name: 'ivanna.humeniuk',
   token: 'aXZhbm5hLmh1bWQGdtYWlsLmNvbQ==',
-}
+};
 
 export const  fakeAuth: AuthData = {
   email: 'ivanna.humeniuk@gmail.com',
   password: '1234sdshdsjdh',
-}
+};

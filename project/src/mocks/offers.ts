@@ -11,26 +11,6 @@ const CITY_AMSTERDAM = {
   name: 'Amsterdam',
 };
 
-const CITY_PARIS = {
-  location: CITY_LOCATION,
-  name: 'Paris',
-};
-
-const CITY_HAMBURG = {
-  location: CITY_LOCATION,
-  name: 'Hamburg',
-};
-
-const CITY_COLOGNE = {
-  location: CITY_LOCATION,
-  name: 'Cologne',
-};
-
-const CITY_BRUSSELS = {
-  location: CITY_LOCATION,
-  name: 'Brussels',
-};
-
 export const city: City = {
   location: {
     latitude: 52.370216,
@@ -205,8 +185,9 @@ export const mockOffer: Offer = {
     zoom: 8,
   },
   city: CITY_AMSTERDAM,
-}
+};
 
+/* eslint-disable camelcase */
 export const mockRawOffers: RawOffer[] = [
   {
     id: 1,
@@ -344,7 +325,7 @@ export const mockRawOffer: RawOffer = {
     zoom: 8,
   },
   city: CITY_AMSTERDAM,
-}
+};
 
 export const mockRawFavoriteOffers: RawOffer[] = [
   {
@@ -594,7 +575,7 @@ export const mockRawFavoriteOffer: RawOffer = {
     zoom: 8,
   },
   city: CITY_AMSTERDAM,
-}
+};
 
 export const mockFavoriteOffer: Offer = {
   id: 1,
@@ -622,6 +603,6 @@ export const mockFavoriteOffer: Offer = {
     zoom: 8,
   },
   city: CITY_AMSTERDAM,
-}
+};
 
 

@@ -27,7 +27,7 @@ export const mockReviews: Review[] = [
   },
 ];
 
-
+/* eslint-disable camelcase */
 export const mockRawReviews: RawReview[] = [
   {
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
@@ -85,4 +85,4 @@ export const mockRawReview: RawReview = {
 export const mockPostReview: ReviewPost = {
   comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
   rating: 4,
-}
+};
