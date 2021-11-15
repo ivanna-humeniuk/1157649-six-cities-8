@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import {useCallback, useEffect, useMemo} from 'react';
+import {useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import useActivePoint from '../../hooks/useActivePoint';
@@ -11,13 +11,14 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {
   fetchNearbyOffersAction,
   fetchOfferAction,
-  fetchReviewsAction, submitFavoriteAction
-} from '../../store/api-actions';
+  fetchReviewsAction
+} from '../../store/actions/api-actions';
 import {
   getLoadingOffer,
   getNearbyList,
   getOffer
 } from '../../store/offer-data/selectors';
+import useFavoriteAction from '../../hooks/useFavoriteAction';
 
 
 const propertyClasses = {
@@ -31,13 +32,9 @@ function PropertyScreen(): JSX.Element {
   const isLoading = useSelector(getLoadingOffer);
   const dispatch = useDispatch();
   const {id} = useParams<{ id: string }>();
+  const handleBookmarkButtonClick = useFavoriteAction( offer, Number(id));
   const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
   const ratingWidth = useMemo(() =>offer && offer.rating > 0 ?{width: `${offer.rating * 20}%`} :{width: '0%'}, [offer]);
-
-  const handleBookmarkButtonClick = useCallback(() => {
-    const status = offer?.isFavorite ? 0 : 1;
-    dispatch(submitFavoriteAction(Number(id), status));
-  }, [dispatch, id, offer?.isFavorite]);
 
   useEffect(() => {
     if(id) {
@@ -73,6 +70,7 @@ function PropertyScreen(): JSX.Element {
     'property__avatar-wrapper--pro': offer?.host?.isPro,
     'user__avatar-wrapper': true,
   });
+
   return (
     <div className="page">
       <Header/>
@@ -197,4 +195,3 @@ function PropertyScreen(): JSX.Element {
 }
 
 export default PropertyScreen;
-

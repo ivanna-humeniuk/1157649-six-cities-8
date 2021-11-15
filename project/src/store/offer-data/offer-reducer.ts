@@ -5,8 +5,9 @@ import {
   setOfferLoading,
   setReview,
   setReviewLoading,
-  setReviews, toggleFavoriteOffer
-} from '../actions';
+  setReviews,
+  toggleFavoriteOffer
+} from '../actions/actions';
 import {OfferState} from '../../types/state';
 
 const initialState: OfferState = {

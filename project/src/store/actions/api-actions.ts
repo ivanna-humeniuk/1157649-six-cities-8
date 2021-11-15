@@ -1,5 +1,5 @@
 import {toast} from 'react-toastify';
-import {Offer, RawOffer} from '../types/offers';
+import {Offer, RawOffer} from '../../types/offers';
 import {
   APIRoute,
   AppRoute,
@@ -9,7 +9,7 @@ import {
   DATA_LOAD_FAIL_MESSAGE,
   LOGOUT_FAIL_MESSAGE,
   TOAST_CLOSE_TIME
-} from '../const';
+} from '../../const';
 import {
   redirectToRoute,
   setAuthStatus,
@@ -28,11 +28,11 @@ import {
   setLoadingFavoriteOffers,
   toggleFavoriteOffer
 } from './actions';
-import {ThunkActionResult} from '../types/actions';
-import {adaptOfferToCamelCase, adaptReviewToCamelCase} from '../utills/adapt-to-camel-case';
-import {AuthData, AuthInfo} from '../types/users';
-import {dropToken, setToken} from '../services/token';
-import {RawReview, Review} from '../types/reviews';
+import {ThunkActionResult} from '../../types/actions';
+import {adaptOfferToCamelCase, adaptReviewToCamelCase} from '../../utills/adapt-to-camel-case';
+import {AuthData, AuthInfo} from '../../types/users';
+import {dropToken, setToken} from '../../services/token';
+import {RawReview, Review} from '../../types/reviews';
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
@@ -71,7 +71,7 @@ export const logoutAction = (): ThunkActionResult =>
     } catch(error) {
       toast.info(LOGOUT_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
       /* eslint-disable no-console */
-      console.error(error);
+      console.warn(error);
     }
   };
 
@@ -86,7 +86,7 @@ export const fetchOffersAction = (): ThunkActionResult =>
     } catch (error) {
       toast.info(DATA_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
       /* eslint-disable no-console */
-      console.error(error);
+      console.warn(error);
     } finally {
       dispatch(setOffersLoading(false));
     }
@@ -102,7 +102,7 @@ export const fetchOfferAction = (id: string): ThunkActionResult =>
     } catch (error) {
       dispatch(redirectToRoute(AppRoute.NotFound));
       /* eslint-disable no-console */
-      console.error(error);
+      console.warn(error);
     } finally {
       dispatch(setOfferLoading(false));
     }
@@ -116,7 +116,7 @@ export const fetchNearbyOffersAction = (id: string): ThunkActionResult =>
       dispatch(setNearbyOffers(hotels));
     } catch (error) {
       /* eslint-disable no-console */
-      console.error(error);
+      console.warn(error);
     }
   };
 
@@ -128,14 +128,14 @@ export const fetchReviewsAction = (id: string): ThunkActionResult =>
       dispatch(setReviews(reviews));
     } catch (error) {
       /* eslint-disable no-console */
-      console.error(error);
+      console.warn(error);
     }
   };
 
 export const submitReviewAction = (): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
     dispatch(setReviewLoading(true));
-    const {offer, review} = getState().offer;
+    const {offer, review} = getState().OFFER;
     try {
       const {data} = await api.post<RawReview[]>(`${APIRoute.Reviews}/${offer?.id}`, review);
       const reviews: Review[] = data.map(adaptReviewToCamelCase);
@@ -143,7 +143,7 @@ export const submitReviewAction = (): ThunkActionResult =>
       dispatch(setReview({comment: '', rating: 0}));
     } catch (error) {
       /* eslint-disable no-console */
-      console.error(error);
+      console.warn(error);
     } finally {
       dispatch(setReviewLoading(false));
     }
@@ -159,7 +159,7 @@ export const fetchFavoriteOffersAction = (): ThunkActionResult =>
     } catch (error) {
       toast.info(DATA_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
       /* eslint-disable no-console */
-      console.error(error);
+      console.warn(error);
     } finally {
       dispatch(setLoadingFavoriteOffers(false));
     }
@@ -173,7 +173,7 @@ export const submitFavoriteAction = (id: number, status: number): ThunkActionRes
       dispatch(toggleFavoriteOffer(hotel));
     } catch (error) {
       /* eslint-disable no-console */
-      console.log(error);
+      console.warn(error);
       dispatch(redirectToRoute(AppRoute.Login));
     }
   };

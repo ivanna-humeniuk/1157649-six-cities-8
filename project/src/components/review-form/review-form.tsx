@@ -2,8 +2,8 @@ import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {REVIEW_MIN_LENGTH, REVIEW_MAX_LENGTH} from '../../const';
 import {ReviewPost} from '../../types/reviews';
-import {setReview} from '../../store/actions';
-import {submitReviewAction} from '../../store/api-actions';
+import {setReview} from '../../store/actions/actions';
+import {submitReviewAction} from '../../store/actions/api-actions';
 import {getReview, getReviewLoadingStatus} from '../../store/offer-data/selectors';
 
 const isValidComment = (review: ReviewPost): boolean =>

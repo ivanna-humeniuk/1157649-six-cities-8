@@ -3,7 +3,7 @@ import {ChangeEvent, FormEvent, useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import Header from '../header/header';
-import {loginAction} from '../../store/api-actions';
+import {loginAction} from '../../store/actions/api-actions';
 import {getAuthLoadingStatus, getAuthStatus} from '../../store/auth-data/selectors';
 import {AppRoute, AuthStatus, PASSWORD_ERROR_MESSAGE, PASSWORD_REG_EXP, TOAST_CLOSE_TIME} from '../../const';
 
@@ -48,7 +48,7 @@ function LoginScreen(): JSX.Element {
             <h1 className="login__title">Sign in</h1>
             <form className="login__form form" action="#" method="post" onSubmit={handleSubmitForm}>
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
+                <label className="visually-hidden" htmlFor="email">E-mail</label>
                 <input
                   className="login__input form__input"
                   value={email}
@@ -60,7 +60,7 @@ function LoginScreen(): JSX.Element {
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
+                <label className="visually-hidden" htmlFor="password">Password</label>
                 <input
                   className="login__input form__input"
                   value={password}

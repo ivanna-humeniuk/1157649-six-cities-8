@@ -9,8 +9,8 @@ import CitiesList from '../cities-list/cities-list';
 import useActivePoint from '../../hooks/useActivePoint';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Sort from '../sort/sort';
-import {fetchOffersAction} from '../../store/api-actions';
-import {setCity} from '../../store/actions';
+import {fetchOffersAction} from '../../store/actions/api-actions';
+import {setCity} from '../../store/actions/actions';
 import {getActiveCity, getFilteredOffers, getOffersLoadingStatus} from '../../store/offers-data/selectors';
 
 const mainClasses = {

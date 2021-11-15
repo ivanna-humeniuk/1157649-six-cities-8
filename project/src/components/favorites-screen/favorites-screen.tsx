@@ -1,14 +1,15 @@
 import cn from 'classnames';
-import {useEffect, useMemo} from 'react';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import OfferCard from '../offer-card/offer-card';
 import Header from '../header/header';
 import {Offer} from '../../types/offers';
 import './favorites-screen.css';
-import {getFavoriteOffers, getLoadingFavoriteStatus} from '../../store/favorite-offers-data/selectors';
-import {fetchFavoriteOffersAction} from '../../store/api-actions';
-import {CITIES} from '../../const';
-import {Listing} from '../../types/listings';
+import {
+  getListingOffers,
+  getLoadingFavoriteStatus
+} from '../../store/favorite-offers-data/selectors';
+import {fetchFavoriteOffersAction} from '../../store/actions/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 const favoritesClasses = {
@@ -17,30 +18,14 @@ const favoritesClasses = {
   info: 'favorites__card-info',
 };
 
-
 function FavoritesScreen(): JSX.Element {
-  const favoriteOffers = useSelector(getFavoriteOffers);
+  const listings = useSelector(getListingOffers);
   const isLoading = useSelector(getLoadingFavoriteStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
-
-  const listings =  useMemo(() => {
-    if(favoriteOffers.length !== 0) {
-      return CITIES.reduce((acc: Listing[], cur) => (
-        [
-          ...acc,
-          {
-            city: cur,
-            offers: favoriteOffers.filter((item) => item.city.name === cur),
-          },
-        ]
-      ), []);
-    }
-    return [];
-  }, [favoriteOffers]);
 
   if(isLoading) {
     return <LoadingScreen/>;
@@ -68,7 +53,7 @@ function FavoritesScreen(): JSX.Element {
               <ul className="favorites__list">
                 {listings.map((listing) => {
                   if (listing.offers.length === 0) {
-                    return false;
+                    return null;
                   }
                   return (
                     <li className="favorites__locations-items" key={listing.city}>
