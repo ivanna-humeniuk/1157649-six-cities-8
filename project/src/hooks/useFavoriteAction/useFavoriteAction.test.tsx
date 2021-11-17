@@ -19,7 +19,7 @@ export const mockStore = configureMockStore<
   ThunkDispatch<State, typeof api, Action>
   >(middlewares);
 
-describe('Hook: useActivePoint', () => {
+describe('Hook: useFavoriteAction', () => {
 
   it('should return function', () => {
 

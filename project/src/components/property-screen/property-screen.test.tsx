@@ -30,7 +30,7 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
-describe('Component: RoomScreen', () => {
+describe('Component: PropertyScreen', () => {
   const store = mockStore({
     [NameSpace.auth]: {
       status: AuthStatus.Auth,
