@@ -15,7 +15,7 @@ describe('Component: Logo', () => {
       </Router>);
 
     expect(screen.getByAltText(/6 cities logo/i)).toBeInTheDocument();
-    expect(screen.getByRole('link')).toBeInTheDocument();
+    expect(screen.getByTestId(/logo/i)).toBeInTheDocument();
   });
 
   it('should redirect to root url when user clicked to link', () => {

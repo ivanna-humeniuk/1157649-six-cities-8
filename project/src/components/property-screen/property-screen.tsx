@@ -2,7 +2,6 @@ import cn from 'classnames';
 import {useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
-import useActivePoint from '../../hooks/useActivePoint';
 import Header from '../header/header';
 import Reviews from '../reviews/reviews';
 import Map from '../map/map';
@@ -18,7 +17,7 @@ import {
   getNearbyList,
   getOffer
 } from '../../store/offer-data/selectors';
-import useFavoriteAction from '../../hooks/useFavoriteAction';
+import useFavoriteAction from '../../hooks/useFavoriteAction/useFavoriteAction';
 
 
 const propertyClasses = {
@@ -33,7 +32,6 @@ function PropertyScreen(): JSX.Element {
   const dispatch = useDispatch();
   const {id} = useParams<{ id: string }>();
   const handleBookmarkButtonClick = useFavoriteAction( offer, Number(id));
-  const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(Number(id));
   const ratingWidth = useMemo(() =>offer && offer.rating > 0 ?{width: `${offer.rating * 20}%`} :{width: '0%'}, [offer]);
 
   useEffect(() => {
@@ -78,7 +76,7 @@ function PropertyScreen(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer?.images.slice(0,6).map((image) => (
+              {offer?.images?.slice(0,6).map((image) => (
                 <div className="property__image-wrapper" key={image}>
                   <img className="property__image" src={image} alt="Studio"/>
                 </div>
@@ -171,7 +169,7 @@ function PropertyScreen(): JSX.Element {
           </div>
           {points.length !== 0 && offer?.city && (
             <section className="property__map map">
-              <Map points={points} city={offer?.city} activePoint={activePoint}/>
+              <Map points={points} city={offer?.city} activePoint={offer.id}/>
             </section>
           )}
         </section>
@@ -182,8 +180,6 @@ function PropertyScreen(): JSX.Element {
               <OffersList
                 offers={nearbyList}
                 cardClasses={propertyClasses}
-                onCardHover={handleCardHoverOn}
-                onCardHoverOff={handleCardHoverOff}
                 offerListClass="near-places__list"
               />
             </section>

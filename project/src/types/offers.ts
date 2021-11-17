@@ -16,7 +16,7 @@ export type Offer = {
   host: User;
   location: Location;
   city: City;
-  images: [];
+  images: string[];
 };
 
 export type Location = {

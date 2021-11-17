@@ -13,10 +13,10 @@ const history = createMemoryHistory();
 describe('Component: CitiesItem', () => {
   const store = mockStore();
   const city = CITIES[0];
-  const fakeOnActiveCity = jest.fn();
 
   it('should render correctly', () => {
     const activeCity = CITIES[0];
+    const fakeOnActiveCity = jest.fn();
 
     const {container} = render(
       <Provider store={store}>
@@ -32,6 +32,7 @@ describe('Component: CitiesItem', () => {
 
   it('should render correctly if user click on other city', () => {
     const activeCity = CITIES[1];
+    const fakeOnActiveCity = jest.fn();
 
     const {container} = render(
       <Provider store={store}>
@@ -47,6 +48,7 @@ describe('Component: CitiesItem', () => {
 
   it('should handler function if user choose city', () => {
     const activeCity = CITIES[0];
+    const fakeOnActiveCity = jest.fn();
 
     render(
       <Provider store={store}>

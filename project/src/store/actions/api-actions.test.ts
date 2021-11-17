@@ -61,7 +61,7 @@ export const mockStore = configureMockStore<
 
 describe('Async actions', () => {
 
-  it('should update authorization status to «auth»', async () => {
+  it('should update authorization status to "auth"', async () => {
     const store = mockStore();
     mockAPI
       .onGet(APIRoute.Login)
@@ -83,7 +83,7 @@ describe('Async actions', () => {
       .reply(200, fakeUser);
 
     const store = mockStore();
-    Storage.prototype.setItem = jest.fn();
+    const mockFun = jest.spyOn(Storage.prototype, 'setItem');
 
     await store.dispatch(loginAction(fakeAuth));
 
@@ -95,8 +95,9 @@ describe('Async actions', () => {
       setAuthLoading(false),
     ]);
 
-    expect(Storage.prototype.setItem).toBeCalledTimes(1);
-    expect(Storage.prototype.setItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME, 'aXZhbm5hLmh1bWQGdtYWlsLmNvbQ==');
+    expect(mockFun).toBeCalledTimes(1);
+    expect(mockFun).toBeCalledWith(AUTH_TOKEN_KEY_NAME, 'aXZhbm5hLmh1bWQGdtYWlsLmNvbQ==');
+    mockFun.mockRestore();
   });
 
   it('should logout user', async () => {
@@ -105,13 +106,15 @@ describe('Async actions', () => {
       .reply(204);
 
     const store = mockStore();
-    Storage.prototype.removeItem = jest.fn();
+    const mockFun = jest.spyOn(Storage.prototype, 'removeItem');
 
     await store.dispatch(logoutAction());
 
     expect(store.getActions()).toEqual([requireLogout()]);
-    expect(Storage.prototype.removeItem).toBeCalledTimes(1);
-    expect(Storage.prototype.removeItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME);
+    expect(mockFun).toBeCalledTimes(1);
+    expect(mockFun).toBeCalledWith(AUTH_TOKEN_KEY_NAME);
+
+    mockFun.mockRestore();
   });
 
   it('should set all offers on main page', async () => {

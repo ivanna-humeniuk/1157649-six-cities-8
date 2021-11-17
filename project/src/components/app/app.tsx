@@ -7,9 +7,10 @@ import PropertyScreen from '../property-screen/property-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import {store} from '../../store/store';
-import {checkAuthAction} from '../../store/actions/api-actions';
+import {checkAuthAction, fetchOffersAction} from '../../store/actions/api-actions';
 
 store.dispatch(checkAuthAction());
+store.dispatch(fetchOffersAction());
 
 function App(): JSX.Element {
   return (

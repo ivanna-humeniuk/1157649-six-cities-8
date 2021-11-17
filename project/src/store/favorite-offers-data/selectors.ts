@@ -13,15 +13,15 @@ export const getFavoriteOffers = createSelector(
 
 export const getListingOffers = createSelector(
   getFavoriteOffers,
-  (favoriteOffers) => (
-    CITIES.reduce((acc: Listing[], cur) => (
-      [
-        ...acc,
-        {
-          city: cur,
-          offers: favoriteOffers.filter((item) => item.city.name === cur),
-        },
-      ]
-    ), [])
-  ),
+  (favoriteOffers) => {
+    if (favoriteOffers.length === 0) {
+      return [];
+    }
+    return CITIES.reduce((acc: Listing[], cur) => (
+      acc.concat({
+        city: cur,
+        offers: favoriteOffers.filter((item) => item.city.name === cur),
+      })
+    ), []);
+  },
 );
