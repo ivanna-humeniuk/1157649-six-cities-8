@@ -2,7 +2,7 @@ import {useCallback, useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import {Offer} from '../../types/offers';
-import useFavoriteAction from '../../hooks/useFavoriteAction';
+import useFavoriteAction from '../../hooks/useFavoriteAction/useFavoriteAction';
 
 type PlaceCardProps = {
   cardClasses: {

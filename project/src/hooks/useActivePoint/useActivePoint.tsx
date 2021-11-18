@@ -1,10 +1,10 @@
 import {useState, useCallback} from 'react';
 
-function useActivePoint(defaultPoint: number): {
-  activePoint: number;
-  handleCardHoverOn: (id: number) => void;
-  handleCardHoverOff: () => void;
-} {
+function useActivePoint(defaultPoint: number): [
+  activePoint: number,
+  handleCardHoverOn: (id: number) => void,
+  handleCardHoverOff: () => void,
+] {
   const [activePoint, setActivePoint] = useState(defaultPoint);
 
   const handleCardHoverOn = useCallback( (id: number) => {
@@ -15,11 +15,11 @@ function useActivePoint(defaultPoint: number): {
     setActivePoint(defaultPoint);
   }, [defaultPoint]);
 
-  return {
+  return [
     activePoint,
     handleCardHoverOn,
     handleCardHoverOff,
-  };
+  ];
 }
 
 export default useActivePoint;

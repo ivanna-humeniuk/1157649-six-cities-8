@@ -6,7 +6,22 @@ const CITY_LOCATION = {
   zoom: 12,
 };
 
-const CITY_AMSTERDAM = {
+const HOST = {
+  avatarUrl: 'img/avatar-angelina.jpg',
+  name: 'Angelina',
+  isPro: true,
+  id: 1,
+};
+
+/* eslint-disable camelcase */
+const RawHost = {
+  avatar_url: 'img/avatar-angelina.jpg',
+  name: 'Angelina',
+  is_pro: true,
+  id: 1,
+};
+
+export const CITY_AMSTERDAM = {
   location: CITY_LOCATION,
   name: 'Amsterdam',
 };
@@ -35,25 +50,13 @@ export const mockOffers: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     maxAdults: 5,
-    host: {
-      avatarUrl: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: true,
-      id: 1,
-    },
+    host: HOST,
     location: {
       latitude: 52.3909553943508,
       longitude: 4.85309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Amsterdam',
-    },
+    city: CITY_AMSTERDAM,
   },
   {
     id: 2,
@@ -69,25 +72,13 @@ export const mockOffers: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     maxAdults: 2,
-    host: {
-      avatarUrl: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: true,
-      id: 1,
-    },
+    host: HOST,
     location: {
       latitude: 52.369553943508,
       longitude: 4.85309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Amsterdam',
-    },
+    city: CITY_AMSTERDAM,
   },
   {
     id: 3,
@@ -103,25 +94,13 @@ export const mockOffers: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     maxAdults: 6,
-    host: {
-      avatarUrl: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: true,
-      id: 1,
-    },
+    host: HOST,
     location: {
       latitude: 52.3909553943508,
       longitude: 4.929309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Amsterdam',
-    },
+    city: CITY_AMSTERDAM,
   },
   {
     id: 4,
@@ -137,32 +116,28 @@ export const mockOffers: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     maxAdults: 7,
-    host: {
-      avatarUrl: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: false,
-      id: 1,
-    },
+    host: HOST,
     location: {
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
       zoom: 8,
     },
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 12,
-      },
-      name: 'Amsterdam',
-    },
+    city: CITY_AMSTERDAM,
   },
 ];
 
 export const mockOffer: Offer = {
   id: 1,
   previewImage: 'img/apartment-01.jpg',
-  images: [],
+  images: [
+    'https://8.react.pages.academy/static/hotel/3.jpg',
+    'https://8.react.pages.academy/static/hotel/15.jpg',
+    'https://8.react.pages.academy/static/hotel/12.jpg',
+    'https://8.react.pages.academy/static/hotel/6.jpg',
+    'https://8.react.pages.academy/static/hotel/10.jpg',
+    'https://8.react.pages.academy/static/hotel/2.jpg',
+    'https://8.react.pages.academy/static/hotel/17.jpg',
+  ],
   title: 'Beautiful & luxurious apartment at great location',
   price: 120,
   type: 'Apartment',
@@ -173,12 +148,7 @@ export const mockOffer: Offer = {
   description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
   goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
   maxAdults: 5,
-  host: {
-    avatarUrl: 'img/avatar-angelina.jpg',
-    name: 'Angelina',
-    isPro: true,
-    id: 1,
-  },
+  host: HOST,
   location: {
     latitude: 52.3909553943508,
     longitude: 4.85309666406198,
@@ -203,12 +173,7 @@ export const mockRawOffers: RawOffer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     max_adults: 5,
-    host: {
-      avatar_url: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      is_pro: true,
-      id: 1,
-    },
+    host: RawHost,
     location: {
       latitude: 52.3909553943508,
       longitude: 4.85309666406198,
@@ -230,12 +195,7 @@ export const mockRawOffers: RawOffer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     max_adults: 2,
-    host: {
-      avatar_url: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      is_pro: true,
-      id: 1,
-    },
+    host: RawHost,
     location: {
       latitude: 52.369553943508,
       longitude: 4.85309666406198,
@@ -257,12 +217,7 @@ export const mockRawOffers: RawOffer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     max_adults: 6,
-    host: {
-      avatar_url: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      is_pro: true,
-      id: 1,
-    },
+    host: RawHost,
     location: {
       latitude: 52.3909553943508,
       longitude: 4.929309666406198,
@@ -284,12 +239,7 @@ export const mockRawOffers: RawOffer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     max_adults: 7,
-    host: {
-      avatar_url: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      is_pro: false,
-      id: 1,
-    },
+    host: RawHost,
     location: {
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
@@ -313,12 +263,7 @@ export const mockRawOffer: RawOffer = {
   description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
   goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
   max_adults: 5,
-  host: {
-    avatar_url: 'img/avatar-angelina.jpg',
-    name: 'Angelina',
-    is_pro: true,
-    id: 1,
-  },
+  host: RawHost,
   location: {
     latitude: 52.3909553943508,
     longitude: 4.85309666406198,
@@ -342,12 +287,7 @@ export const mockRawFavoriteOffers: RawOffer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     max_adults: 5,
-    host: {
-      avatar_url: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      is_pro: true,
-      id: 1,
-    },
+    host: RawHost,
     location: {
       latitude: 52.3909553943508,
       longitude: 4.85309666406198,
@@ -369,12 +309,7 @@ export const mockRawFavoriteOffers: RawOffer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     max_adults: 2,
-    host: {
-      avatar_url: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      is_pro: true,
-      id: 1,
-    },
+    host: RawHost,
     location: {
       latitude: 52.369553943508,
       longitude: 4.85309666406198,
@@ -396,12 +331,7 @@ export const mockRawFavoriteOffers: RawOffer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     max_adults: 6,
-    host: {
-      avatar_url: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      is_pro: true,
-      id: 1,
-    },
+    host: RawHost,
     location: {
       latitude: 52.3909553943508,
       longitude: 4.929309666406198,
@@ -423,12 +353,7 @@ export const mockRawFavoriteOffers: RawOffer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     max_adults: 7,
-    host: {
-      avatar_url: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      is_pro: false,
-      id: 1,
-    },
+    host: RawHost,
     location: {
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
@@ -453,12 +378,7 @@ export const mockFavoriteOffers: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     maxAdults: 5,
-    host: {
-      avatarUrl: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: true,
-      id: 1,
-    },
+    host: HOST,
     location: {
       latitude: 52.3909553943508,
       longitude: 4.85309666406198,
@@ -480,12 +400,7 @@ export const mockFavoriteOffers: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     maxAdults: 2,
-    host: {
-      avatarUrl: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: true,
-      id: 1,
-    },
+    host: HOST,
     location: {
       latitude: 52.369553943508,
       longitude: 4.85309666406198,
@@ -507,12 +422,7 @@ export const mockFavoriteOffers: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     maxAdults: 6,
-    host: {
-      avatarUrl: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: true,
-      id: 1,
-    },
+    host: HOST,
     location: {
       latitude: 52.3909553943508,
       longitude: 4.929309666406198,
@@ -534,12 +444,7 @@ export const mockFavoriteOffers: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     maxAdults: 7,
-    host: {
-      avatarUrl: 'img/avatar-angelina.jpg',
-      name: 'Angelina',
-      isPro: false,
-      id: 1,
-    },
+    host: HOST,
     location: {
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
@@ -563,12 +468,7 @@ export const mockRawFavoriteOffer: RawOffer = {
   description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
   goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
   max_adults: 5,
-  host: {
-    avatar_url: 'img/avatar-angelina.jpg',
-    name: 'Angelina',
-    is_pro: true,
-    id: 1,
-  },
+  host: RawHost,
   location: {
     latitude: 52.3909553943508,
     longitude: 4.85309666406198,
@@ -591,12 +491,7 @@ export const mockFavoriteOffer: Offer = {
   description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
   goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
   maxAdults: 5,
-  host: {
-    avatarUrl: 'img/avatar-angelina.jpg',
-    name: 'Angelina',
-    isPro: true,
-    id: 1,
-  },
+  host: HOST,
   location: {
     latitude: 52.3909553943508,
     longitude: 4.85309666406198,

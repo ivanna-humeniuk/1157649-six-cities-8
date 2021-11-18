@@ -8,7 +8,7 @@ import {
   AUTH_INFO_MESSAGE,
   DATA_LOAD_FAIL_MESSAGE,
   LOGOUT_FAIL_MESSAGE,
-  TOAST_CLOSE_TIME
+  TOAST_CLOSE_TIME, NameSpace
 } from '../../const';
 import {
   redirectToRoute,
@@ -135,7 +135,7 @@ export const fetchReviewsAction = (id: string): ThunkActionResult =>
 export const submitReviewAction = (): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
     dispatch(setReviewLoading(true));
-    const {offer, review} = getState().OFFER;
+    const {offer, review} = getState()[NameSpace.offer];
     try {
       const {data} = await api.post<RawReview[]>(`${APIRoute.Reviews}/${offer?.id}`, review);
       const reviews: Review[] = data.map(adaptReviewToCamelCase);
@@ -150,7 +150,7 @@ export const submitReviewAction = (): ThunkActionResult =>
   };
 
 export const fetchFavoriteOffersAction = (): ThunkActionResult =>
-  async (dispatch, getState, api): Promise<void> => {
+  async (dispatch, _getState, api): Promise<void> => {
     dispatch(setLoadingFavoriteOffers(true));
     try {
       const {data} = await api.get<RawOffer[]>(APIRoute.Favorite);
@@ -166,7 +166,7 @@ export const fetchFavoriteOffersAction = (): ThunkActionResult =>
   };
 
 export const submitFavoriteAction = (id: number, status: number): ThunkActionResult =>
-  async (dispatch, getState, api): Promise<void> => {
+  async (dispatch, _getState, api): Promise<void> => {
     try {
       const {data} = await api.post<RawOffer>(`${APIRoute.Favorite}/${id}/${status}`);
       const hotel: Offer = adaptOfferToCamelCase(data);

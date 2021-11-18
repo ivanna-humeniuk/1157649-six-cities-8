@@ -3,6 +3,12 @@ import {authReducer} from './auth-reducer';
 import {requireLogout, setAuthInfo, setAuthLoading, setAuthStatus} from '../actions/actions';
 import {fakeUser} from '../../mocks/user';
 
+const initialState = {
+  status: AuthStatus.Unknown,
+  info: null,
+  isLoading: false,
+};
+
 describe('Reducer: authReducer', () => {
   it('should return initial state without additional parameters', () =>{
     expect(authReducer(undefined, {type: 'UNKNOWN_ACTION'}))
@@ -14,12 +20,7 @@ describe('Reducer: authReducer', () => {
   });
 
   it('should update authorizationStatus to "AUTH"', () =>{
-    const state = {
-      status: AuthStatus.Unknown,
-      info: null,
-      isLoading: false,
-    };
-    expect(authReducer(state, setAuthStatus(AuthStatus.Auth)))
+    expect(authReducer(initialState, setAuthStatus(AuthStatus.Auth)))
       .toEqual({
         status: AuthStatus.Auth,
         info: null,
@@ -28,12 +29,7 @@ describe('Reducer: authReducer', () => {
   });
 
   it('should update authorizationStatus to "NO_AUTH"', () =>{
-    const state = {
-      status: AuthStatus.Unknown,
-      info: null,
-      isLoading: false,
-    };
-    expect(authReducer(state, setAuthStatus(AuthStatus.NoAuth)))
+    expect(authReducer(initialState, setAuthStatus(AuthStatus.NoAuth)))
       .toEqual({
         status: AuthStatus.NoAuth,
         info: null,
@@ -42,12 +38,7 @@ describe('Reducer: authReducer', () => {
   });
 
   it('should update user authorization information', () =>{
-    const state = {
-      status: AuthStatus.Unknown,
-      info: null,
-      isLoading: false,
-    };
-    expect(authReducer(state, setAuthInfo(fakeUser)))
+    expect(authReducer(initialState, setAuthInfo(fakeUser)))
       .toEqual({
         status: AuthStatus.Unknown,
         info: fakeUser,
@@ -56,12 +47,7 @@ describe('Reducer: authReducer', () => {
   });
 
   it('should update user info and auth status after logout', () =>{
-    const state = {
-      status: AuthStatus.Unknown,
-      info: null,
-      isLoading: false,
-    };
-    expect(authReducer(state, requireLogout()))
+    expect(authReducer(initialState, requireLogout()))
       .toEqual({
         status: AuthStatus.NoAuth,
         info: null,
@@ -70,12 +56,7 @@ describe('Reducer: authReducer', () => {
   });
 
   it('should update auth loading status if it is true', () => {
-    const state = {
-      status: AuthStatus.Unknown,
-      info: null,
-      isLoading: false,
-    };
-    expect(authReducer(state, setAuthLoading(true)))
+    expect(authReducer(initialState, setAuthLoading(true)))
       .toEqual({
         status: AuthStatus.Unknown,
         info: null,

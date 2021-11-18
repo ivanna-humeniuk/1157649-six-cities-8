@@ -1,15 +1,14 @@
 import cn from 'classnames';
-import {useCallback, useEffect} from 'react';
+import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Header from '../header/header';
 import {CITIES} from '../../const';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import CitiesList from '../cities-list/cities-list';
-import useActivePoint from '../../hooks/useActivePoint';
+import useActivePoint from '../../hooks/useActivePoint/useActivePoint';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Sort from '../sort/sort';
-import {fetchOffersAction} from '../../store/actions/api-actions';
 import {setCity} from '../../store/actions/actions';
 import {getActiveCity, getFilteredOffers, getOffersLoadingStatus} from '../../store/offers-data/selectors';
 
@@ -22,15 +21,11 @@ function MainScreen(): JSX.Element {
   const city = useSelector(getActiveCity);
   const isLoading = useSelector(getOffersLoadingStatus);
   const filteredOffers = useSelector(getFilteredOffers);
-  const { activePoint, handleCardHoverOff, handleCardHoverOn } = useActivePoint(0);
+  const [ activePoint, handleCardHoverOn, handleCardHoverOff ] = useActivePoint(0);
   const dispatch = useDispatch();
 
   const onActiveCity = useCallback((activeCity: string) => {
     dispatch(setCity(activeCity));
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchOffersAction());
   }, [dispatch]);
 
   if(isLoading) {
