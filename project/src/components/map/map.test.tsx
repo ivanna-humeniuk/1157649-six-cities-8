@@ -12,6 +12,5 @@ describe('Component: Map', () => {
     );
 
     expect(container.querySelector('.map-container')).toBeInTheDocument();
-    expect(container.querySelector('.property__map')).not.toBeInTheDocument();
   });
 });

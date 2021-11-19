@@ -73,3 +73,8 @@ export const TOAST_CLOSE_TIME = 2500;
 export const PASSWORD_REG_EXP = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/);
 
 export const HEADERS_TOKEN = 'x-token';
+
+export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+

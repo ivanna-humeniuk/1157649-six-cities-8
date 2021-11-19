@@ -4,24 +4,24 @@ import {AxiosInstance} from 'axios';
 import {State} from './state';
 
 export enum ActionType {
-  SetAuthStatus = 'setAuthStatus',
-  SetAuthInfo = 'setAuthInfo',
-  RequireLogout = 'requireLogout',
-  SetCity = 'setCity',
-  SetOffers = 'setOffers',
-  SetOffer = 'setOffer',
-  ToggleFavoriteOffer = 'toggleFavoriteOffer',
-  SetFavoriteOffers = 'setFavoriteOffers',
-  SetLoadingFavoriteOffers = 'setLoadingFavoriteOffers',
-  SetNearbyOffers = 'setNearbyOffers',
-  RedirectToRoute = 'redirectToRoute',
-  SetSortedOption = 'setSortedOption',
-  SetOfferLoading = 'setOfferLoading',
-  SetOffersLoading = 'setOffersLoading',
-  SetAuthLoading = 'setAuthLoading',
-  SetReviews = 'setReviews',
-  SetReview = 'setReview',
-  SetReviewLoading = 'setReviewLoading'
+  SetAuthStatus = 'auth/setAuthStatus',
+  SetAuthInfo = 'auth/setAuthInfo',
+  RequireLogout = 'auth/requireLogout',
+  SetAuthLoading = 'auth/setAuthLoading',
+  SetOffersLoading = 'offers/setOffersLoading',
+  SetCity = 'offers/setCity',
+  SetOffers = 'offers/setOffers',
+  SetSortedOption = 'offers/setSortedOption',
+  RedirectToRoute = 'offers/redirectToRoute',
+  ToggleFavoriteOffer = 'favorite/toggleFavoriteOffer',
+  SetFavoriteOffers = 'favorite/setFavoriteOffers',
+  SetLoadingFavoriteOffers = 'favorite/setLoadingFavoriteOffers',
+  SetOffer = 'offer/setOffer',
+  SetNearbyOffers = 'offer/setNearbyOffers',
+  SetOfferLoading = 'offer/setOfferLoading',
+  SetReviews = 'offer/setReviews',
+  SetReview = 'offer/setReview',
+  SetReviewLoading = 'offer/setReviewLoading',
 }
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;

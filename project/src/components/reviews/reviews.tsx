@@ -10,12 +10,6 @@ function Reviews(): JSX.Element {
   const reviews = useSelector(getReviews);
   const authStatus = useSelector(getAuthStatus);
 
-  const sortReviews = reviews.slice(0,10).sort((reviewA, reviewB) => {
-    const dateB = new Date(reviewB.date).getTime();
-    const dateA = new Date(reviewA.date).getTime();
-    return dateB - dateA;
-  });
-
   return (
     <>
       {reviews.length > 0 && (
@@ -23,7 +17,7 @@ function Reviews(): JSX.Element {
           <span className="reviews__amount">{reviews.length}</span>
         </h2>
       )}
-      <ReviewsList reviews={sortReviews}/>
+      <ReviewsList reviews={reviews}/>
       {authStatus === AuthStatus.Auth && <ReviewForm/>}
     </>
   );

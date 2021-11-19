@@ -25,4 +25,18 @@ describe('Component: ReviewsList', () => {
     expect(container.querySelector('.reviews__list')).toBeInTheDocument();
   });
 
+  it('should render only 10 reviews', () => {
+
+    const {container} = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <ReviewsList reviews={mockReviews}/>
+        </Router>
+      </Provider>,
+    );
+
+    const reviewsItems = container.querySelectorAll('.reviews__item');
+    expect(reviewsItems).toHaveLength(10);
+  });
+
 });
