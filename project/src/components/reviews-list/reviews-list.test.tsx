@@ -35,8 +35,23 @@ describe('Component: ReviewsList', () => {
       </Provider>,
     );
 
+    expect(mockReviews).not.toHaveLength(10);
     const reviewsItems = container.querySelectorAll('.reviews__item');
     expect(reviewsItems).toHaveLength(10);
+  });
+
+  it('if there are less than 10 reviews, then component rendered same quantity', () => {
+    const reviews = mockReviews.slice(0, 5);
+    const {container} = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <ReviewsList reviews={reviews}/>
+        </Router>
+      </Provider>,
+    );
+
+    const reviewsItems = container.querySelectorAll('.reviews__item');
+    expect(reviewsItems).toHaveLength(5);
   });
 
 });

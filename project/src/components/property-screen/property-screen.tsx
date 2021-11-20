@@ -18,6 +18,7 @@ import {
   getOffer
 } from '../../store/offer-data/selectors';
 import useFavoriteAction from '../../hooks/useFavoriteAction/useFavoriteAction';
+import {capitalizeFirstLetter} from '../../utills/capitalize-first-letter';
 
 
 const propertyClasses = {
@@ -54,9 +55,12 @@ function PropertyScreen(): JSX.Element {
 
   const points = [...nearbyList];
 
+  const offerType = capitalizeFirstLetter(offer);
+
   if(offer) {
     points.push(offer);
   }
+
 
   const bookmarkBtnClass = cn({
     'property__bookmark-button': true,
@@ -110,7 +114,7 @@ function PropertyScreen(): JSX.Element {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {offer?.type}
+                  {offerType === 'Room' ? `Private ${offerType}` : offerType}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {offer?.bedrooms} {offer?.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}

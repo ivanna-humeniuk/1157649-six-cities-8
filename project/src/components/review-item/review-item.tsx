@@ -13,7 +13,7 @@ function ReviewItem({review}: ReviewProps): JSX.Element {
   const mm = dateObj.getMonth();
   const yy = dateObj.getFullYear();
   return (
-    <li className="reviews__item" key={review.id} data-testId={review.id}>
+    <li className="reviews__item" key={review.id}>
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img

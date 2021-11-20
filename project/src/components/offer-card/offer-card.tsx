@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import {Offer} from '../../types/offers';
 import useFavoriteAction from '../../hooks/useFavoriteAction/useFavoriteAction';
+import {capitalizeFirstLetter} from '../../utills/capitalize-first-letter';
 
 type PlaceCardProps = {
   cardClasses: {
@@ -17,7 +18,7 @@ type PlaceCardProps = {
 
 function OfferCard(props: PlaceCardProps): JSX.Element {
   const {cardClasses, onCardHover, onCardHoverOff, place} = props;
-  const startWidth = useMemo(() => place.rating > 0 ? { width: `${place.rating * 20}%` } : { width: '0%'}, [place.rating]);
+  const startWidth = useMemo(() => place.rating > 0 ? { width: `${Math.round(place.rating) * 20}%` } : { width: '0%'}, [place.rating]);
 
   const handleBookmarkButtonClick = useFavoriteAction( place, place.id);
   const handleCardMouseEnter = useCallback(()=> {
@@ -25,6 +26,8 @@ function OfferCard(props: PlaceCardProps): JSX.Element {
       return onCardHover(place.id);
     }
   }, [onCardHover, place.id]);
+
+  const placeType = capitalizeFirstLetter(place);
 
   const bookmarkButtonClass = cn({
     'button': true,
@@ -70,7 +73,7 @@ function OfferCard(props: PlaceCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offer/${place.id}`}>{place.title}</Link>
         </h2>
-        <p className="place-card__type">{place.type}</p>
+        <p className="place-card__type">{placeType === 'Room' ? `Private ${placeType}` : placeType}</p>
       </div>
     </article>
   );
