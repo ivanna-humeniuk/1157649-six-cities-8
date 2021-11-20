@@ -7,7 +7,7 @@ type ReviewsListProps = {
 
 function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
   const sortReviews = [...reviews];
-  sortReviews.sort((reviewA, reviewB) => {
+  const sliceReviews = sortReviews.sort((reviewA, reviewB) => {
     const dateB = new Date(reviewB.date).getTime();
     const dateA = new Date(reviewA.date).getTime();
     return dateB - dateA;
@@ -15,7 +15,7 @@ function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
 
   return (
     <ul className="reviews__list">
-      {sortReviews.map((review) => (
+      {sliceReviews.map((review) => (
         <ReviewItem key={review.id} review={review}/>
       ))}
     </ul>

@@ -94,7 +94,6 @@ describe('Application Routing', () => {
         </Router>
       </Provider>);
 
-    expect(screen.getByText(/Amsterdam/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Email/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Password/i)).toBeInTheDocument();
   });
