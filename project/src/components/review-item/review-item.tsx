@@ -1,13 +1,10 @@
 import {useMemo} from 'react';
 import {Review} from '../../types/reviews';
+import {MONTHS} from '../../const';
 
 type ReviewProps = {
   review: Review;
 };
-
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-];
 
 function ReviewItem({review}: ReviewProps): JSX.Element {
   const ratingWidth = useMemo(() => review.rating > 0 ? { width: `${review.rating * 20}%` } : { width: '0%'}, [review.rating]);
@@ -37,7 +34,7 @@ function ReviewItem({review}: ReviewProps): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">{review.comment}</p>
-        <time className="reviews__time" dateTime={dateTime}>{monthNames[mm]} {yy}</time>
+        <time className="reviews__time" dateTime={dateTime}>{MONTHS[mm]} {yy}</time>
       </div>
     </li>
   );

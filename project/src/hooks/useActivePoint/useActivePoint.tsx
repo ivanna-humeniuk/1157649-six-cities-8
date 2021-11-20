@@ -1,10 +1,12 @@
 import {useState, useCallback} from 'react';
 
-function useActivePoint(defaultPoint: number): [
+type UseActiveReturnProps = [
   activePoint: number,
   handleCardHoverOn: (id: number) => void,
   handleCardHoverOff: () => void,
-] {
+]
+
+function useActivePoint(defaultPoint: number): UseActiveReturnProps {
   const [activePoint, setActivePoint] = useState(defaultPoint);
 
   const handleCardHoverOn = useCallback( (id: number) => {
