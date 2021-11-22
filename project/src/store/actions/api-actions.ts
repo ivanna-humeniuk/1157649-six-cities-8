@@ -8,7 +8,7 @@ import {
   AUTH_INFO_MESSAGE,
   DATA_LOAD_FAIL_MESSAGE,
   LOGOUT_FAIL_MESSAGE,
-  TOAST_CLOSE_TIME, NameSpace
+  TOAST_CLOSE_TIME, NameSpace, REVIEW_FAIL_MESSAGE
 } from '../../const';
 import {
   redirectToRoute,
@@ -135,7 +135,7 @@ export const fetchReviewsAction = (id: string): ThunkActionResult =>
 export const submitReviewAction = (): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
     dispatch(setReviewLoading(true));
-    const {offer, review} = getState()[NameSpace.offer];
+    const {offer, review} = getState()[NameSpace.Offer];
     try {
       const {data} = await api.post<RawReview[]>(`${APIRoute.Reviews}/${offer?.id}`, review);
       const reviews: Review[] = data.map(adaptReviewToCamelCase);
@@ -144,6 +144,7 @@ export const submitReviewAction = (): ThunkActionResult =>
     } catch (error) {
       /* eslint-disable no-console */
       console.warn(error);
+      toast.info(REVIEW_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
     } finally {
       dispatch(setReviewLoading(false));
     }

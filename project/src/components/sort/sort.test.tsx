@@ -11,7 +11,7 @@ const history = createMemoryHistory();
 
 describe('Component: Sort', () => {
   const store = mockStore({
-    [NameSpace.offers]: {
+    [NameSpace.Offers]: {
       sortedOption : SortOptions.Popular,
     },
   });

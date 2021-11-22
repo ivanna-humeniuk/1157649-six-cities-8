@@ -10,10 +10,10 @@ import {offerReducer} from './offer-data/offer-reducer';
 import {favoriteOffersReducer} from './favorite-offers-data/favorite-offers-reducer';
 
 export const rootReducer = combineReducers({
-  [NameSpace.offers]: offersReducer,
-  [NameSpace.offer]: offerReducer,
-  [NameSpace.auth]: authReducer,
-  [NameSpace.favorite]: favoriteOffersReducer,
+  [NameSpace.Offers]: offersReducer,
+  [NameSpace.Offer]: offerReducer,
+  [NameSpace.Auth]: authReducer,
+  [NameSpace.Favorite]: favoriteOffersReducer,
 });
 
 const api = createAPI(

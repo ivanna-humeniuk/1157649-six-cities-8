@@ -5,7 +5,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import LoginScreen from './login-screen';
-import {AuthStatus, NameSpace} from '../../const';
+import {AuthStatus, NameSpace} from '../../../const';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
@@ -15,7 +15,7 @@ describe('Component: LoginScreen', () => {
     history.push('/login');
 
     const store = mockStore({
-      [NameSpace.auth]: {
+      [NameSpace.Auth]: {
         status: AuthStatus.NoAuth,
         info: null,
         isLoading: false,

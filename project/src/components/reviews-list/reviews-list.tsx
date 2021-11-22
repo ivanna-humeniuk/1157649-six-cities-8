@@ -1,21 +1,21 @@
 import ReviewItem from '../review-item/review-item';
 import {Review} from '../../types/reviews';
+import {REVIEW_LENGTH} from '../../const';
 
 type ReviewsListProps = {
   reviews: Review[],
 }
 
 function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
-  const sortReviews = [...reviews];
-  const sliceReviews = sortReviews.sort((reviewA, reviewB) => {
+  const sortedReviews = [...reviews].sort((reviewA, reviewB) => {
     const dateB = new Date(reviewB.date).getTime();
     const dateA = new Date(reviewA.date).getTime();
     return dateB - dateA;
-  }).slice(0,10);
-
+  });
+  const slicedReviews = sortedReviews.slice(0,REVIEW_LENGTH);
   return (
     <ul className="reviews__list">
-      {sliceReviews.map((review) => (
+      {slicedReviews.map((review) => (
         <ReviewItem key={review.id} review={review}/>
       ))}
     </ul>

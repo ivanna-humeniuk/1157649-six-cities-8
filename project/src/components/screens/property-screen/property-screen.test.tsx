@@ -5,11 +5,11 @@ import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Action} from 'redux';
 import thunk, {ThunkDispatch} from 'redux-thunk';
-import {createAPI} from '../../services/api';
-import {State} from '../../types/state';
-import {AuthStatus, NameSpace} from '../../const';
-import {mockOffer, mockOffers} from '../../mocks/offers';
-import {mockReview, mockReviews} from '../../mocks/reviews';
+import {createAPI} from '../../../services/api';
+import {State} from '../../../types/state';
+import {AuthStatus, NameSpace} from '../../../const';
+import {mockOffer, mockOffers} from '../../../mocks/offers';
+import {mockReview, mockReviews} from '../../../mocks/reviews';
 import PropertyScreen from './property-screen';
 
 const onFakeUnauthorized = jest.fn();
@@ -32,10 +32,10 @@ jest.mock('react-router-dom', () => ({
 
 describe('Component: PropertyScreen', () => {
   const store = mockStore({
-    [NameSpace.auth]: {
+    [NameSpace.Auth]: {
       status: AuthStatus.Auth,
     },
-    [NameSpace.offer]: {
+    [NameSpace.Offer]: {
       offer : mockOffer,
       reviews: mockReviews,
       review: mockReview,

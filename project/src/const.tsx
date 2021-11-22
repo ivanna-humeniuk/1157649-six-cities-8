@@ -1,4 +1,5 @@
 import {PointExpression} from 'leaflet';
+import {OfferType} from './types/offers';
 
 export enum AppRoute {
   Main = '/',
@@ -24,14 +25,15 @@ export enum AuthStatus {
 }
 
 export enum NameSpace {
-  offers = 'OFFERS',
-  offer = 'OFFER',
-  auth = 'AUTH',
-  favorite = 'FAVORITE',
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  Auth = 'AUTH',
+  Favorite = 'FAVORITE',
 }
 
 export const REVIEW_MIN_LENGTH = 50;
 export const REVIEW_MAX_LENGTH = 300;
+export const REVIEW_LENGTH = 10;
 
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
@@ -50,6 +52,7 @@ export const DATA_LOAD_FAIL_MESSAGE = 'Something went wrong, please reload page!
 export const AUTH_INFO_MESSAGE = 'Don\'t forget to log in!';
 export const AUTH_FAIL_MESSAGE = 'Something went wrong, please try to log in again!';
 export const LOGOUT_FAIL_MESSAGE = 'Something went wrong, please try to log out again!';
+export const REVIEW_FAIL_MESSAGE = 'Something went wrong, please try to send again!';
 export const PASSWORD_ERROR_MESSAGE = 'The password should include at least one letter and one number.';
 
 export const URL_API = 'https://8.react.pages.academy/six-cities';
@@ -78,3 +81,9 @@ export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
+export const offerType: OfferType = {
+  room : 'Private Room',
+  house : 'House',
+  apartment : 'Apartment',
+  hotel: 'Hotel',
+};

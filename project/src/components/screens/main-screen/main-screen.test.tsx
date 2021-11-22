@@ -7,10 +7,10 @@ import thunk, {ThunkDispatch} from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import MainScreen from './main-screen';
-import {NameSpace, CITIES, SortOptions, AuthStatus} from '../../const';
-import {mockOffers} from '../../mocks/offers';
-import {createAPI} from '../../services/api';
-import {State} from '../../types/state';
+import {NameSpace, CITIES, SortOptions, AuthStatus} from '../../../const';
+import {mockOffers} from '../../../mocks/offers';
+import {createAPI} from '../../../services/api';
+import {State} from '../../../types/state';
 
 const onFakeUnauthorized = jest.fn();
 const api = createAPI(onFakeUnauthorized());
@@ -25,12 +25,12 @@ const history = createMemoryHistory();
 
 describe('Component: MainScreen', () => {
   const store = mockStore({
-    [NameSpace.offers]: {
+    [NameSpace.Offers]: {
       offers: mockOffers,
       city: CITIES[0],
       sortedOption: SortOptions.Popular,
     },
-    [NameSpace.auth]: {
+    [NameSpace.Auth]: {
       status: AuthStatus.Auth,
     },
   });

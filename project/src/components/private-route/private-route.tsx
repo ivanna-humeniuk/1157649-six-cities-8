@@ -2,7 +2,7 @@ import {Route, Redirect} from 'react-router-dom';
 import {RouteProps} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {AppRoute, AuthStatus} from '../../const';
-import LoadingScreen from '../loading-screen/loading-screen';
+import LoadingScreen from '../screens/loading-screen/loading-screen';
 import {checkIfAuthUnknown} from '../../utills/check-if-auth-unknown';
 import {getAuthStatus} from '../../store/auth-data/selectors';
 
