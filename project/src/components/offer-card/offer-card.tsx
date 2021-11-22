@@ -27,8 +27,6 @@ function OfferCard(props: PlaceCardProps): JSX.Element {
     }
   }, [onCardHover, place.id]);
 
-  // const placeType = capitalizeFirstLetter(place);
-
   const bookmarkButtonClass = cn({
     'button': true,
     'place-card__bookmark-button': true,
