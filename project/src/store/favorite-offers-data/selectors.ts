@@ -4,7 +4,7 @@ import {CITIES, NameSpace} from '../../const';
 import {Listing} from '../../types/listings';
 import {getOffers} from '../offers-data/selectors';
 
-export const getLoadingFavoriteStatus = (state: State): boolean => state[NameSpace.favorite].isLoadingFavorite;
+export const getLoadingFavoriteStatus = (state: State): boolean => state[NameSpace.Favorite].isLoadingFavorite;
 
 export const getFavoriteOffers = createSelector(
   getOffers,

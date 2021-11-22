@@ -1,16 +1,16 @@
 import cn from 'classnames';
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import Header from '../header/header';
-import {CITIES} from '../../const';
-import OffersList from '../offers-list/offers-list';
-import Map from '../map/map';
-import CitiesList from '../cities-list/cities-list';
-import useActivePoint from '../../hooks/useActivePoint/useActivePoint';
+import Header from '../../header/header';
+import {CITIES} from '../../../const';
+import OffersList from '../../offers-list/offers-list';
+import Map from '../../map/map';
+import CitiesList from '../../cities-list/cities-list';
+import useActivePoint from '../../../hooks/useActivePoint/useActivePoint';
 import LoadingScreen from '../loading-screen/loading-screen';
-import Sort from '../sort/sort';
-import {setCity} from '../../store/actions/actions';
-import {getActiveCity, getFilteredOffers, getOffersLoadingStatus} from '../../store/offers-data/selectors';
+import Sort from '../../sort/sort';
+import {setCity} from '../../../store/actions/actions';
+import {getActiveCity, getFilteredOffers, getOffersLoadingStatus} from '../../../store/offers-data/selectors';
 
 const mainClasses = {
   article: 'cities__place-card',
@@ -81,7 +81,7 @@ function MainScreen(): JSX.Element {
                 <section className="cities__no-places">
                   <div className="cities__status-wrapper tabs__content">
                     <b className="cities__status">No places to stay available</b>
-                    <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
+                    <p className="cities__status-description">We could not find any property available at the moment in {city}</p>
                   </div>
                 </section>
                 <div className="cities__right-section"></div>

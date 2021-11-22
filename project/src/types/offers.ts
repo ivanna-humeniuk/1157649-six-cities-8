@@ -49,3 +49,7 @@ export type RawOffer = {
   city: City;
   images: [];
 };
+
+export type OfferType = {
+  [key: string]: string
+}

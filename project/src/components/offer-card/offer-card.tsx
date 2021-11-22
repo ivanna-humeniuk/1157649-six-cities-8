@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import {Offer} from '../../types/offers';
 import useFavoriteAction from '../../hooks/useFavoriteAction/useFavoriteAction';
-import {capitalizeFirstLetter} from '../../utills/capitalize-first-letter';
+import {offerType} from '../../const';
 
 type PlaceCardProps = {
   cardClasses: {
@@ -27,7 +27,7 @@ function OfferCard(props: PlaceCardProps): JSX.Element {
     }
   }, [onCardHover, place.id]);
 
-  const placeType = capitalizeFirstLetter(place);
+  // const placeType = capitalizeFirstLetter(place);
 
   const bookmarkButtonClass = cn({
     'button': true,
@@ -73,7 +73,7 @@ function OfferCard(props: PlaceCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offer/${place.id}`}>{place.title}</Link>
         </h2>
-        <p className="place-card__type">{placeType === 'Room' ? `Private ${placeType}` : placeType}</p>
+        <p className="place-card__type">{offerType[place.type]}</p>
       </div>
     </article>
   );

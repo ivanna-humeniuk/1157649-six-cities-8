@@ -3,10 +3,10 @@ import {State} from '../../types/state';
 import {Offer} from '../../types/offers';
 import {NameSpace, SortOptions} from '../../const';
 
-export const getOffers = (state: State): Offer[] => state[NameSpace.offers].offers;
-export const getActiveCity = (state: State): string => state[NameSpace.offers].city;
-export const getSortedOption = (state: State): SortOptions => state[NameSpace.offers].sortedOption;
-export const getOffersLoadingStatus = (state: State): boolean => state[NameSpace.offers].isLoadingStatus;
+export const getOffers = (state: State): Offer[] => state[NameSpace.Offers].offers;
+export const getActiveCity = (state: State): string => state[NameSpace.Offers].city;
+export const getSortedOption = (state: State): SortOptions => state[NameSpace.Offers].sortedOption;
+export const getOffersLoadingStatus = (state: State): boolean => state[NameSpace.Offers].isLoadingStatus;
 
 
 const sortByPriceToHigh = (offerA: Offer, offerB: Offer): number => offerA.price - offerB.price;

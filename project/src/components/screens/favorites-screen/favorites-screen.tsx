@@ -1,15 +1,15 @@
 import cn from 'classnames';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import OfferCard from '../offer-card/offer-card';
-import Header from '../header/header';
-import {Offer} from '../../types/offers';
+import OfferCard from '../../offer-card/offer-card';
+import Header from '../../header/header';
+import {Offer} from '../../../types/offers';
 import './favorites-screen.css';
 import {
   getListingOffers,
   getLoadingFavoriteStatus
-} from '../../store/favorite-offers-data/selectors';
-import {fetchFavoriteOffersAction} from '../../store/actions/api-actions';
+} from '../../../store/favorite-offers-data/selectors';
+import {fetchFavoriteOffersAction} from '../../../store/actions/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 const favoritesClasses = {

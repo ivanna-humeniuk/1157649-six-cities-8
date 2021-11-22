@@ -4,7 +4,7 @@ import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import NotFoundScreen from './not-found-screen';
-import {AuthStatus} from '../../const';
+import {AuthStatus} from '../../../const';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();

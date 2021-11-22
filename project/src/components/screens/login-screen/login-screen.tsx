@@ -2,11 +2,11 @@ import {toast} from 'react-toastify';
 import React, {ChangeEvent, FormEvent, useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import Header from '../header/header';
-import {loginAction} from '../../store/actions/api-actions';
-import {getAuthLoadingStatus, getAuthStatus} from '../../store/auth-data/selectors';
-import {AppRoute, AuthStatus, CITIES, PASSWORD_ERROR_MESSAGE, PASSWORD_REG_EXP, TOAST_CLOSE_TIME} from '../../const';
-import {redirectToRoute, setCity} from '../../store/actions/actions';
+import Header from '../../header/header';
+import {loginAction} from '../../../store/actions/api-actions';
+import {getAuthLoadingStatus, getAuthStatus} from '../../../store/auth-data/selectors';
+import {AppRoute, AuthStatus, CITIES, PASSWORD_ERROR_MESSAGE, PASSWORD_REG_EXP, TOAST_CLOSE_TIME} from '../../../const';
+import {redirectToRoute, setCity} from '../../../store/actions/actions';
 
 const randomCity = Math.floor(Math.random() * CITIES.length);
 

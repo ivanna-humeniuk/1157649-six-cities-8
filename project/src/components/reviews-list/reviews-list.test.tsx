@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {mockReviews} from '../../mocks/reviews';
 import ReviewsList from './reviews-list';
+import {REVIEW_LENGTH} from '../../const';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
@@ -35,9 +36,9 @@ describe('Component: ReviewsList', () => {
       </Provider>,
     );
 
-    expect(mockReviews).not.toHaveLength(10);
+    expect(mockReviews).not.toHaveLength(REVIEW_LENGTH);
     const reviewsItems = container.querySelectorAll('.reviews__item');
-    expect(reviewsItems).toHaveLength(10);
+    expect(reviewsItems).toHaveLength(REVIEW_LENGTH);
   });
 
   it('if there are less than 10 reviews, then component rendered same quantity', () => {

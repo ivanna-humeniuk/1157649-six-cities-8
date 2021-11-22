@@ -6,10 +6,10 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Action} from 'redux';
 import thunk, {ThunkDispatch} from 'redux-thunk';
 import FavoritesScreen from './favorites-screen';
-import {AuthStatus, NameSpace} from '../../const';
-import {createAPI} from '../../services/api';
-import {State} from '../../types/state';
-import {mockOffers} from '../../mocks/offers';
+import {AuthStatus, NameSpace} from '../../../const';
+import {createAPI} from '../../../services/api';
+import {State} from '../../../types/state';
+import {mockOffers} from '../../../mocks/offers';
 
 const onFakeUnauthorized = jest.fn();
 const api = createAPI(onFakeUnauthorized());
@@ -26,13 +26,13 @@ describe('Component: FavoritesScreen', () => {
 
   it('should render correctly', () => {
     const store = mockStore({
-      [NameSpace.offers]: {
+      [NameSpace.Offers]: {
         offers: mockOffers,
       },
-      [NameSpace.favorite]: {
+      [NameSpace.Favorite]: {
         isLoadingFavorite: false,
       },
-      [NameSpace.auth]: {
+      [NameSpace.Auth]: {
         status: AuthStatus.Auth,
       },
     });
@@ -49,13 +49,13 @@ describe('Component: FavoritesScreen', () => {
 
   it('should render correctly if favorite lists is empty', () => {
     const store = mockStore({
-      [NameSpace.offers]: {
+      [NameSpace.Offers]: {
         offers: [],
       },
-      [NameSpace.favorite]: {
+      [NameSpace.Favorite]: {
         isLoadingFavorite: false,
       },
-      [NameSpace.auth]: {
+      [NameSpace.Auth]: {
         status: AuthStatus.Auth,
       },
     });

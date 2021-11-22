@@ -2,23 +2,23 @@ import cn from 'classnames';
 import {useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
-import Header from '../header/header';
-import Reviews from '../reviews/reviews';
-import Map from '../map/map';
-import OffersList from '../offers-list/offers-list';
+import Header from '../../header/header';
+import Reviews from '../../reviews/reviews';
+import Map from '../../map/map';
+import OffersList from '../../offers-list/offers-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {
   fetchNearbyOffersAction,
   fetchOfferAction,
   fetchReviewsAction
-} from '../../store/actions/api-actions';
+} from '../../../store/actions/api-actions';
 import {
   getLoadingOffer,
   getNearbyList,
   getOffer
-} from '../../store/offer-data/selectors';
-import useFavoriteAction from '../../hooks/useFavoriteAction/useFavoriteAction';
-import {capitalizeFirstLetter} from '../../utills/capitalize-first-letter';
+} from '../../../store/offer-data/selectors';
+import useFavoriteAction from '../../../hooks/useFavoriteAction/useFavoriteAction';
+import {offerType} from '../../../const';
 
 
 const propertyClasses = {
@@ -55,18 +55,16 @@ function PropertyScreen(): JSX.Element {
 
   const points = [...nearbyList];
 
-  const offerType = capitalizeFirstLetter(offer);
-
   if(offer) {
     points.push(offer);
   }
-
 
   const bookmarkBtnClass = cn({
     'property__bookmark-button': true,
     'property__bookmark-button--active': offer?.isFavorite,
     'button': true,
   });
+
   const avatarWrapperClass = cn({
     'property__avatar-wrapper': true,
     'property__avatar-wrapper--pro': offer?.host?.isPro,
@@ -114,7 +112,7 @@ function PropertyScreen(): JSX.Element {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {offerType === 'Room' ? `Private ${offerType}` : offerType}
+                  {offer && offerType[offer?.type]}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {offer?.bedrooms} {offer?.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
