@@ -70,8 +70,6 @@ export const logoutAction = (): ThunkActionResult =>
       dispatch(requireLogout());
     } catch(error) {
       toast.info(LOGOUT_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
-      /* eslint-disable no-console */
-      console.warn(error);
     }
   };
 
@@ -85,8 +83,6 @@ export const fetchOffersAction = (): ThunkActionResult =>
       dispatch(setOffers(hotels));
     } catch (error) {
       toast.info(DATA_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
-      /* eslint-disable no-console */
-      console.warn(error);
     } finally {
       dispatch(setOffersLoading(false));
     }
@@ -101,8 +97,6 @@ export const fetchOfferAction = (id: string): ThunkActionResult =>
       dispatch(setOffer(hotel));
     } catch (error) {
       dispatch(redirectToRoute(AppRoute.NotFound));
-      /* eslint-disable no-console */
-      console.warn(error);
     } finally {
       dispatch(setOfferLoading(false));
     }
@@ -115,8 +109,7 @@ export const fetchNearbyOffersAction = (id: string): ThunkActionResult =>
       const hotels: Offer[] = data.map(adaptOfferToCamelCase);
       dispatch(setNearbyOffers(hotels));
     } catch (error) {
-      /* eslint-disable no-console */
-      console.warn(error);
+      toast.info(DATA_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
     }
   };
 
@@ -127,8 +120,7 @@ export const fetchReviewsAction = (id: string): ThunkActionResult =>
       const reviews: Review[] = data.map(adaptReviewToCamelCase);
       dispatch(setReviews(reviews));
     } catch (error) {
-      /* eslint-disable no-console */
-      console.warn(error);
+      toast.info(DATA_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
     }
   };
 
@@ -142,8 +134,6 @@ export const submitReviewAction = (): ThunkActionResult =>
       dispatch(setReviews(reviews));
       dispatch(setReview({comment: '', rating: 0}));
     } catch (error) {
-      /* eslint-disable no-console */
-      console.warn(error);
       toast.info(REVIEW_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
     } finally {
       dispatch(setReviewLoading(false));
@@ -159,8 +149,6 @@ export const fetchFavoriteOffersAction = (): ThunkActionResult =>
       dispatch(setFavoriteOffers(favoriteHotels));
     } catch (error) {
       toast.info(DATA_LOAD_FAIL_MESSAGE, {autoClose: TOAST_CLOSE_TIME});
-      /* eslint-disable no-console */
-      console.warn(error);
     } finally {
       dispatch(setLoadingFavoriteOffers(false));
     }
@@ -173,8 +161,6 @@ export const submitFavoriteAction = (id: number, status: number): ThunkActionRes
       const hotel: Offer = adaptOfferToCamelCase(data);
       dispatch(toggleFavoriteOffer(hotel));
     } catch (error) {
-      /* eslint-disable no-console */
-      console.warn(error);
       dispatch(redirectToRoute(AppRoute.Login));
     }
   };

@@ -2,12 +2,12 @@ import {AUTH_TOKEN_KEY_NAME} from '../const';
 
 export type Token = string;
 
-export const setToken = (token: Token):void => {
+export const setToken = (token: Token): boolean => {
   try {
     localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
+    return true;
   } catch (error) {
-    /* eslint-disable no-console */
-    console.warn(error);
+    return false;
   }
 };
 
@@ -16,17 +16,15 @@ export const getToken = ():Token => {
     const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
     return token ?? '';
   } catch (error) {
-    /* eslint-disable no-console */
-    console.warn(error);
     return '';
   }
 };
 
-export const dropToken = (): void => {
+export const dropToken = (): boolean => {
   try {
     localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
+    return true;
   } catch (error) {
-    /* eslint-disable no-console */
-    console.warn(error);
+    return false;
   }
 };

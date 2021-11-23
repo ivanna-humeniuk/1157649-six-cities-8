@@ -30,20 +30,20 @@ export type City = {
   location: Location;
 }
 
-/* eslint-disable camelcase */
+
 export type RawOffer = {
   id: number;
-  preview_image: string;
+  'preview_image': string;
   title: string;
   price: number;
   type: string;
   rating: number;
-  is_premium: boolean;
-  is_favorite: boolean;
+  'is_premium': boolean;
+  'is_favorite': boolean;
   bedrooms: number;
   description: string;
   goods: Array<string>;
-  max_adults: number;
+  'max_adults': number;
   host: RawUser;
   location: Location;
   city: City;
