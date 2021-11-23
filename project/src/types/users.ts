@@ -15,10 +15,9 @@ export type AuthInfo = User & {
   token: string;
 }
 
-/* eslint-disable camelcase */
 export type RawUser = {
-  avatar_url: string;
+  'avatar_url': string;
   id: number;
-  is_pro: boolean;
+  'is_pro': boolean;
   name: string;
 }

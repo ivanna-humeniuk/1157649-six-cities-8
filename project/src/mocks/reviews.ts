@@ -147,7 +147,6 @@ export const mockReviews: Review[] = [
   },
 ];
 
-/* eslint-disable camelcase */
 export const mockRawReviews: RawReview[] = [
   {
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
@@ -155,9 +154,9 @@ export const mockRawReviews: RawReview[] = [
     id: 1,
     rating: 4,
     user: {
-      avatar_url: 'img/avatar-max.jpg',
+      'avatar_url': 'img/avatar-max.jpg',
       id: 4,
-      is_pro: false,
+      'is_pro': false,
       name: 'Max',
     },
   },
@@ -167,9 +166,9 @@ export const mockRawReviews: RawReview[] = [
     id: 2,
     rating: 3,
     user: {
-      avatar_url: 'img/avatar-Den.jpg',
+      'avatar_url': 'img/avatar-Den.jpg',
       id: 4,
-      is_pro: true,
+      'is_pro': true,
       name: 'Den',
     },
   },
@@ -187,20 +186,6 @@ export const mockReview: Review = {
     name: 'Max',
   },
 };
-
-export const mockRawReview: RawReview = {
-  comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-  date: '2019-05-08T14:13:56.569Z',
-  id: 1,
-  rating: 4,
-  user: {
-    avatar_url: 'img/avatar-max.jpg',
-    id: 4,
-    is_pro: false,
-    name: 'Max',
-  },
-};
-
 
 export const mockPostReview: ReviewPost = {
   comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
